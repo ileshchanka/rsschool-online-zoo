@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 :root {
   --black: #000000;
   --navy: #20113d;
@@ -5,19 +7,20 @@
   --orange: #f58021;
   --turquoise: #00a092;
 
-  --container-width: 1920px;
   --container-padding: 260px;
+  --header-padding: 260px;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
 
 .container {
   width: 100%;
-  max-width: var(--container-width);
+  max-width: 1920px;
   margin: 0 auto;
   padding: 0 var(--container-padding);
 }
@@ -29,7 +32,10 @@
 }
 
 .header__inner {
+  padding: 0 var(--header-padding);
+  margin: 0 auto;
   height: 100%;
+  max-width: 1920px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -52,18 +58,21 @@
 
 @media (max-width: 1200px) {
   :root {
-    --container-padding: 30px;
+    --container-padding: 40px;
+    --header-padding: 100px;
   }
 }
 
 @media (max-width: 640px) {
   :root {
     --container-padding: 20px;
+    --header-padding: 20px;
   }
 }
 
 @media (max-width: 320px) {
   :root {
-    --container-padding: 12px;
+    --container-padding: 10px;
+    --header-padding: 20px;
   }
 }
