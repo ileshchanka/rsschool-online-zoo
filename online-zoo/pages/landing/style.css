@@ -43,3 +43,74 @@
   flex-shrink: 0;
   display: block;
 }
+
+.donation {
+  margin-top: 150px;
+  width: 100%;
+  height: 220px;
+  background-color: var(--navy);
+}
+
+.donation__inner {
+  padding: 50px var(--header-padding);
+  margin: 0 auto;
+  max-width: var(--container-max-width);
+  display: flex;
+  align-items: center;
+  color: var(--white);
+  justify-content: space-between;
+}
+
+.donation__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.donation__content p {
+  max-width: 610px;
+}
+
+.donate-form {
+  display: flex;
+  border: 1px solid var(--white);
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.donate-form__input {
+  flex: 1;
+  padding: 26px 14px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--white);
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.donate-form__input::placeholder {
+  color: var(--white);
+  opacity: 1;
+}
+
+.donate-form__btn {
+  width: 80px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 5px;
+}
+
+.donate-form__btn::after {
+  content: "";
+  width: 25px;
+  height: 22px;
+  background-image: url("../../assets/icons/arrow-right.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
