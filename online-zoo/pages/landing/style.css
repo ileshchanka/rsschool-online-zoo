@@ -275,6 +275,169 @@
   opacity: 0.75;
 }
 
+.reviews {
+  width: 100%;
+  background-image:
+    linear-gradient(to bottom, var(--navy) 0%, transparent 10%),
+    url("../../assets/images/testimonials-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.reviews__inner {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 90px var(--container-padding);
+  display: flex;
+  gap: 80px;
+  align-items: stretch;
+}
+
+.reviews__left {
+  flex: 0 0 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.reviews__title {
+  color: var(--white);
+}
+
+.reviews__subtitle {
+  color: var(--white);
+  font-size: 18px;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.reviews__leave {
+  align-self: flex-start;
+  background: transparent;
+  border: 2px solid var(--white);
+  color: var(--white);
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 20px 35px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.reviews__leave::after {
+  content: "";
+  display: block;
+  width: 25px;
+  height: 22px;
+  margin-left: 10px;
+  background-image: url("../../assets/icons/arrow-right.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: brightness(10);
+  flex-shrink: 0;
+}
+
+.reviews__leave:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.reviews__right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.reviews__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  flex: 1;
+}
+
+.reviews__card {
+  background: var(--white);
+  padding: 36px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reviews__card-quote {
+  width: 40px;
+  height: auto;
+}
+
+.reviews__card-location {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--black);
+  margin: 0;
+}
+
+.reviews__card-text {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.reviews__card-author {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--black);
+  letter-spacing: 0.08em;
+}
+
+.reviews__controls {
+  display: flex;
+  gap: 16px;
+}
+
+.reviews__arrow {
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 2px solid var(--white);
+  border-radius: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.reviews__arrow::after {
+  display: none;
+}
+
+.reviews__arrow::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 18px;
+  background-image: url("../../assets/icons/arrow-right.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: brightness(10);
+}
+
+.reviews__arrow--prev::before {
+  transform: rotate(180deg);
+}
+
+.reviews__arrow:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
 .pay-feed {
   width: 100%;
   background-color: var(--navy);
