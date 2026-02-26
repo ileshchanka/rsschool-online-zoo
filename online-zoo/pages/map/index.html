@@ -2,16 +2,117 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg">
-    <link rel="stylesheet" href="../../assets/styles/global.css">
-    <link rel="stylesheet" href="style.css">
-    <title>Map</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg">
+  <link rel="stylesheet" href="../../assets/styles/global.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Map</title>
 </head>
 
 <body>
-    <p>Map</p>
+  <header class="header">
+    <div class="header__inner">
+      <a href="/">
+        <img class="header__logo" src="../../assets/icons/logo.svg" alt="Online Zoo">
+      </a>
+      <nav class="header__nav">
+        <ul>
+          <li><a class="header__nav-link" href="../landing/">About</a></li>
+          <li><a class="header__nav-link active" href="#">Map</a></li>
+          <li><a class="header__nav-link" href="../zoos/">Zoos</a></li>
+          <li><a class="header__nav-link" href="../contact-us/">Contact us</a></li>
+          <li><a class="header__nav-link" href="#">Design</a></li>
+        </ul>
+      </nav>
+      <nav class="header__social">
+        <ul>
+          <li><a class="header__social-link" href="https://www.youtube.com/c/RSSchool/" aria-label="YouTube" target="_blank">
+              <img src="../../assets/icons/youtube.svg" alt="YouTube">
+            </a></li>
+          <li><a class="header__social-link" href="https://www.instagram.com/rsschool_en/" aria-label="Instagram" target="_blank">
+              <img src="../../assets/icons/instagram.svg" alt="Instagram">
+            </a></li>
+          <li><a class="header__social-link" href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank">
+              <img src="../../assets/icons/facebook.svg" alt="Facebook">
+            </a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="map-section container">
+      <h2 class="map-section__title">Find where are<br>the animals live</h2>
+      <div class="map-section__map">
+        <img class="map-section__bg" src="../../assets/icons/map.svg" alt="World Map">
+
+        <a class="map-pin map-pin--outline" style="left:21.5%;top:46%" href="#" aria-label="Eagle">
+          <img class="map-pin__icon" src="../../assets/icons/eagle.svg" alt="Eagle">
+        </a>
+        <a class="map-pin" style="left:28%;top:46%" href="#" aria-label="Eagle">
+          <img class="map-pin__icon" src="../../assets/icons/eagle.svg" alt="Eagle">
+        </a>
+        <a class="map-pin" style="left:42%;top:53%" href="#" aria-label="Lion">
+          <img class="map-pin__icon" src="../../assets/icons/lion.svg" alt="Lion">
+        </a>
+        <a class="map-pin" style="left:46.5%;top:58%" href="#" aria-label="Gorilla">
+          <img class="map-pin__icon" src="../../assets/icons/gorilla.svg" alt="Gorilla">
+        </a>
+        <a class="map-pin" style="left:52%;top:60%" href="#" aria-label="Alligator">
+          <img class="map-pin__icon" src="../../assets/icons/alligator.svg" alt="Alligator">
+        </a>
+        <a class="map-pin" style="left:67%;top:33%" href="#" aria-label="Giant Panda">
+          <img class="map-pin__icon" src="../../assets/icons/panda.svg" alt="Giant Panda">
+        </a>
+        <a class="map-pin" style="left:70%;top:50%" href="#" aria-label="Tiger">
+          <img class="map-pin__icon" src="../../assets/icons/tiger.svg" alt="Tiger">
+        </a>
+        <a class="map-pin" style="left:76%;top:62%" href="#" aria-label="Lemur">
+          <img class="map-pin__icon" src="../../assets/icons/lemur.svg" alt="Lemur">
+        </a>
+        <a class="map-pin" style="left:82%;top:66%" href="#" aria-label="Koala">
+          <img class="map-pin__icon" src="../../assets/icons/coala.svg" alt="Koala">
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner container">
+      <div class="footer__top">
+        <div class="footer__logos">
+          <a href="/"><img src="../../assets/icons/logo-1.svg" alt="Online Zoo"></a>
+          <img src="../../assets/icons/yem-digital.svg" alt="Yem Digital">
+          <img src="../../assets/icons/rs-school-js-logo.svg" alt="RS School">
+        </div>
+        <nav class="footer__nav">
+          <ul>
+            <li><a href="../landing/">About</a></li>
+            <li><a href="../map/">Map</a></li>
+            <li><a href="../zoos/">Zoos</a></li>
+            <li><a href="../contact-us/">Contact Us</a></li>
+          </ul>
+        </nav>
+        <button class="footer__donate">Donate for Volunteers</button>
+      </div>
+      <hr class="footer__divider">
+      <div class="footer__bottom">
+        <div class="footer__copy">
+          <span>© 2021 DinaK</span>
+          <span>© Yem Digital</span>
+          <span>© RSSchool</span>
+        </div>
+        <nav class="footer__social">
+          <ul>
+            <li><a class="footer__social-link" href="https://www.youtube.com/c/RSSchool/" aria-label="YouTube" target="_blank"><img src="../../assets/icons/youtube.svg" alt="YouTube"></a></li>
+            <li><a class="footer__social-link" href="https://www.instagram.com/rsschool_en/" aria-label="Instagram" target="_blank"><img src="../../assets/icons/instagram.svg" alt="Instagram"></a></li>
+            <li><a class="footer__social-link" href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank"><img src="../../assets/icons/facebook.svg" alt="Facebook"></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
 </body>
 
 </html>

@@ -1,0 +1,164 @@
+.map-section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.map-section__title {
+  text-align: center;
+  color: var(--navy);
+  text-transform: uppercase;
+  font-size: 54px;
+  font-weight: 600;
+  margin-bottom: 60px;
+  line-height: 1.2;
+}
+
+.map-section__map {
+  position: relative;
+  width: 100%;
+}
+
+.map-section__bg {
+  width: 100%;
+  display: block;
+}
+
+.map-pin {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  width: 66px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../assets/icons/tag.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.map-pin:hover {
+  transform: translate(-50%, -110%) scale(1.1);
+}
+
+.map-pin__icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.map-pin--outline {
+  background-image: none;
+  border: 3px solid var(--navy);
+  border-radius: 50% 50% 50% 0;
+  transform: translate(-50%, -100%) rotate(-45deg);
+  background-color: transparent;
+}
+
+.map-pin--outline:hover {
+  transform: translate(-50%, -110%) rotate(-45deg) scale(1.1);
+}
+
+.map-pin--outline .map-pin__icon {
+  transform: rotate(45deg);
+}
+
+.footer {
+  background-color: var(--navy);
+  padding: 50px 0;
+}
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.footer__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.footer__logos {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.footer__logos img {
+  height: 50px;
+}
+
+.footer__nav ul {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.footer__nav a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.footer__nav a:hover {
+  opacity: 0.75;
+}
+
+.footer__donate {
+  background: transparent;
+  border: 2px solid var(--white);
+  color: var(--white);
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 20px 35px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.footer__donate::after {
+  filter: brightness(0) invert(1);
+}
+
+.footer__donate:hover {
+  background-color: transparent;
+  opacity: 0.75;
+}
+
+.footer__divider {
+  border: none;
+  border-top: 1px solid var(--white);
+}
+
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer__copy {
+  display: flex;
+  gap: 40px;
+  color: var(--white);
+  font-size: 16px;
+}
+
+.footer__social ul {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+}
+
+.footer__social-link img {
+  height: 40px;
+  width: 40px;
+}
