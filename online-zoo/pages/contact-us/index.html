@@ -2,16 +2,112 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg">
-    <link rel="stylesheet" href="../../assets/styles/global.css">
-    <link rel="stylesheet" href="style.css">
-    <title>Contact Us</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg">
+  <link rel="stylesheet" href="../../assets/styles/global.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Contact Us</title>
 </head>
 
 <body>
-    <p>Contact Us</p>
+  <header class="header">
+    <div class="header__inner">
+      <a href="/">
+        <img class="header__logo" src="../../assets/icons/logo.svg" alt="Online Zoo">
+      </a>
+      <nav class="header__nav">
+        <ul>
+          <li><a class="header__nav-link" href="../landing/">About</a></li>
+          <li><a class="header__nav-link" href="../map/">Map</a></li>
+          <li><a class="header__nav-link" href="../zoos/">Zoos</a></li>
+          <li><a class="header__nav-link active" href="#">Contact us</a></li>
+          <li><a class="header__nav-link" href="#">Design</a></li>
+        </ul>
+      </nav>
+      <nav class="header__social">
+        <ul>
+          <li><a class="header__social-link" href="https://www.youtube.com/c/RSSchool/" aria-label="YouTube" target="_blank">
+              <img src="../../assets/icons/youtube.svg" alt="YouTube">
+            </a></li>
+          <li><a class="header__social-link" href="https://www.instagram.com/rsschool_en/" aria-label="Instagram" target="_blank">
+              <img src="../../assets/icons/instagram.svg" alt="Instagram">
+            </a></li>
+          <li><a class="header__social-link" href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank">
+              <img src="../../assets/icons/facebook.svg" alt="Facebook">
+            </a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="contact-hero">
+      <img class="contact-hero__img" src="../../assets/images/touch-the-animal-1.jpg" alt="Watch animals online">
+    </section>
+
+    <section class="contact-form-section container">
+      <div class="contact-form-section__info">
+        <h2>Get in touch</h2>
+        <p>Whether you have a question, or would like to say hello, we're happy to hear from you. Please use the form to send us a message and we'll get back to you as soon as we can. Whether you have a question, or would like to say hello, we're happy to hear from you. Please use the form to send us a message and we'll get back to you as soon as we can.</p>
+      </div>
+      <form class="contact-form">
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="name">* Your Name</label>
+          <input class="contact-form__input" id="name" type="text" placeholder="First and last name">
+        </div>
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="email">* Your Email Address</label>
+          <input class="contact-form__input" id="email" type="email" placeholder="Enter your email">
+        </div>
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="subject">* Subject</label>
+          <input class="contact-form__input" id="subject" type="text" placeholder="Enter the subject">
+        </div>
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="message">* Message</label>
+          <textarea class="contact-form__input contact-form__textarea" id="message" placeholder="Enter your message"></textarea>
+        </div>
+        <button class="contact-form__submit" type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner container">
+      <div class="footer__top">
+        <div class="footer__logos">
+          <a href="/"><img src="../../assets/icons/logo-1.svg" alt="Online Zoo"></a>
+          <img src="../../assets/icons/yem-digital.svg" alt="Yem Digital">
+          <img src="../../assets/icons/rs-school-js-logo.svg" alt="RS School">
+        </div>
+        <nav class="footer__nav">
+          <ul>
+            <li><a href="../landing/">About</a></li>
+            <li><a href="../map/">Map</a></li>
+            <li><a href="../zoos/">Zoos</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </nav>
+        <button class="footer__donate">Donate for Volunteers</button>
+      </div>
+      <hr class="footer__divider">
+      <div class="footer__bottom">
+        <div class="footer__copy">
+          <span>© 2021 DinaK</span>
+          <span>© Yem Digital</span>
+          <span>© RSSchool</span>
+        </div>
+        <nav class="footer__social">
+          <ul>
+            <li><a class="footer__social-link" href="https://www.youtube.com/c/RSSchool/" aria-label="YouTube" target="_blank"><img src="../../assets/icons/youtube.svg" alt="YouTube"></a></li>
+            <li><a class="footer__social-link" href="https://www.instagram.com/rsschool_en/" aria-label="Instagram" target="_blank"><img src="../../assets/icons/instagram.svg" alt="Instagram"></a></li>
+            <li><a class="footer__social-link" href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank"><img src="../../assets/icons/facebook.svg" alt="Facebook"></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
 </body>
 
 </html>
