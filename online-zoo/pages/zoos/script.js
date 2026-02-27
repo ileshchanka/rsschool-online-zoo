@@ -3,6 +3,7 @@ const animals = [
     id: 'lemur',
     icon: '../../assets/icons/lemur.svg',
     title: 'Lemurs Cams',
+    sidebarLabel: 'The ring-tailed lemurs play in Madagascar, Lemuria Land',
     playerLabel: 'Andy, the ring-tailed lemurs in Madagascar, Lemuria Land cam 1',
     playerImg: '../../assets/images/lemur-additional-cam-card-1.jpg',
     cams: [
@@ -29,6 +30,7 @@ const animals = [
     id: 'gorilla',
     icon: '../../assets/icons/gorilla.svg',
     title: 'Gorillas Cams',
+    sidebarLabel: 'Livestream from Gorilla Forest Corridor habitat cam',
     playerLabel: 'Glen, Western lowland gorilla cam 1',
     playerImg: '../../assets/images/gorilla-additional-cam-card-1.jpg',
     cams: [
@@ -55,6 +57,7 @@ const animals = [
     id: 'eagle',
     icon: '../../assets/icons/eagle.svg',
     title: 'Bald Eagle Cams',
+    sidebarLabel: 'Watch The Bald Eagles Nest from West End cam',
     playerLabel: 'Sam & Lora, the Bald Eagles cam 1',
     playerImg: '../../assets/images/eagles-additional-cam-card-2.jpg',
     cams: [
@@ -81,6 +84,7 @@ const animals = [
     id: 'panda',
     icon: '../../assets/icons/panda.svg',
     title: 'Live Panda Cams',
+    sidebarLabel: "Watch live from China's Panda Center",
     playerLabel: 'Lucas, the Giant Panda cam 1',
     playerImg: '../../assets/images/rectangle-giant-panda.jpg',
     cams: [
@@ -114,7 +118,7 @@ function renderSidebar() {
     const btn = document.createElement('button');
     btn.className = 'zoos-sidebar__item' + (i === activeIndex ? ' active' : '');
     btn.setAttribute('aria-label', animal.title);
-    btn.innerHTML = `<img src="${animal.icon}" alt="${animal.id}">`;
+    btn.innerHTML = `<span class="zoos-sidebar__icon"><img src="${animal.icon}" alt="${animal.id}"></span><span class="zoos-sidebar__label">${animal.sidebarLabel}</span>`;
     btn.addEventListener('click', () => {
       activeIndex = i;
       renderSidebar();
@@ -123,6 +127,13 @@ function renderSidebar() {
     nav.appendChild(btn);
   });
 }
+
+const sidebar = document.querySelector('.zoos-sidebar');
+const expandBtn = document.querySelector('.zoos-sidebar__expand');
+
+expandBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('is-expanded');
+});
 
 function renderContent() {
   const animal = animals[activeIndex];

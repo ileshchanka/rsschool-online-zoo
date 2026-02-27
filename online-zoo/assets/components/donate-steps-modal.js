@@ -113,7 +113,7 @@
     if (target) target.classList.add('dsm__step--active');
   }
 
-  document.querySelectorAll('.footer__donate, .pay-feed__btn').forEach(function (btn) {
+  document.querySelectorAll('.footer__donate, .pay-feed__btn, .zoos-content__donate-btn').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
       openDonateStepsModal();

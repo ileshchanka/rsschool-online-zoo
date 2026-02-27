@@ -1,40 +1,47 @@
-.zoos-layout {
-  display: flex;
-  min-height: calc(100vh - 110px);
-}
-
 .zoos-sidebar {
-  width: 80px;
+  width: 220px;
   flex-shrink: 0;
   background-color: var(--navy);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px 0;
-  gap: 16px;
-  position: sticky;
-  top: 0;
-  height: calc(100vh - 110px);
+  align-items: stretch;
   overflow: hidden;
+}
+
+.zoos-layout {
+  display: flex;
+  min-height: calc(100vh - 110px);
+  align-items: flex-start;
+}
+
+.zoos-sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 12px 16px; */
+  flex-shrink: 0;
 }
 
 .zoos-sidebar__live {
   display: flex;
-  flex-direction: column;
+  margin-bottom: 36px;
+  flex-direction: row;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  background-color: var(--orange);
+  padding: 6px 12px;
   color: var(--white);
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 4px;
 }
 
-.zoos-sidebar__live-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--orange);
-  display: block;
+.zoos-sidebar__live-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .zoos-sidebar__expand,
@@ -42,13 +49,19 @@
   background: none;
   border: none;
   color: var(--white);
-  font-size: 16px;
-  cursor: pointer;
   padding: 0;
-  min-width: unset;
-  width: auto;
-  height: auto;
   display: block;
+  margin-right: 30px;
+}
+
+.zoos-sidebar__expand img {
+  width: 16px;
+  height: 16px;
+  transform: scaleX(-1);
+}
+
+.zoos-sidebar.is-expanded .zoos-sidebar__expand img {
+  transform: scaleX(1);
 }
 
 .zoos-sidebar__expand::after,
@@ -65,24 +78,28 @@
 .zoos-sidebar__nav {
   display: flex;
   flex-direction: column;
-  gap: 12px;
   flex: 1;
   overflow: hidden;
 }
 
 .zoos-sidebar__item {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background-color: var(--orange);
+  width: 100%;
+  height: 150px;
+  border-radius: 0;
+  background-color: transparent;
   border: none;
+  border-top: 1px solid var(--white);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 0;
   flex-shrink: 0;
-  transition: all 0.2s;
+  transition: background-color 0.2s;
+}
+
+.zoos-sidebar__item:last-child {
+  border-bottom: 1px solid var(--white);
 }
 
 .zoos-sidebar__item::after {
@@ -90,22 +107,100 @@
 }
 
 .zoos-sidebar__item:hover {
-  background-color: var(--orange-dark);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .zoos-sidebar__item.active {
   background-color: transparent;
-  border: 2px solid var(--white);
 }
 
-.zoos-sidebar__item img {
+.zoos-sidebar__icon {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  background-color: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+.zoos-sidebar__icon img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.zoos-sidebar__item.active img {
+.zoos-sidebar__item.active .zoos-sidebar__icon {
+  background-color: transparent;
+  border: 3px solid var(--white);
+}
+
+.zoos-sidebar__item.active .zoos-sidebar__icon img {
   filter: brightness(0) invert(1);
+}
+
+.zoos-sidebar__label {
+  display: none;
+}
+
+.zoos-sidebar__scroll-down {
+  text-align: center;
+  padding: 12px 0;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.zoos-sidebar.is-expanded {
+  width: 320px;
+  align-items: stretch;
+}
+
+.zoos-sidebar.is-expanded .zoos-sidebar__nav {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.zoos-sidebar.is-expanded .zoos-sidebar__item {
+  height: auto;
+  min-height: 100px;
+  justify-content: flex-start;
+  padding: 16px 20px;
+  gap: 16px;
+}
+
+.zoos-sidebar.is-expanded .zoos-sidebar__item:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.zoos-sidebar.is-expanded .zoos-sidebar__item.active {
+  background-color: transparent;
+}
+
+.zoos-sidebar.is-expanded .zoos-sidebar__icon {
+  width: 64px;
+  height: 64px;
+  padding: 12px;
+  flex-shrink: 0;
+}
+
+.zoos-sidebar.is-expanded .zoos-sidebar__item.active .zoos-sidebar__icon {
+  background-color: transparent;
+  border: 2px solid var(--white);
+}
+
+.zoos-sidebar.is-expanded .zoos-sidebar__label {
+  display: block;
+  color: var(--white);
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.zoos-sidebar.is-expanded .zoos-sidebar__scroll-down {
+  text-align: center;
 }
 
 .zoos-main {
@@ -598,7 +693,7 @@
 
 .footer__divider {
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-top: 1px solid var(--white);
 }
 
 .footer__bottom {
