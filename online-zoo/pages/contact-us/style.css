@@ -71,6 +71,25 @@
   border-color: var(--turquoise);
 }
 
+.contact-form__input--error {
+  border-color: #e53e3e !important;
+}
+
+.contact-form__error {
+  font-size: 13px;
+  color: #e53e3e;
+  margin-top: 4px;
+  display: none;
+}
+
+.contact-form__field--error .contact-form__error {
+  display: block;
+}
+
+.contact-form__field--error .contact-form__label {
+  color: #e53e3e;
+}
+
 .contact-form__textarea {
   resize: vertical;
   min-height: 140px;
