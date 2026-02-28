@@ -31,10 +31,20 @@
           <li><a class="header__social-link" href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank"><img src="../../assets/icons/facebook.svg" alt="Facebook"></a></li>
         </ul>
       </nav>
+      <button class="header__burger" id="headerBurger" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
 
   <div class="zoos-layout">
+    <div class="zoos-sidebar-overlay" id="zoosSidebarOverlay"></div>
+    <button class="zoos-sidebar-trigger" id="zoosSidebarTrigger" aria-label="Open camera list">
+      <span class="zoos-sidebar-trigger__live">LIVE</span>
+      <img src="../../assets/icons/live-camera.svg" alt="Live">
+    </button>
     <aside class="zoos-sidebar">
       <div class="zoos-sidebar__header">
         <div class="zoos-sidebar__live">
@@ -154,6 +164,24 @@
       </div>
     </div>
   </footer>
+
+  <nav class="side-nav" id="sideNav" aria-label="Mobile navigation">
+    <div class="side-nav__overlay" id="sideNavOverlay"></div>
+    <div class="side-nav__panel">
+      <button class="side-nav__close" id="sideNavClose" aria-label="Close menu">&times;</button>
+      <ul>
+        <li><a class="side-nav__link" href="../landing/">About</a></li>
+        <li><a class="side-nav__link" href="../map/">Map</a></li>
+        <li><a class="side-nav__link active" href="./">Zoos</a></li>
+        <li><a class="side-nav__link" href="../contact-us/">Contact Us</a></li>
+      </ul>
+      <div class="side-nav__social">
+        <a href="https://www.youtube.com/c/RSSchool/" aria-label="YouTube" target="_blank"><img src="../../assets/icons/youtube.svg" alt="YouTube"></a>
+        <a href="https://www.instagram.com/rsschool_en/" aria-label="Instagram" target="_blank"><img src="../../assets/icons/instagram.svg" alt="Instagram"></a>
+        <a href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank"><img src="../../assets/icons/facebook.svg" alt="Facebook"></a>
+      </div>
+    </div>
+  </nav>
 
   <script src="../../assets/components/donate-steps-modal.js"></script>
   <script src="../../assets/components/donate-quick-modal.js"></script>

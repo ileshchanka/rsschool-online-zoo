@@ -68,10 +68,8 @@
     + '<div class="dsm__body">'
     + '<p class="dsm__section-title">Payment Information:</p>'
     + '<hr class="dsm__divider">'
-    + '<div class="dsm__row dsm__row--fields">'
     + '<div class="dsm__field"><label class="dsm__label"><span class="dsm__req">*</span> Credit Card Number</label><input class="dsm__input" type="text" placeholder="1234 5678 9012 3456" data-validate="card" maxlength="19"></div>'
     + '<div class="dsm__field dsm__field--cvv"><label class="dsm__label"><span class="dsm__req">*</span> CVV Number</label><input class="dsm__input" type="text" placeholder="123" data-validate="cvv" maxlength="4"></div>'
-    + '</div>'
     + '<div class="dsm__field"><label class="dsm__label"><span class="dsm__req">*</span> Expiration Date</label>'
     + '<div class="dsm__row dsm__row--exp">'
     + '<div class="dsm__select dsm__select--native"><select class="dsm__select-el"><option value="" disabled selected>Month</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option></select><span class="dsm__select-arrow"></span></div>'
@@ -253,6 +251,7 @@
       var currentStep = completeBtn.closest('.dsm__step');
       if (!validateStep(currentStep)) return;
       window.closeDonateStepsModal();
+      alert('Thank you for your donation! 🐾');
       return;
     }
 

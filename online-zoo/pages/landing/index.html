@@ -39,6 +39,11 @@
             </a></li>
         </ul>
       </nav>
+      <button class="header__burger" id="headerBurger" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
   <main>
@@ -370,7 +375,26 @@
     </div>
   </div>
 
+  <nav class="side-nav" id="sideNav" aria-label="Mobile navigation">
+    <div class="side-nav__overlay" id="sideNavOverlay"></div>
+    <div class="side-nav__panel">
+      <button class="side-nav__close" id="sideNavClose" aria-label="Close menu">&times;</button>
+      <ul>
+        <li><a class="side-nav__link active" href="./">About</a></li>
+        <li><a class="side-nav__link" href="../map/">Map</a></li>
+        <li><a class="side-nav__link" href="../zoos/">Zoos</a></li>
+        <li><a class="side-nav__link" href="../contact-us/">Contact Us</a></li>
+      </ul>
+      <div class="side-nav__social">
+        <a href="https://www.youtube.com/c/RSSchool/" aria-label="YouTube" target="_blank"><img src="../../assets/icons/youtube.svg" alt="YouTube"></a>
+        <a href="https://www.instagram.com/rsschool_en/" aria-label="Instagram" target="_blank"><img src="../../assets/icons/instagram.svg" alt="Instagram"></a>
+        <a href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank"><img src="../../assets/icons/facebook.svg" alt="Facebook"></a>
+      </div>
+    </div>
+  </nav>
+
   <script src="../../assets/components/donate-steps-modal.js"></script>
+  <script src="../../assets/components/donate-quick-modal.js"></script>
 
   <script src="script.js"></script>
 </body>

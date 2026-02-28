@@ -1,28 +1,27 @@
-const donateModal = document.getElementById('donateModal');
-const donateModalClose = document.getElementById('donateModalClose');
-const donateModalOverlay = document.getElementById('donateModalOverlay');
-const donateFormBtn = document.querySelector('.donate-form__btn');
+// Burger menu
+(function () {
+  const headerBurger = document.getElementById('headerBurger');
+  const sideNav = document.getElementById('sideNav');
+  const sideNavOverlay = document.getElementById('sideNavOverlay');
+  const sideNavClose = document.getElementById('sideNavClose');
 
-function openDonateModal() {
-  donateModal.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeDonateModal() {
-  donateModal.classList.remove('is-open');
-  document.body.style.overflow = '';
-}
-
-donateFormBtn.addEventListener('click', function (e) {
-  e.preventDefault();
-  openDonateModal();
-});
-
-donateModalClose.addEventListener('click', closeDonateModal);
-donateModalOverlay.addEventListener('click', closeDonateModal);
-
-document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') {
-    closeDonateModal();
+  function openSideNav() {
+    sideNav.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
   }
-});
+
+  function closeSideNav() {
+    sideNav.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  headerBurger.addEventListener('click', openSideNav);
+  sideNavClose.addEventListener('click', closeSideNav);
+  sideNavOverlay.addEventListener('click', closeSideNav);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      closeSideNav();
+    }
+  });
+})();

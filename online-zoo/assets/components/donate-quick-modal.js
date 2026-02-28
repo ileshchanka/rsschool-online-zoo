@@ -51,6 +51,14 @@
   closeBtn.addEventListener('click', window.closeDonateModal);
   overlay.addEventListener('click', window.closeDonateModal);
 
+  modal.addEventListener('click', function (e) {
+    var amountBtn = e.target.closest('.donate-modal__amount');
+    if (amountBtn) {
+      window.closeDonateModal();
+      alert('Thank you for your donation! 🐾');
+    }
+  });
+
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
       window.closeDonateModal();
