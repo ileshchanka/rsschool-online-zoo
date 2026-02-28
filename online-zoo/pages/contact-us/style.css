@@ -213,3 +213,60 @@
   height: 40px;
   width: 40px;
 }
+
+@media (max-width: 1200px) {
+  .contact-hero {
+    margin-top: 36px;
+  }
+
+  .contact-form-section {
+    gap: 50px;
+    padding-top: 60px;
+    padding-bottom: 70px;
+  }
+
+  .contact-form-section__info h2 {
+    font-size: 40px;
+  }
+
+  .contact-form-section__info p {
+    font-size: 15px;
+  }
+
+  .contact-form__submit {
+    align-self: flex-start;
+    font-size: 16px;
+    padding: 16px 28px;
+  }
+
+  .footer {
+    padding: 36px 0;
+  }
+
+  .footer__logos img {
+    height: 40px;
+  }
+
+  .footer__nav ul {
+    gap: 24px;
+  }
+
+  .footer__nav a {
+    font-size: 14px;
+  }
+
+  .footer__donate {
+    font-size: 14px;
+    padding: 14px 20px;
+  }
+
+  .footer__copy {
+    gap: 24px;
+    font-size: 14px;
+  }
+
+  .footer__social-link img {
+    height: 30px;
+    width: 30px;
+  }
+}

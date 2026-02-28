@@ -162,3 +162,57 @@
   height: 40px;
   width: 40px;
 }
+
+@media (max-width: 1200px) {
+  .map-section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .map-section__title {
+    font-size: 42px;
+    margin-bottom: 40px;
+  }
+
+  .map-pin {
+    width: 50px;
+    height: 62px;
+  }
+
+  .map-pin__icon {
+    width: 26px;
+    height: 26px;
+    margin-bottom: 10px;
+  }
+
+  .footer {
+    padding: 36px 0;
+  }
+
+  .footer__logos img {
+    height: 40px;
+  }
+
+  .footer__nav ul {
+    gap: 24px;
+  }
+
+  .footer__nav a {
+    font-size: 14px;
+  }
+
+  .footer__donate {
+    font-size: 14px;
+    padding: 14px 20px;
+  }
+
+  .footer__copy {
+    gap: 24px;
+    font-size: 14px;
+  }
+
+  .footer__social-link img {
+    height: 30px;
+    width: 30px;
+  }
+}

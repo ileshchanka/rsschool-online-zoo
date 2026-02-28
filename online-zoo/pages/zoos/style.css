@@ -720,3 +720,134 @@
   height: 40px;
   width: 40px;
 }
+
+@media (max-width: 1200px) {
+  .zoos-sidebar {
+    width: 180px;
+  }
+
+  .zoos-sidebar.is-expanded {
+    width: 260px;
+  }
+
+  .zoos-sidebar__icon {
+    width: 80px;
+    height: 80px;
+    padding: 14px;
+  }
+
+  .zoos-sidebar__item {
+    height: 120px;
+  }
+
+  .zoos-content {
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+
+  .zoos-content__title {
+    font-size: 32px;
+  }
+
+  .zoos-content__donate-btn {
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+
+  .zoos-player {
+    margin-bottom: 36px;
+  }
+
+  .zoos-player__frame {
+    aspect-ratio: 16 / 8;
+  }
+
+  .zoos-more-views__title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .zoos-donation {
+    padding: 40px 0;
+    margin-top: 40px;
+  }
+
+  .zoos-donation__inner {
+    gap: 40px;
+  }
+
+  .zoos-donation__title {
+    font-size: 26px;
+    margin-bottom: 14px;
+  }
+
+  .zoos-donation__text {
+    font-size: 14px;
+  }
+
+  .donate-form__input {
+    min-width: 160px;
+    font-size: 14px;
+    padding: 14px 14px;
+  }
+
+  .zoos-fact {
+    padding: 40px 40px;
+    margin: 40px auto;
+  }
+
+  .zoos-fact__title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .zoos-fact__text {
+    font-size: 16px;
+  }
+
+  .zoos-info {
+    gap: 40px;
+    margin-bottom: 36px;
+  }
+
+  .zoos-info__photo {
+    width: 260px;
+    height: 260px;
+  }
+
+  .zoos-description {
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+
+  .footer {
+    padding: 36px 0;
+  }
+
+  .footer__logos img {
+    height: 40px;
+  }
+
+  .footer__nav ul {
+    gap: 24px;
+  }
+
+  .footer__nav a {
+    font-size: 14px;
+  }
+
+  .footer__donate {
+    font-size: 14px;
+    padding: 14px 20px;
+  }
+
+  .footer__copy {
+    gap: 24px;
+    font-size: 14px;
+  }
+
+  .footer__social-link img {
+    height: 30px;
+    width: 30px;
+  }
+}

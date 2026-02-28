@@ -20,8 +20,33 @@
 }
 
 .hero__button {
+  display: inline-flex;
+  align-items: center;
+  padding: 26px 35px;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 5px;
   margin-top: 50px;
   margin-bottom: 140px;
+}
+
+.hero__button::after {
+  content: "";
+  display: block;
+  width: 25px;
+  height: 22px;
+  margin-left: 10px;
+  background-image: url("../../assets/icons/arrow-right.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.hero__button:hover {
+  background-color: var(--orange-dark);
 }
 
 .welcome {
@@ -752,4 +777,214 @@
 .footer__social-link img {
   height: 40px;
   width: 40px;
+}
+
+@media (max-width: 1200px) {
+  /* Hero */
+  .hero {
+    min-height: 460px;
+  }
+
+  .hero__title {
+    margin-top: 80px;
+    max-width: 560px;
+    font-size: 66px;
+  }
+
+  .hero__text {
+    margin-top: 30px;
+    font-size: 16px;
+    max-width: 360px;
+  }
+
+  .hero__button {
+    margin-top: 36px;
+    margin-bottom: 100px;
+  }
+
+  /* Welcome */
+  .welcome {
+    margin-top: 80px;
+    gap: 30px;
+  }
+
+  .welcome__image {
+    width: 420px;
+  }
+
+  .welcome__content {
+    gap: 30px;
+  }
+
+  .welcome__content h2 {
+    font-size: 40px;
+  }
+
+  .welcome__content p {
+    font-size: 15px;
+  }
+
+  /* Donation strip */
+  .donation {
+    margin-top: 80px;
+  }
+
+  .donation__content h3 {
+    font-size: 30px;
+  }
+
+  .donation__content p {
+    font-size: 15px;
+    max-width: 440px;
+  }
+
+  /* Pets */
+  .pets {
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
+
+  .pets__title {
+    font-size: 40px;
+  }
+
+  .pets__subtitle {
+    font-size: 15px;
+  }
+
+  .pets__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .pets__card-img-wrap img {
+    height: 220px;
+  }
+
+  .pets__card-body {
+    padding: 16px 14px 20px;
+    gap: 10px;
+  }
+
+  .pets__card-body p.subheader {
+    font-size: 18px;
+  }
+
+  .pets__card-body p {
+    font-size: 13px;
+  }
+
+  /* Pay & Feed */
+  .pay-feed__inner {
+    padding: 60px var(--container-padding) 70px;
+  }
+
+  .pay-feed__title {
+    font-size: 40px;
+    margin-bottom: 40px;
+  }
+
+  .pay-feed__step-body {
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .pay-feed__step-img {
+    width: 240px;
+    height: 170px;
+  }
+
+  .pay-feed__step-heading {
+    font-size: 20px;
+  }
+
+  .pay-feed__step-content p {
+    font-size: 14px;
+  }
+
+  /* Reviews */
+  .reviews__inner {
+    gap: 50px;
+    padding: 70px var(--container-padding);
+  }
+
+  .reviews__left {
+    flex: 0 0 260px;
+  }
+
+  .reviews__title {
+    font-size: 40px;
+  }
+
+  .reviews__subtitle {
+    font-size: 15px;
+  }
+
+  .reviews__grid {
+    gap: 20px;
+  }
+
+  .reviews__card {
+    padding: 24px 20px 20px;
+    gap: 12px;
+  }
+
+  .reviews__card-location {
+    font-size: 17px;
+  }
+
+  .reviews__card-text {
+    font-size: 13px;
+  }
+
+  /* Care */
+  .care {
+    margin-top: 80px;
+  }
+
+  .care__title {
+    font-size: 40px;
+  }
+
+  .care__grid {
+    gap: 24px;
+    margin-top: 36px;
+  }
+
+  .care__item--card img {
+    height: 150px;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 80px;
+    padding: 36px 0;
+  }
+
+  .footer__logos img {
+    height: 40px;
+  }
+
+  .footer__nav ul {
+    gap: 24px;
+  }
+
+  .footer__nav a {
+    font-size: 14px;
+  }
+
+  .footer__donate {
+    font-size: 14px;
+    padding: 14px 20px;
+  }
+
+  .footer__copy {
+    gap: 24px;
+    font-size: 14px;
+  }
+
+  .footer__social-link img {
+    height: 30px;
+    width: 30px;
+  }
 }
