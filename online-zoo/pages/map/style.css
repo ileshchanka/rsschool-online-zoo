@@ -50,22 +50,6 @@
   margin-bottom: 12px;
 }
 
-.map-pin--outline {
-  background-image: none;
-  border: 3px solid var(--navy);
-  border-radius: 50% 50% 50% 0;
-  transform: translate(-50%, -100%) rotate(-45deg);
-  background-color: transparent;
-}
-
-.map-pin--outline:hover {
-  transform: translate(-50%, -110%) rotate(-45deg) scale(1.1);
-}
-
-.map-pin--outline .map-pin__icon {
-  transform: rotate(45deg);
-}
-
 @media (max-width: 1200px) {
   .map-section {
     padding-top: 60px;
@@ -132,11 +116,6 @@
     width: 14px;
     height: 14px;
     margin-bottom: 5px;
-  }
-
-  .map-pin--outline {
-    width: 24px;
-    height: 24px;
   }
 
   .footer {

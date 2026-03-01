@@ -421,25 +421,6 @@
   object-fit: cover;
 }
 
-.zoos-cam-card__label {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: var(--white);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 8px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.zoos-cam-card__lock::before {
-  content: "🔒";
-  font-size: 10px;
-}
-
 .zoos-cam-card__play {
   position: absolute;
   top: 50%;
