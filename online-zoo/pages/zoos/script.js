@@ -4,8 +4,7 @@ const animals = [
     icon: '../../assets/icons/lemur.svg',
     title: 'Lemurs Cams',
     sidebarLabel: 'The ring-tailed lemurs play in Madagascar, Lemuria Land',
-    playerLabel: 'Andy, the ring-tailed lemurs in Madagascar, Lemuria Land cam 1',
-    playerImg: '../../assets/images/lemur-additional-cam-card-1.jpg',
+    playerImg: '../../assets/images/youtube-player-lemur.jpg',
     cams: [
       { img: '../../assets/images/lemur-additional-cam-card-1.jpg', label: 'CAM 1' },
       { img: '../../assets/images/lemur-additional-cam-card-2.jpg', label: 'CAM 2' },
@@ -31,8 +30,7 @@ const animals = [
     icon: '../../assets/icons/gorilla.svg',
     title: 'Gorillas Cams',
     sidebarLabel: 'Livestream from Gorilla Forest Corridor habitat cam',
-    playerLabel: 'Glen, Western lowland gorilla cam 1',
-    playerImg: '../../assets/images/gorilla-additional-cam-card-1.jpg',
+    playerImg: '../../assets/images/youtube-player-gorilla.jpg',
     cams: [
       { img: '../../assets/images/gorilla-additional-cam-card-1.jpg', label: 'CAM 1' },
       { img: '../../assets/images/gorilla-additional-cam-card-2.jpg', label: 'CAM 2' },
@@ -58,10 +56,9 @@ const animals = [
     icon: '../../assets/icons/eagle.svg',
     title: 'Bald Eagle Cams',
     sidebarLabel: 'Watch The Bald Eagles Nest from West End cam',
-    playerLabel: 'Sam & Lora, the Bald Eagles cam 1',
-    playerImg: '../../assets/images/eagles-additional-cam-card-2.jpg',
+    playerImg: '../../assets/images/youtube-player-eagles.jpg',
     cams: [
-      { img: '../../assets/images/rectangle-west-end-bald-eagles.jpg', label: 'CAM 1' },
+      { img: '../../assets/images/eagles-additional-cam-card-1.jpg', label: 'CAM 1' },
       { img: '../../assets/images/eagles-additional-cam-card-2.jpg', label: 'CAM 2' },
       { img: '../../assets/images/eagles-additional-cam-card-3.jpg', label: 'CAM 3' },
     ],
@@ -85,12 +82,11 @@ const animals = [
     icon: '../../assets/icons/panda.svg',
     title: 'Live Panda Cams',
     sidebarLabel: "Watch live from China's Panda Center",
-    playerLabel: 'Lucas, the Giant Panda cam 1',
-    playerImg: '../../assets/images/rectangle-giant-panda.jpg',
+    playerImg: '../../assets/images/youtube-player-giant-panda.jpg',
     cams: [
-      { img: '../../assets/images/youtube-player-1.jpg', label: 'CAM 1' },
-      { img: '../../assets/images/youtube-player-2.jpg', label: 'CAM 2' },
-      { img: '../../assets/images/youtube-player-3.jpg', label: 'CAM 3' },
+      { img: '../../assets/images/panda-additional-cam-card-1.jpg', label: 'CAM 1' },
+      { img: '../../assets/images/panda-additional-cam-card-2.jpg', label: 'CAM 2' },
+      { img: '../../assets/images/panda-additional-cam-card-3.jpg', label: 'CAM 3' },
     ],
     donationTitle: 'Make the Bamboo Donation!',
     donationText: 'Our process for bamboo donations first starts with a site evaluation. It is important that our team sees where the bamboo is growing, then determining if the bamboo is a species that our animals are currently eating. Thank you for your interest in donating bamboo for our pandas.',
@@ -161,7 +157,6 @@ function renderContent() {
   const animal = animals[activeIndex];
 
   document.getElementById('animalTitle').textContent = animal.title;
-  document.getElementById('playerLabel').textContent = animal.playerLabel;
 
   const playerImg = document.getElementById('playerImg');
   playerImg.src = animal.playerImg;
@@ -174,7 +169,6 @@ function renderContent() {
     card.className = 'zoos-cam-card' + (i === 0 ? ' active' : '');
     card.innerHTML = `
       <img src="${cam.img}" alt="${cam.label}">
-      <div class="zoos-cam-card__label">${cam.label} <span class="zoos-cam-card__lock"></span></div>
       <div class="zoos-cam-card__play"></div>
     `;
     camCards.appendChild(card);

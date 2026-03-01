@@ -246,18 +246,9 @@
   margin-bottom: 50px;
 }
 
-.zoos-player__label {
-  background-color: rgba(0, 0, 0, 0.75);
-  color: var(--white);
-  font-size: 14px;
-  font-weight: 500;
-  padding: 8px 16px;
-  position: relative;
-}
-
 .zoos-player__frame {
   width: 100%;
-  aspect-ratio: 16 / 7;
+  aspect-ratio: 16 / 9;
   background-color: #000;
   position: relative;
   overflow: hidden;
@@ -667,7 +658,7 @@
   }
 
   .zoos-player__frame {
-    aspect-ratio: 16 / 8;
+    aspect-ratio: 16 / 9;
   }
 
   .zoos-more-views__title {
@@ -870,7 +861,7 @@
   }
 
   .zoos-player__frame {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
   }
 
   .zoos-more-views__title {
@@ -1013,7 +1004,7 @@
   }
 
   .zoos-player__frame {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
   }
 
   .zoos-player__play {
