@@ -686,7 +686,7 @@
 }
 
 @media (max-width: 1200px) {
-  /* Hero */
+
   .hero {
     min-height: 460px;
   }
@@ -708,7 +708,6 @@
     margin-bottom: 100px;
   }
 
-  /* Welcome */
   .welcome {
     margin-top: 80px;
     gap: 30px;
@@ -730,7 +729,6 @@
     font-size: 15px;
   }
 
-  /* Donation strip */
   .donation {
     margin-top: 80px;
   }
@@ -744,7 +742,6 @@
     max-width: 440px;
   }
 
-  /* Pets */
   .pets {
     margin-top: 80px;
     margin-bottom: 80px;
@@ -780,7 +777,6 @@
     font-size: 13px;
   }
 
-  /* Pay & Feed */
   .pay-feed__inner {
     padding: 60px var(--container-padding) 70px;
   }
@@ -808,7 +804,6 @@
     font-size: 14px;
   }
 
-  /* Reviews */
   .reviews__inner {
     gap: 50px;
     padding: 70px var(--container-padding);
@@ -843,7 +838,6 @@
     font-size: 13px;
   }
 
-  /* Care */
   .care {
     margin-top: 80px;
   }
@@ -861,14 +855,13 @@
     height: 150px;
   }
 
-  /* Footer */
   .footer {
     margin-top: 80px;
   }
 }
 
 @media (max-width: 640px) {
-  /* Hero */
+
   .hero {
     min-height: 400px;
   }
@@ -891,7 +884,6 @@
     padding: 16px 22px;
   }
 
-  /* Welcome */
   .welcome {
     margin-top: 50px;
     flex-direction: column;
@@ -919,7 +911,6 @@
     font-size: 14px;
   }
 
-  /* Donation strip */
   .donation {
     margin-top: 50px;
   }
@@ -948,7 +939,6 @@
     padding: 18px 12px;
   }
 
-  /* Pets */
   .pets {
     margin-top: 50px;
     margin-bottom: 50px;
@@ -1002,7 +992,6 @@
     justify-content: center;
   }
 
-  /* Pay & Feed */
   .pay-feed__inner {
     padding: 40px var(--container-padding) 50px;
   }
@@ -1047,7 +1036,6 @@
     justify-content: center;
   }
 
-  /* Reviews */
   .reviews__inner {
     flex-direction: column;
     gap: 30px;
@@ -1097,7 +1085,6 @@
     margin-top: 16px;
   }
 
-  /* Care */
   .care {
     margin-top: 50px;
   }
@@ -1148,19 +1135,17 @@
     margin-top: 24px;
   }
 
-  /* YouTube */
   .youtube {
     margin-top: 50px;
   }
 
-  /* Footer */
   .footer {
     margin-top: 50px;
   }
 }
 
 @media (max-width: 320px) {
-  /* Hero */
+
   .hero {
     min-height: 280px;
   }
@@ -1187,7 +1172,6 @@
     height: 16px;
   }
 
-  /* Welcome */
   .welcome {
     margin-top: 32px;
     gap: 16px;
@@ -1205,7 +1189,6 @@
     font-size: 12px;
   }
 
-  /* Donation strip */
   .donation {
     margin-top: 32px;
   }
@@ -1236,7 +1219,6 @@
     width: 60px;
   }
 
-  /* Pets */
   .pets {
     margin-top: 32px;
     margin-bottom: 32px;
@@ -1289,7 +1271,6 @@
     padding: 12px 16px;
   }
 
-  /* Pay & Feed */
   .pay-feed__inner {
     padding: 28px var(--container-padding) 32px;
   }
@@ -1335,7 +1316,6 @@
     padding: 12px 16px;
   }
 
-  /* Reviews */
   .reviews__inner {
     gap: 22px;
     padding: 32px var(--container-padding);
@@ -1391,7 +1371,6 @@
     height: 40px;
   }
 
-  /* Care */
   .care {
     margin-top: 32px;
   }
@@ -1440,12 +1419,10 @@
     margin-top: 16px;
   }
 
-  /* YouTube */
   .youtube {
     margin-top: 32px;
   }
 
-  /* Footer */
   .footer {
     margin-top: 32px;
     padding: 28px 0;

@@ -74,7 +74,6 @@ form.addEventListener('submit', (e) => {
   }
 });
 
-// Burger menu
 (function () {
   const headerBurger = document.getElementById('headerBurger');
   const sideNav = document.getElementById('sideNav');
@@ -99,3 +98,5 @@ form.addEventListener('submit', (e) => {
     if (e.key === 'Escape') { closeSideNav(); }
   });
 })();
+
+

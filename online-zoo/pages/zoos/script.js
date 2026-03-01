@@ -206,7 +206,6 @@ function renderContent() {
 renderSidebar();
 renderContent();
 
-// Burger menu
 (function () {
   const headerBurger = document.getElementById("headerBurger");
   const sideNav = document.getElementById("sideNav");
@@ -231,4 +230,6 @@ renderContent();
     if (e.key === "Escape") { closeSideNav(); }
   });
 })();
+
+
 
