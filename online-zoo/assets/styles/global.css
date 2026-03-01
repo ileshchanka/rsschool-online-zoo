@@ -83,7 +83,8 @@ button:hover {
   background-color: var(--orange-dark);
 }
 
-button::after {
+button::after,
+a.button_outline::after {
   content: "";
   display: block;
   width: 25px;

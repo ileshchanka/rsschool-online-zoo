@@ -302,6 +302,9 @@
 }
 
 .button_outline {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
   background: transparent;
   border: 2px solid var(--navy);
   color: var(--navy);
@@ -362,6 +365,8 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
+  cursor: pointer;
 }
 
 .care__item--card img {
@@ -412,6 +417,12 @@
   text-transform: uppercase;
   margin-top: auto;
   padding-top: 16px;
+}
+
+.care__item-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
 }
 
 .care__item-link::after {
