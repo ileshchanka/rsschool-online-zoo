@@ -630,103 +630,6 @@
   margin-bottom: 60px;
 }
 
-.footer {
-  background-color: var(--navy);
-  padding: 50px 0;
-}
-
-.footer__inner {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.footer__top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-}
-
-.footer__logos {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-.footer__logos img {
-  height: 50px;
-}
-
-.footer__nav ul {
-  display: flex;
-  gap: 40px;
-  list-style: none;
-}
-
-.footer__nav a {
-  color: var(--white);
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.footer__nav a:hover {
-  opacity: 0.75;
-}
-
-.footer__donate {
-  background: transparent;
-  border: 2px solid var(--white);
-  color: var(--white);
-  font-size: 18px;
-  font-weight: 600;
-  text-transform: uppercase;
-  padding: 20px 35px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.footer__donate::after {
-  filter: brightness(0) invert(1);
-}
-
-.footer__donate:hover {
-  background-color: transparent;
-  opacity: 0.75;
-}
-
-.footer__divider {
-  border: none;
-  border-top: 1px solid var(--white);
-}
-
-.footer__bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.footer__copy {
-  display: flex;
-  gap: 40px;
-  color: var(--white);
-  font-size: 16px;
-}
-
-.footer__social ul {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  list-style: none;
-}
-
-.footer__social-link img {
-  height: 40px;
-  width: 40px;
-}
-
 @media (max-width: 1200px) {
   .zoos-sidebar {
     width: 180px;
@@ -824,37 +727,6 @@
   .zoos-description {
     font-size: 15px;
     margin-bottom: 40px;
-  }
-
-  .footer {
-    padding: 36px 0;
-  }
-
-  .footer__logos img {
-    height: 40px;
-  }
-
-  .footer__nav ul {
-    gap: 24px;
-  }
-
-  .footer__nav a {
-    font-size: 14px;
-  }
-
-  .footer__donate {
-    font-size: 14px;
-    padding: 14px 20px;
-  }
-
-  .footer__copy {
-    gap: 24px;
-    font-size: 14px;
-  }
-
-  .footer__social-link img {
-    height: 30px;
-    width: 30px;
   }
 }
 
@@ -1257,41 +1129,5 @@
     font-size: 12px;
     line-height: 1.7;
     margin-bottom: 20px;
-  }
-
-  /* Footer */
-  .footer {
-    padding: 22px 0;
-  }
-
-  .footer__inner {
-    gap: 20px;
-  }
-
-  .footer__logos {
-    gap: 10px;
-  }
-
-  .footer__logos img {
-    height: 26px;
-  }
-
-  .footer__nav a {
-    font-size: 11px;
-  }
-
-  .footer__donate {
-    font-size: 11px;
-    padding: 10px 14px;
-  }
-
-  .footer__copy {
-    font-size: 11px;
-    gap: 6px;
-  }
-
-  .footer__social-link img {
-    width: 28px;
-    height: 28px;
   }
 }
