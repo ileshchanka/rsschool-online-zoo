@@ -124,3 +124,92 @@
 .donate-modal__amount--other {
   min-width: 160px;
 }
+
+@media (max-width: 640px) {
+  .donate-modal {
+    padding: 12px;
+  }
+
+  .donate-modal__image {
+    height: 220px;
+  }
+
+  .donate-modal__close {
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    font-size: 28px;
+  }
+
+  .donate-modal__body {
+    padding: 28px 24px;
+    gap: 20px;
+  }
+
+  .donate-modal__text {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .donate-modal__amounts {
+    gap: 10px;
+  }
+
+  .donate-modal__amount {
+    padding: 14px 18px;
+    font-size: 15px;
+    min-width: 80px;
+  }
+
+  .donate-modal__amount--other {
+    min-width: 130px;
+  }
+}
+
+@media (max-width: 320px) {
+  .donate-modal {
+    padding: 8px;
+  }
+
+  .donate-modal__title {
+    font-size: 22px;
+  }
+
+  .donate-modal__image {
+    height: 160px;
+  }
+
+  .donate-modal__close {
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    font-size: 22px;
+  }
+
+  .donate-modal__body {
+    padding: 18px 16px;
+    gap: 14px;
+  }
+
+  .donate-modal__text {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .donate-modal__amounts {
+    gap: 8px;
+  }
+
+  .donate-modal__amount {
+    padding: 11px 12px;
+    font-size: 13px;
+    min-width: 72px;
+  }
+
+  .donate-modal__amount--other {
+    min-width: 0;
+    width: 100%;
+  }
+}
