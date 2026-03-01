@@ -6,6 +6,11 @@
   flex-direction: column;
   align-items: stretch;
   overflow: hidden;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .zoos-layout {
