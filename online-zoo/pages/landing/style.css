@@ -715,7 +715,6 @@
 }
 
 @media (max-width: 1200px) {
-
   .hero {
     min-height: 460px;
   }
@@ -893,7 +892,6 @@
 }
 
 @media (max-width: 640px) {
-
   .hero {
     min-height: 400px;
   }
@@ -1178,7 +1176,6 @@
 }
 
 @media (max-width: 320px) {
-
   .hero {
     min-height: 280px;
   }
