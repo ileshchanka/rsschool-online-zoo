@@ -196,17 +196,30 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
+.pets__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.pets__arrow:disabled:hover {
+  background-color: transparent;
+}
+
 .pets__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
+  overflow: hidden;
   margin-top: 40px;
+}
+
+.pets__track {
+  display: flex;
+  gap: 25px;
 }
 
 .pets__card {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .pets__card-img-wrap {
@@ -425,6 +438,7 @@
 
 .reviews {
   width: 100%;
+  overflow: hidden;
   background-image:
     linear-gradient(to bottom, var(--navy) 0%, transparent 10%),
     url("../../assets/images/testimonials-background.jpg");
@@ -497,16 +511,21 @@
 
 .reviews__right {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
 .reviews__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  overflow: hidden;
   flex: 1;
+  min-width: 0;
+}
+
+.reviews__track {
+  display: flex;
+  gap: 30px;
 }
 
 .reviews__card {
@@ -515,6 +534,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  flex-shrink: 0;
 }
 
 .reviews__card-quote {
@@ -581,6 +601,15 @@
 
 .reviews__arrow--prev::before {
   transform: rotate(180deg);
+}
+
+.reviews__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.reviews__arrow:disabled:hover {
+  background-color: transparent;
 }
 
 .reviews__arrow:hover {
@@ -756,7 +785,10 @@
   }
 
   .pets__grid {
-    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .pets__track {
     gap: 16px;
   }
 
@@ -821,7 +853,7 @@
     font-size: 15px;
   }
 
-  .reviews__grid {
+  .reviews__track {
     gap: 20px;
   }
 
@@ -958,9 +990,11 @@
   }
 
   .pets__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
     margin-top: 24px;
+  }
+
+  .pets__track {
+    gap: 12px;
   }
 
   .pets__card-img-wrap img {
@@ -1063,8 +1097,7 @@
     justify-content: center;
   }
 
-  .reviews__grid {
-    grid-template-columns: 1fr;
+  .reviews__track {
     gap: 16px;
   }
 
@@ -1244,9 +1277,11 @@
   }
 
   .pets__grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
     margin-top: 18px;
+  }
+
+  .pets__track {
+    gap: 10px;
   }
 
   .pets__card-img-wrap img {
