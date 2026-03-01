@@ -165,8 +165,11 @@ function renderContent() {
   const camCards = document.getElementById('camCards');
   camCards.innerHTML = '';
   animal.cams.forEach((cam, i) => {
-    const card = document.createElement('div');
+    const card = document.createElement('a');
     card.className = 'zoos-cam-card' + (i === 0 ? ' active' : '');
+    card.href = 'https://www.youtube.com/c/RSSchool/';
+    card.target = '_blank';
+    card.rel = 'noopener noreferrer';
     card.innerHTML = `
       <img src="${cam.img}" alt="${cam.label}">
       <div class="zoos-cam-card__play"></div>

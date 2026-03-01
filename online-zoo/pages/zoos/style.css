@@ -5,18 +5,21 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   position: sticky;
   top: 0;
   align-self: flex-start;
   max-height: 100vh;
-  overflow-y: auto;
+  z-index: 10;
+  margin-right: -220px;
 }
 
 .zoos-layout {
   display: flex;
   min-height: calc(100vh - 110px);
   align-items: flex-start;
+  position: relative;
 }
 
 .zoos-sidebar-overlay,
@@ -165,6 +168,7 @@
 
 .zoos-sidebar.is-expanded {
   width: 320px;
+  margin-right: -320px;
   align-items: stretch;
 }
 
@@ -266,12 +270,20 @@
   opacity: 0.85;
 }
 
+.zoos-player__link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
 .zoos-player__overlay {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
+  z-index: 2;
 }
 
 .zoos-player__play {
@@ -281,6 +293,7 @@
   background-color: rgba(255, 255, 255, 0.85);
   border: none;
   cursor: pointer;
+  pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -301,62 +314,6 @@
 .zoos-player__play::before {
   content: "▶";
   font-size: 20px;
-}
-
-.zoos-player__logo {
-  position: absolute;
-  bottom: 40px;
-  right: 16px;
-}
-
-.zoos-player__logo img {
-  height: 30px;
-  filter: brightness(0) invert(1);
-}
-
-.zoos-player__controls {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-  padding: 8px 16px;
-  display: flex;
-  align-items: center;
-}
-
-.zoos-player__controls-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.zoos-player__ctrl-btn {
-  background: none;
-  border: none;
-  color: var(--white);
-  font-size: 14px;
-  cursor: pointer;
-  padding: 0;
-  min-width: unset;
-  width: auto;
-  height: auto;
-}
-
-.zoos-player__ctrl-btn::after {
-  display: none;
-}
-
-.zoos-player__ctrl-btn:hover {
-  background: none;
-  opacity: 0.7;
-}
-
-.zoos-player__live-badge {
-  color: var(--orange);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
 }
 
 .zoos-more-views {
@@ -408,6 +365,8 @@
 }
 
 .zoos-cam-card {
+  display: block;
+  text-decoration: none;
   position: relative;
   aspect-ratio: 4/3;
   overflow: hidden;
@@ -609,10 +568,12 @@
 @media (max-width: 1200px) {
   .zoos-sidebar {
     width: 180px;
+    margin-right: -180px;
   }
 
   .zoos-sidebar.is-expanded {
     width: 260px;
+    margin-right: -260px;
   }
 
   .zoos-sidebar__icon {
@@ -762,6 +723,7 @@
 
   .zoos-sidebar.is-expanded {
     width: 280px;
+    margin-right: -280px;
   }
 
   .zoos-sidebar.is-expanded .zoos-sidebar__header {
@@ -946,6 +908,7 @@
 
   .zoos-sidebar.is-expanded {
     width: 240px;
+    margin-right: -240px;
   }
 
   .zoos-sidebar.is-expanded .zoos-sidebar__item {
