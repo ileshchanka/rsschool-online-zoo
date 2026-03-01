@@ -26,7 +26,7 @@
   gap: 30px;
 }
 
-.contact-form-section__info h2 {
+.contact-form-section__info h1 {
   color: var(--turquoise);
 }
 
@@ -128,7 +128,7 @@
     padding-bottom: 70px;
   }
 
-  .contact-form-section__info h2 {
+  .contact-form-section__info h1 {
     font-size: 40px;
   }
 
@@ -156,7 +156,7 @@
     padding-bottom: 50px;
   }
 
-  .contact-form-section__info h2 {
+  .contact-form-section__info h1 {
     font-size: 28px;
   }
 
@@ -183,7 +183,7 @@
     padding-bottom: 32px;
   }
 
-  .contact-form-section__info h2 {
+  .contact-form-section__info h1 {
     font-size: 22px;
   }
 
