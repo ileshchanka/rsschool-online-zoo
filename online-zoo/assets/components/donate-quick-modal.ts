@@ -58,4 +58,12 @@ declare global {
   document.querySelectorAll<HTMLButtonElement>('.footer__donate').forEach((btn) => {
     btn.addEventListener('click', openModal);
   });
+
+  document.querySelectorAll<HTMLButtonElement>('.pay-feed__btn').forEach((btn) => {
+    btn.addEventListener('click', openModal);
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.zoos-content__donate-btn').forEach((btn) => {
+    btn.addEventListener('click', openModal);
+  });
 })();
