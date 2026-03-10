@@ -1,8 +1,10 @@
 {
   "name": "rsschool-online-zoo",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -10,6 +12,10 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "typescript": "^5.9.3"
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
+    "eslint": "^10.0.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.0"
   }
 }
