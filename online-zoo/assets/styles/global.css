@@ -556,7 +556,3 @@ a.button_outline::after {
     height: 28px;
   }
 }
-
-body.body--modal-open {
-  overflow: hidden;
-}

@@ -1,5 +1,0 @@
-node_modules/
-dist/
-
-# Compiled JS (generated from TypeScript by tsc)
-online-zoo/**/*.js

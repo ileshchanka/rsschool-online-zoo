@@ -1,19 +1,18 @@
 {
-  "include": ["online-zoo/**/*", "vite.config.ts"],
   "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "module": "nodenext",
     "target": "esnext",
     "types": [],
-    "sourceMap": false,
-    "declaration": false,
-    "declarationMap": false,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "strict": true,
-    "noImplicitAny": true,
+    "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true
   }
