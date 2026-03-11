@@ -162,23 +162,62 @@
         }
     }
     void loadPets();
-    // ─── Reviews slider ─────────────────────────────────────────────────────────
-    const reviewsGrid = document.querySelector('.reviews__grid');
-    const reviewsTrack = document.querySelector('.reviews__track');
-    const reviewsPrev = document.querySelector('.reviews__arrow--prev');
-    const reviewsNext = document.querySelector('.reviews__arrow--next');
-    if (reviewsGrid && reviewsTrack && reviewsPrev && reviewsNext) {
+    function buildReviewCard(item) {
+        return `
+      <div class="reviews__card">
+        <img class="reviews__card-quote" src="../../assets/icons/quotes.svg" alt="">
+        <h4 class="reviews__card-location">${escapeHtml(item.city)}, ${escapeHtml(item.month)} ${item.year}</h4>
+        <p class="reviews__card-text">${escapeHtml(item.text)}</p>
+        <span class="reviews__card-author">${escapeHtml(item.name)}</span>
+      </div>`;
+    }
+    function initReviewsSlider() {
+        const grid = document.querySelector('.reviews__grid');
+        const track = document.querySelector('.reviews__track');
+        const prevBtn = document.querySelector('.reviews__arrow--prev');
+        const nextBtn = document.querySelector('.reviews__arrow--next');
+        if (!grid || !track || !prevBtn || !nextBtn)
+            return;
         createSlider({
-            grid: reviewsGrid,
-            track: reviewsTrack,
+            grid,
+            track,
             cardSelector: '.reviews__card',
-            prevBtn: reviewsPrev,
-            nextBtn: reviewsNext,
+            prevBtn,
+            nextBtn,
             getCardsPerPage() {
                 return window.innerWidth <= 640 ? 1 : 2;
             },
         });
     }
+    async function loadReviews() {
+        const track = document.querySelector('.reviews__track');
+        if (!track) {
+            initReviewsSlider();
+            return;
+        }
+        track.innerHTML = '';
+        try {
+            const res = await fetch(`${API_BASE}/feedback`);
+            if (!res.ok)
+                throw new Error(`HTTP ${res.status}`);
+            const json = (await res.json());
+            if (json.data.length > 0) {
+                track.innerHTML = json.data.map(buildReviewCard).join('');
+            }
+            initReviewsSlider();
+        }
+        catch (err) {
+            console.error('Failed to load reviews:', err);
+            const grid = track.closest('.reviews__grid');
+            if (grid) {
+                grid.innerHTML = `
+          <div class="reviews__error">
+            <p>Could not load reviews. Please refresh the page.</p>
+          </div>`;
+            }
+        }
+    }
+    void loadReviews();
 })();
 export {};
 //# sourceMappingURL=script.js.map

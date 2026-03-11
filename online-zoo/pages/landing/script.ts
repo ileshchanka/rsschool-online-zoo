@@ -197,23 +197,75 @@
 
   void loadPets();
 
-  // ─── Reviews slider ─────────────────────────────────────────────────────────
+  // ─── Reviews from API ────────────────────────────────────────────────────────
 
-  const reviewsGrid = document.querySelector<HTMLElement>('.reviews__grid');
-  const reviewsTrack = document.querySelector<HTMLElement>('.reviews__track');
-  const reviewsPrev = document.querySelector<HTMLButtonElement>('.reviews__arrow--prev');
-  const reviewsNext = document.querySelector<HTMLButtonElement>('.reviews__arrow--next');
+  interface Feedback {
+    id: number;
+    city: string;
+    month: string;
+    year: number;
+    text: string;
+    name: string;
+  }
 
-  if (reviewsGrid && reviewsTrack && reviewsPrev && reviewsNext) {
+  interface FeedbackApiResponse {
+    data: Feedback[];
+  }
+
+  function buildReviewCard(item: Feedback): string {
+    return `
+      <div class="reviews__card">
+        <img class="reviews__card-quote" src="../../assets/icons/quotes.svg" alt="">
+        <h4 class="reviews__card-location">${escapeHtml(item.city)}, ${escapeHtml(item.month)} ${item.year}</h4>
+        <p class="reviews__card-text">${escapeHtml(item.text)}</p>
+        <span class="reviews__card-author">${escapeHtml(item.name)}</span>
+      </div>`;
+  }
+
+  function initReviewsSlider(): void {
+    const grid = document.querySelector<HTMLElement>('.reviews__grid');
+    const track = document.querySelector<HTMLElement>('.reviews__track');
+    const prevBtn = document.querySelector<HTMLButtonElement>('.reviews__arrow--prev');
+    const nextBtn = document.querySelector<HTMLButtonElement>('.reviews__arrow--next');
+    if (!grid || !track || !prevBtn || !nextBtn) return;
     createSlider({
-      grid: reviewsGrid,
-      track: reviewsTrack,
+      grid,
+      track,
       cardSelector: '.reviews__card',
-      prevBtn: reviewsPrev,
-      nextBtn: reviewsNext,
+      prevBtn,
+      nextBtn,
       getCardsPerPage(): number {
         return window.innerWidth <= 640 ? 1 : 2;
       },
     });
   }
+
+  async function loadReviews(): Promise<void> {
+    const track = document.querySelector<HTMLElement>('.reviews__track');
+    if (!track) {
+      initReviewsSlider();
+      return;
+    }
+    track.innerHTML = '';
+    try {
+      const res = await fetch(`${API_BASE}/feedback`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = (await res.json()) as FeedbackApiResponse;
+      if (json.data.length > 0) {
+        track.innerHTML = json.data.map(buildReviewCard).join('');
+      }
+      initReviewsSlider();
+    } catch (err) {
+      console.error('Failed to load reviews:', err);
+      const grid = track.closest<HTMLElement>('.reviews__grid');
+      if (grid) {
+        grid.innerHTML = `
+          <div class="reviews__error">
+            <p>Could not load reviews. Please refresh the page.</p>
+          </div>`;
+      }
+    }
+  }
+
+  void loadReviews();
 })();
