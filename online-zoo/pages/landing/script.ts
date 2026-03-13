@@ -39,23 +39,51 @@
 
   function createSlider(options: SliderOptions): void {
     const { grid, track, cardSelector, prevBtn, nextBtn, getCardsPerPage } = options;
-    const cards = Array.from(track.querySelectorAll<HTMLElement>(cardSelector));
-    let currentIndex = 0;
+    const originalCards = Array.from(track.querySelectorAll<HTMLElement>(cardSelector));
+    const totalOriginal = originalCards.length;
+    if (totalOriginal === 0) return;
+
+    let perPageCached = 0;
     let cardWidth = 0;
     let cardGap = 0;
-    let perPageCached = 0;
+    let currentIndex = 0;
+    let allCards: HTMLElement[] = [];
 
     track.style.willChange = 'transform';
 
-    function layout(): void {
+    function buildClones(): void {
       perPageCached = getCardsPerPage();
+
+      // Remove old clones
+      track.querySelectorAll('[data-clone]').forEach((el) => el.remove());
+
+      // Append clones of the first perPage cards to the end
+      for (let i = 0; i < perPageCached; i++) {
+        const clone = originalCards[i % totalOriginal]!.cloneNode(true) as HTMLElement;
+        clone.setAttribute('data-clone', '');
+        track.appendChild(clone);
+      }
+
+      // Prepend clones of the last perPage cards to the start
+      for (let i = perPageCached - 1; i >= 0; i--) {
+        const srcIndex = (totalOriginal - 1 - i + totalOriginal) % totalOriginal;
+        const clone = originalCards[srcIndex]!.cloneNode(true) as HTMLElement;
+        clone.setAttribute('data-clone', '');
+        track.prepend(clone);
+      }
+
+      allCards = Array.from(track.querySelectorAll<HTMLElement>(cardSelector));
+    }
+
+    function layout(): void {
+      buildClones();
       cardGap = parseFloat(getComputedStyle(track).columnGap) || 0;
       cardWidth = (grid.offsetWidth - cardGap * (perPageCached - 1)) / perPageCached;
-      cards.forEach((card) => {
+      allCards.forEach((card) => {
         card.style.width = `${cardWidth}px`;
       });
-      const maxIndex = Math.max(0, cards.length - perPageCached);
-      if (currentIndex > maxIndex) currentIndex = maxIndex;
+      // Reset to the first real card (offset by perPageCached clones prepended)
+      currentIndex = perPageCached;
       applyOffset('none');
     }
 
@@ -63,25 +91,35 @@
       const offset = currentIndex * (cardWidth + cardGap);
       track.style.transition = transition;
       track.style.transform = `translateX(-${offset}px)`;
-      const maxIndex = Math.max(0, cards.length - perPageCached);
-      prevBtn.disabled = currentIndex === 0;
-      nextBtn.disabled = currentIndex >= maxIndex;
     }
 
-    prevBtn.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        applyOffset('transform 0.4s ease');
+    /** Normalize currentIndex into the real-card range without animation */
+    function wrapIndex(): void {
+      if (currentIndex >= totalOriginal + perPageCached) {
+        currentIndex -= totalOriginal;
+        applyOffset('none');
+      } else if (currentIndex < perPageCached) {
+        currentIndex += totalOriginal;
+        applyOffset('none');
       }
-    });
+    }
 
-    nextBtn.addEventListener('click', () => {
-      const maxIndex = Math.max(0, cards.length - perPageCached);
-      if (currentIndex < maxIndex) {
-        currentIndex++;
-        applyOffset('transform 0.4s ease');
-      }
-    });
+    track.addEventListener('transitionend', wrapIndex);
+
+    function slide(delta: number): void {
+      // If mid-animation, snap to the target position instantly and wrap
+      wrapIndex();
+      // Force reflow so the instant snap is painted before the new animation
+      void track.offsetWidth;
+      currentIndex += delta;
+      applyOffset('transform 0.4s ease');
+    }
+
+    prevBtn.addEventListener('click', () => slide(-1));
+    nextBtn.addEventListener('click', () => slide(1));
+
+    prevBtn.disabled = false;
+    nextBtn.disabled = false;
 
     let resizeTimer: ReturnType<typeof setTimeout>;
     window.addEventListener('resize', () => {
