@@ -174,7 +174,6 @@
       initPetsSlider();
       return;
     }
-    track.innerHTML = '';
     try {
       const res = await fetch(`${API_BASE}/pets`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -246,7 +245,6 @@
       initReviewsSlider();
       return;
     }
-    track.innerHTML = '';
     try {
       const res = await fetch(`${API_BASE}/feedback`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
