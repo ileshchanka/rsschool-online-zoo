@@ -188,7 +188,7 @@
       if (grid) {
         grid.innerHTML = `
           <div class="pets__error">
-            <p>Could not load pets. Please refresh the page.</p>
+            <p>Something went wrong. Please, refresh the page</p>
           </div>`;
       }
     }
@@ -259,7 +259,7 @@
       if (grid) {
         grid.innerHTML = `
           <div class="reviews__error">
-            <p>Could not load reviews. Please refresh the page.</p>
+            <p>Something went wrong. Please, refresh the page</p>
           </div>`;
       }
     }
