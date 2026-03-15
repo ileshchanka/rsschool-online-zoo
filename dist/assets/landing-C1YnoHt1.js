@@ -1,0 +1,24 @@
+import"./auth-CRFqR3Ed.js";import"./donate-quick-modal-DSVpZ7c_.js";(function(){let e=document.getElementById(`headerBurger`),t=document.getElementById(`sideNav`),n=document.getElementById(`sideNavOverlay`),r=document.getElementById(`sideNavClose`);function i(){t?.classList.add(`is-open`),document.body.style.overflow=`hidden`}function a(){t?.classList.remove(`is-open`),document.body.style.overflow=``}e?.addEventListener(`click`,i),r?.addEventListener(`click`,a),n?.addEventListener(`click`,a),document.addEventListener(`keydown`,function(e){e.key===`Escape`&&a()})})(),(function(){function e(e){let{grid:t,track:n,cardSelector:r,prevBtn:i,nextBtn:a,getCardsPerPage:o}=e,s=Array.from(n.querySelectorAll(r)),c=s.length;if(c===0)return;let l=0,u=0,d=0,f=0,p=[];n.style.willChange=`transform`;function m(){l=o(),n.querySelectorAll(`[data-clone]`).forEach(e=>e.remove());for(let e=0;e<l;e++){let t=s[e%c].cloneNode(!0);t.setAttribute(`data-clone`,``),n.appendChild(t)}for(let e=l-1;e>=0;e--){let t=s[(c-1-e+c)%c].cloneNode(!0);t.setAttribute(`data-clone`,``),n.prepend(t)}p=Array.from(n.querySelectorAll(r))}function h(){m(),d=parseFloat(getComputedStyle(n).columnGap)||0,u=(t.offsetWidth-d*(l-1))/l,p.forEach(e=>{e.style.width=`${u}px`}),f=l,g(`none`)}function g(e){let t=f*(u+d);n.style.transition=e,n.style.transform=`translateX(-${t}px)`}function _(){f>=c+l?(f-=c,g(`none`)):f<l&&(f+=c,g(`none`))}n.addEventListener(`transitionend`,_);function v(e){_(),n.offsetWidth,f+=e,g(`transform 0.4s ease`)}i.addEventListener(`click`,()=>v(-1)),a.addEventListener(`click`,()=>v(1)),i.disabled=!1,a.disabled=!1;let y;window.addEventListener(`resize`,()=>{clearTimeout(y),y=setTimeout(h,150)}),h()}let t=`https://vsqsnqnxkh.execute-api.eu-central-1.amazonaws.com/prod`,n={1:`rectangle-giant-panda.jpg`,2:`rectangle-madagascarian-lemur.jpg`,3:`rectangle-gorilla-in-congo.jpg`,4:`rectangle-chinese-alligator.jpg`,5:`rectangle-west-end-bald-eagles.jpg`,6:`rectangle-australian-koala.jpg`,7:`rectangle-african-lion.jpg`,8:`rectangle-sumatran-tiger.jpg`};function r(e){return e.replace(/&/g,`&amp;`).replace(/</g,`&lt;`).replace(/>/g,`&gt;`).replace(/"/g,`&quot;`)}function i(e){let t=n[e.id],i=t?`<img src="../../assets/images/${t}" alt="${r(e.commonName)}">`:`<img src="../../assets/icons/pet-placeholder.svg" alt="No photo yet" class="pets__card-placeholder">`;return`
+      <div class="pets__card">
+        <div class="pets__card-img-wrap">
+          <span class="pets__card-name">${r(e.name)}</span>
+          ${i}
+        </div>
+        <div class="pets__card-body">
+          <p class="subheader">${r(e.commonName)}</p>
+          <p>${r(e.description)}</p>
+          <a class="pets__card-link" href="../zoos/">View Live Cam</a>
+        </div>
+      </div>`}function a(){let t=document.querySelector(`.pets__grid`),n=document.querySelector(`.pets__track`),r=document.querySelector(`.pets__arrow--prev`),i=document.querySelector(`.pets__arrow--next`);!t||!n||!r||!i||e({grid:t,track:n,cardSelector:`.pets__card`,prevBtn:r,nextBtn:i,getCardsPerPage(){let e=window.innerWidth;return e<=320?1:e<=640?2:e<=1200?3:4}})}async function o(){let e=document.querySelector(`.pets__track`);if(!e){a();return}try{let n=await fetch(`${t}/pets`);if(!n.ok)throw Error(`HTTP ${n.status}`);let r=await n.json();r.data.length>0&&(e.innerHTML=r.data.map(i).join(``)),a()}catch(t){console.error(`Failed to load pets:`,t);let n=e.closest(`.pets__grid`);n&&(n.innerHTML=`
+          <div class="pets__error">
+            <p>Something went wrong. Please, refresh the page</p>
+          </div>`)}}o();function s(e){return`
+      <div class="reviews__card">
+        <img class="reviews__card-quote" src="../../assets/icons/quotes.svg" alt="">
+        <h4 class="reviews__card-location">${r(e.city)}, ${r(e.month)} ${e.year}</h4>
+        <p class="reviews__card-text">${r(e.text)}</p>
+        <span class="reviews__card-author">${r(e.name)}</span>
+      </div>`}function c(){let t=document.querySelector(`.reviews__grid`),n=document.querySelector(`.reviews__track`),r=document.querySelector(`.reviews__arrow--prev`),i=document.querySelector(`.reviews__arrow--next`);!t||!n||!r||!i||e({grid:t,track:n,cardSelector:`.reviews__card`,prevBtn:r,nextBtn:i,getCardsPerPage(){return window.innerWidth<=640?1:2}})}async function l(){let e=document.querySelector(`.reviews__track`);if(!e){c();return}try{let n=await fetch(`${t}/feedback`);if(!n.ok)throw Error(`HTTP ${n.status}`);let r=await n.json();r.data.length>0&&(e.innerHTML=r.data.map(s).join(``)),c()}catch(t){console.error(`Failed to load reviews:`,t);let n=e.closest(`.reviews__grid`);n&&(n.innerHTML=`
+          <div class="reviews__error">
+            <p>Something went wrong. Please, refresh the page</p>
+          </div>`)}}l()})();
