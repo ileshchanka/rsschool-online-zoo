@@ -115,6 +115,10 @@ function closeMapModal() {
     if (iframe)
         iframe.src = '';
 }
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape')
+        closeMapModal();
+});
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
 function renderSidebar() {
     const nav = document.getElementById('sidebarNav');
