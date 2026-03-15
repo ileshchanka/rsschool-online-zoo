@@ -2,7 +2,6 @@ const API_BASE = 'https://vsqsnqnxkh.execute-api.eu-central-1.amazonaws.com/prod
 const IMG_BASE = '../../assets/images/';
 const ICON_BASE = '../../assets/icons/';
 
-// ─── Types ───────────────────────────────────────────────────────────────────
 interface Camera {
   id: number;
   petId: number;
@@ -31,7 +30,6 @@ interface PetDetail {
   detailedDescription: string;
 }
 
-// ─── Image mapping by pet ID ─────────────────────────────────────────────────
 const PET_IMAGES: Record<number, string> = {
   1: 'cameras/1.jpg',
   2: 'cameras/2.jpg',
@@ -84,12 +82,10 @@ const PET_CAM_IMAGES: Record<number, { img: string; label: string }[]> = {
   ],
 };
 
-// ─── State ───────────────────────────────────────────────────────────────────
 let cameras: Camera[] = [];
 let pets: Pet[] = [];
 let activeIndex = 0;
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
 function getPetById(petId: number): Pet | undefined {
   return pets.find((p) => p.id === petId);
 }
@@ -160,7 +156,6 @@ document.addEventListener('keydown', (e: KeyboardEvent) => {
   if (e.key === 'Escape') closeMapModal();
 });
 
-// ─── Sidebar ─────────────────────────────────────────────────────────────────
 function renderSidebar(): void {
   const nav = document.getElementById('sidebarNav');
   if (!nav) return;
@@ -183,7 +178,6 @@ function renderSidebar(): void {
   });
 }
 
-// ─── Content overlay ─────────────────────────────────────────────────────────
 const contentRoot = document.getElementById('zoosContentRoot');
 
 function showContentOverlay(): void {
@@ -214,7 +208,6 @@ function showContentOverlayError(): void {
   overlay?.classList.add('is-error');
 }
 
-// ─── Build content DOM ───────────────────────────────────────────────────────
 function buildContent(camera: Camera, pet: Pet, detail: PetDetail): void {
   if (!contentRoot) return;
 
@@ -332,7 +325,6 @@ function buildContent(camera: Camera, pet: Pet, detail: PetDetail): void {
     contentRoot.appendChild(bottomSection);
   }
 
-  // Bind View Map button
   const mapBtn = bottomSection.querySelector('.zoos-info__map-link') as HTMLButtonElement | null;
   mapBtn?.addEventListener('click', () => {
     const lat = parseCoord(mapBtn.dataset['lat'] ?? '');
@@ -341,7 +333,6 @@ function buildContent(camera: Camera, pet: Pet, detail: PetDetail): void {
     openMapModal(lat, lng, mapTitle);
   });
 
-  // Bind Donate Now button → open multi-step donation modal preselected to this pet
   const donateBtn = topSection.querySelector('.zoos-content__donate-btn') as HTMLButtonElement | null;
   donateBtn?.addEventListener('click', () => {
     (window as unknown as { openDonateStepsModal: (petId: number) => void })
@@ -349,7 +340,6 @@ function buildContent(camera: Camera, pet: Pet, detail: PetDetail): void {
   });
 }
 
-// ─── Select pet (fetch detail) ───────────────────────────────────────────────
 async function selectPet(petId: number): Promise<void> {
   const camera = cameras[activeIndex];
   const pet = getPetById(petId);
@@ -367,7 +357,6 @@ async function selectPet(petId: number): Promise<void> {
   }
 }
 
-// ─── Loader ──────────────────────────────────────────────────────────────────
 const zoosMain = document.querySelector('.zoos-main');
 const zoosLoader = document.getElementById('zoosLoader');
 
@@ -381,7 +370,6 @@ function hideLoader(): void {
   zoosLoader?.classList.add('is-hidden');
 }
 
-// ─── Build sidebar DOM ──────────────────────────────────────────────────────
 function buildSidebar(): void {
   const layout = document.getElementById('zoosLayout');
   if (!layout) return;
@@ -414,7 +402,6 @@ function buildSidebar(): void {
   layout.prepend(trigger);
   layout.prepend(overlay);
 
-  // Expand / collapse
   const expandBtn = aside.querySelector('.zoos-sidebar__expand');
 
   function openSidebar(): void {
@@ -437,7 +424,6 @@ function buildSidebar(): void {
   trigger.addEventListener('click', openSidebar);
 }
 
-// ─── API Fetch ───────────────────────────────────────────────────────────────
 async function loadCameras(): Promise<void> {
   showLoader();
   try {
@@ -467,7 +453,6 @@ async function loadCameras(): Promise<void> {
   hideLoader();
 }
 
-// ─── Mobile side-nav ─────────────────────────────────────────────────────────
 (function () {
   const headerBurger = document.getElementById('headerBurger');
   const sideNav = document.getElementById('sideNav');
@@ -495,5 +480,4 @@ async function loadCameras(): Promise<void> {
   });
 })();
 
-// ─── Init ────────────────────────────────────────────────────────────────────
 loadCameras();

@@ -737,19 +737,19 @@
   }
 }
 
-/* ─── Disabled buttons ──────────────────────────────────────────────────────── */
+
 .dsm__next:disabled,
 .dsm__complete:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
 
-/* placeholder colour in custom trigger spans */
+
 .dsm__select-placeholder {
   color: #888;
 }
 
-/* ─── Step 4 – completion screen ──────────────────────────────────────────── */
+
 .dsm__body--complete {
   display: flex;
   flex-direction: column;

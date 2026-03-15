@@ -7,7 +7,6 @@
   const popup = document.getElementById('headerUserPopup');
   const userNameEl = document.getElementById('headerUserName');
 
-  // ─── Auth modal (created once, reused) ────────────────────────────────────
   const modal = document.createElement('div');
   modal.className = 'auth-modal';
   modal.innerHTML = `
@@ -38,7 +37,6 @@
     if (e.key === 'Escape') closeModal();
   });
 
-  // ─── Helpers ──────────────────────────────────────────────────────────────
   function getToken(): string | null {
     const raw = localStorage.getItem(TOKEN_KEY);
     if (!raw) return null;
@@ -162,7 +160,6 @@
       .replace(/"/g, '&quot;');
   }
 
-  // ─── Close header popup ────────────────────────────────────────────────────
   function closePopup(): void {
     popup?.classList.remove('is-open');
   }
@@ -178,7 +175,6 @@
     }
   });
 
-  // ─── Validation helpers for Sign In ─────────────────────────────────────
   function validateLogin(value: string): string {
     if (value.length < 3) return 'Login must be at least 3 characters long';
     if (!/^[a-zA-Z]/.test(value)) return 'Login must start with a letter';
@@ -238,7 +234,6 @@
     });
   }
 
-  // ─── Render sign-in form inside modal ─────────────────────────────────────
   function showSignInForm(): void {
     modalContent.innerHTML = `
       <h2 class="auth-modal__title">Sign In</h2>
@@ -267,7 +262,6 @@
     openModal();
   }
 
-  // ─── Render registration form inside modal ────────────────────────────────
   function showRegisterForm(): void {
     modalContent.innerHTML = `
       <h2 class="auth-modal__title">Registration</h2>
@@ -303,7 +297,6 @@
     openModal();
   }
 
-  // ─── Error display ────────────────────────────────────────────────────────
   function showError(msg: string): void {
     const el = document.getElementById('authError');
     if (el) {
@@ -320,7 +313,6 @@
     }
   }
 
-  // ─── API: Sign In ─────────────────────────────────────────────────────────
   async function handleSignIn(e: Event): Promise<void> {
     e.preventDefault();
     clearError();
@@ -362,7 +354,6 @@
     }
   }
 
-  // ─── API: Register ────────────────────────────────────────────────────────
   async function handleRegister(e: Event): Promise<void> {
     e.preventDefault();
     clearError();
@@ -385,7 +376,6 @@
         return;
       }
 
-      // Registration succeeded — switch to sign-in form
       showSignInForm();
       const el = document.getElementById('authError');
       if (el) {
@@ -399,7 +389,6 @@
     }
   }
 
-  // ─── Render user popup (logged-in dropdown) ───────────────────────────────
   function renderUserPopup(name: string, email: string): void {
     if (!popup) return;
     popup.innerHTML = `
@@ -417,7 +406,6 @@
     });
   }
 
-  // ─── Mode switching ──────────────────────────────────────────────────────
   let isLoggedIn = false;
 
   function setGuestMode(): void {
@@ -449,13 +437,11 @@
     renderUserPopup(safeName, safeEmail);
   }
 
-  // ─── User icon click handler ──────────────────────────────────────────────
   userBtn?.addEventListener('click', (e: MouseEvent) => {
     e.stopPropagation();
     togglePopup();
   });
 
-  // ─── Load profile on init ────────────────────────────────────────────────
   async function loadProfile(): Promise<void> {
     const token = getToken();
     if (!token) {

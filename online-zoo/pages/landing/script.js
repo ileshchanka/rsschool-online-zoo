@@ -1,4 +1,3 @@
-// ─── Mobile side-nav ─────────────────────────────────────────────────────────
 (function () {
     const headerBurger = document.getElementById('headerBurger');
     const sideNav = document.getElementById('sideNav');
@@ -21,7 +20,6 @@
         }
     });
 })();
-// ─── Sliders + Pets from API ─────────────────────────────────────────────────
 (function () {
     function createSlider(options) {
         const { grid, track, cardSelector, prevBtn, nextBtn, getCardsPerPage } = options;
@@ -37,15 +35,12 @@
         track.style.willChange = 'transform';
         function buildClones() {
             perPageCached = getCardsPerPage();
-            // Remove old clones
             track.querySelectorAll('[data-clone]').forEach((el) => el.remove());
-            // Append clones of the first perPage cards to the end
             for (let i = 0; i < perPageCached; i++) {
                 const clone = originalCards[i % totalOriginal].cloneNode(true);
                 clone.setAttribute('data-clone', '');
                 track.appendChild(clone);
             }
-            // Prepend clones of the last perPage cards to the start
             for (let i = perPageCached - 1; i >= 0; i--) {
                 const srcIndex = (totalOriginal - 1 - i + totalOriginal) % totalOriginal;
                 const clone = originalCards[srcIndex].cloneNode(true);
@@ -61,7 +56,6 @@
             allCards.forEach((card) => {
                 card.style.width = `${cardWidth}px`;
             });
-            // Reset to the first real card (offset by perPageCached clones prepended)
             currentIndex = perPageCached;
             applyOffset('none');
         }
@@ -70,7 +64,7 @@
             track.style.transition = transition;
             track.style.transform = `translateX(-${offset}px)`;
         }
-        /** Normalize currentIndex into the real-card range without animation */
+        
         function wrapIndex() {
             if (currentIndex >= totalOriginal + perPageCached) {
                 currentIndex -= totalOriginal;
@@ -83,9 +77,7 @@
         }
         track.addEventListener('transitionend', wrapIndex);
         function slide(delta) {
-            // If mid-animation, snap to the target position instantly and wrap
             wrapIndex();
-            // Force reflow so the instant snap is painted before the new animation
             void track.offsetWidth;
             currentIndex += delta;
             applyOffset('transform 0.4s ease');
@@ -248,4 +240,3 @@
     void loadReviews();
 })();
 export {};
-//# sourceMappingURL=script.js.map

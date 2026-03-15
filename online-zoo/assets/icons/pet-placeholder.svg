@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240">
   <rect width="320" height="240" fill="#e8eaf0"/>
   <g transform="translate(160,100)" fill="#a0a8be">
-    <!-- paw silhouette -->
+    
     <ellipse cx="0" cy="22" rx="28" ry="20"/>
     <ellipse cx="-32" cy="8" rx="13" ry="10"/>
     <ellipse cx="32" cy="8" rx="13" ry="10"/>

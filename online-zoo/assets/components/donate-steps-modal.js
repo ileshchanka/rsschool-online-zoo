@@ -5,13 +5,11 @@
   var SAVED_CARDS_KEY = 'zoo_saved_cards';
   var AUTH_TOKEN_KEY  = 'zoo_auth_token';
 
-  // ─── Module state ──────────────────────────────────────────────────────────
-  var selectedAmount  = null;   // preset number or null
+  var selectedAmount  = null;
   var selectedPetId   = null;
   var selectedPetName = '';
-  var petsCache       = null;   // Pet[] cached after first fetch
+  var petsCache       = null;
 
-  // ─── Build and inject modal HTML ──────────────────────────────────────────
   var modalHTML =
     '<div class="dsm" id="donateStepsModal" role="dialog" aria-modal="true">'
   + '<div class="dsm__overlay" id="donateStepsOverlay"></div>'
@@ -19,7 +17,6 @@
   + '<button class="dsm__close" id="donateStepsClose" aria-label="Close">&times;</button>'
   + '<div class="dsm__header"><h2 class="dsm__title">Make your donation</h2></div>'
 
-  // ── Step 1: amount + pet ──────────────────────────────────────────────────
   + '<div class="dsm__step dsm__step--active" data-step="1"><div class="dsm__body">'
   + '<p class="dsm__section-title">Donation Information:</p><hr class="dsm__divider">'
   + '<p class="dsm__label"><span class="dsm__req">*</span> Choose your donation amount:</p>'
@@ -54,7 +51,6 @@
   + '<button class="dsm__next" type="button" data-next="2" id="dsmStep1Next" disabled>Next</button>'
   + '</div></div></div>'
 
-  // ── Step 2: billing info ──────────────────────────────────────────────────
   + '<div class="dsm__step" data-step="2"><div class="dsm__body">'
   + '<p class="dsm__section-title">Billing Information:</p><hr class="dsm__divider">'
   + '<div class="dsm__field">'
@@ -72,10 +68,8 @@
   + '<button class="dsm__next" type="button" data-next="3" id="dsmStep2Next" disabled>Next</button>'
   + '</div></div></div>'
 
-  // ── Step 3: payment ───────────────────────────────────────────────────────
   + '<div class="dsm__step" data-step="3"><div class="dsm__body">'
   + '<p class="dsm__section-title">Payment Information:</p><hr class="dsm__divider">'
-  // saved cards dropdown (shown only when logged-in + has saved cards)
   + '<div id="dsmSavedCardsRow" class="dsm__field" style="display:none">'
   + '<label class="dsm__label">Saved cards</label>'
   + '<div class="dsm__select" id="dsmSavedCardsSelect">'
@@ -100,7 +94,6 @@
   + '<div class="dsm__row dsm__row--exp" id="dsmExpRow"></div>'
   + '</div>'
   + '</div>'
-  // save card (shown only when logged-in)
   + '<label id="dsmSaveCardRow" class="dsm__checkbox-wrap" style="display:none">'
   + '<input class="dsm__checkbox" type="checkbox" id="dsmSaveCard">'
   + '<span class="dsm__checkbox-label">Save card for future donations</span>'
@@ -111,7 +104,6 @@
   + '<button class="dsm__complete" type="button" id="dsmComplete" disabled>Complete donation</button>'
   + '</div></div></div>'
 
-  // ── Step 4: completion screen ─────────────────────────────────────────────
   + '<div class="dsm__step" data-step="4"><div class="dsm__body dsm__body--complete">'
   + '<div id="dsmCompleteContent" class="dsm__complete-content"></div>'
   + '<div class="dsm__footer dsm__footer--center">'
@@ -128,7 +120,6 @@
   var dsmOverlay = document.getElementById('donateStepsOverlay');
   var dsmClose   = document.getElementById('donateStepsClose');
 
-  // ─── Helpers ───────────────────────────────────────────────────────────────
   function getToken()   { return localStorage.getItem(AUTH_TOKEN_KEY); }
   function isLoggedIn() { return !!getToken(); }
 
@@ -142,7 +133,6 @@
     return d.slice(0, 4) + ' **** **** ' + d.slice(12, 16);
   }
 
-  // Safely render a string as text inside HTML
   function safeHtml(str) {
     var d = document.createElement('div');
     d.textContent = String(str || '');
@@ -156,7 +146,6 @@
     el.addEventListener('animationend', function () { el.classList.remove('dsm__shake'); }, { once: true });
   }
 
-  // ─── Validation helpers ────────────────────────────────────────────────────
   function isValidCustomAmount(raw) {
     if (!raw || /[eE]/.test(raw)) return false;
     var v = parseFloat(raw);
@@ -179,14 +168,12 @@
     return y > now.getFullYear() || (y === now.getFullYear() && m >= (now.getMonth() + 1));
   }
 
-  // ─── Step navigation ───────────────────────────────────────────────────────
   function goToStep(n) {
     dsm.querySelectorAll('.dsm__step').forEach(function (s) { s.classList.remove('dsm__step--active'); });
     var target = dsm.querySelector('[data-step="' + n + '"]');
     if (target) target.classList.add('dsm__step--active');
   }
 
-  // ─── Enable / disable CTAs ─────────────────────────────────────────────────
   function getEffectiveAmount() {
     if (selectedAmount !== null) return selectedAmount;
     var el = document.getElementById('dsmOtherAmt');
@@ -219,7 +206,6 @@
     btn.disabled = !(cardOk && cvvOk && expOk);
   }
 
-  // ─── Pet dropdown ──────────────────────────────────────────────────────────
   function populatePets(pets, preselectedId) {
     var list    = document.getElementById('petSelectOptions');
     var valueEl = document.getElementById('petSelectValue');
@@ -275,7 +261,6 @@
     }
   }
 
-  // ─── Auth profile prefill ──────────────────────────────────────────────────
   async function prefillProfile() {
     var token = getToken();
     if (!token) return;
@@ -288,10 +273,9 @@
       if (nameEl  && data.name)  nameEl.value  = data.name;
       if (emailEl && data.email) emailEl.value = data.email;
       updateStep2Next();
-    } catch (e) { /* silent – user can fill manually */ }
+    } catch (e) {  }
   }
 
-  // ─── Expiry selects (built once on init) ───────────────────────────────────
   function buildExpirySelects() {
     var expRow  = document.getElementById('dsmExpRow');
     if (!expRow) return;
@@ -319,7 +303,6 @@
     document.getElementById('dsmExpYear').addEventListener('change',  updateCompleteBtn);
   }
 
-  // ─── Saved cards ───────────────────────────────────────────────────────────
   function clearCardFields() {
     ['dsmCardNumber', 'dsmCvv'].forEach(function (id) {
       var el = document.getElementById(id);
@@ -339,7 +322,6 @@
     if (cardEl)  cardEl.value  = card.number   || '';
     if (monthEl) monthEl.value = card.expMonth || '';
     if (yearEl)  yearEl.value  = card.expYear  || '';
-    // CVV is never stored – user re-enters each time
     var cvvEl = document.getElementById('dsmCvv');
     if (cvvEl) cvvEl.value = '';
     updateCompleteBtn();
@@ -355,7 +337,6 @@
       return;
     }
 
-    // Logged-in: always show "Save card" checkbox
     if (saveRow) {
       saveRow.style.display = '';
       var cb = document.getElementById('dsmSaveCard');
@@ -368,7 +349,6 @@
       return;
     }
 
-    // Has saved cards – build the selection dropdown
     if (savedRow) savedRow.style.display = '';
 
     var list    = document.getElementById('dsmSavedCardsOptions');
@@ -376,7 +356,6 @@
     if (!list) return;
     list.innerHTML = '';
 
-    // "New card" option (selected by default)
     var newLi = document.createElement('li');
     newLi.textContent = 'Enter new card';
     newLi.classList.add('is-selected');
@@ -390,7 +369,6 @@
     });
     list.appendChild(newLi);
 
-    // One entry per saved card
     cards.forEach(function (card) {
       var li = document.createElement('li');
       li.textContent = cardLabel(card.number);
@@ -399,7 +377,7 @@
         li.classList.add('is-selected');
         if (valueEl) { valueEl.textContent = cardLabel(card.number); valueEl.classList.remove('dsm__select-placeholder'); }
         prefillCard(card);
-        if (saveRow) saveRow.style.display = 'none'; // already saved
+        if (saveRow) saveRow.style.display = 'none';
         list.classList.remove('is-open');
       });
       list.appendChild(li);
@@ -408,7 +386,6 @@
     if (valueEl) { valueEl.textContent = 'Enter new card'; valueEl.classList.add('dsm__select-placeholder'); }
   }
 
-  // ─── POST /donations ───────────────────────────────────────────────────────
   async function submitDonation() {
     var token      = getToken();
     var amount     = getEffectiveAmount();
@@ -418,7 +395,6 @@
     var saveCardEl = document.getElementById('dsmSaveCard');
     var content    = document.getElementById('dsmCompleteContent');
 
-    // Persist card if requested (before navigating away from step 3)
     if (isLoggedIn() && saveCardEl && saveCardEl.checked && cardEl) {
       var monthEl2 = document.getElementById('dsmExpMonth');
       var yearEl2  = document.getElementById('dsmExpYear');
@@ -431,7 +407,6 @@
       }
     }
 
-    // Show spinner on step 4 while POST is in-flight
     goToStep(4);
     if (content) content.innerHTML = '<div class="dsm__complete-spinner"></div>';
 
@@ -448,18 +423,16 @@
       var res = await fetch(API + '/donations', { method: 'POST', headers: headers, body: JSON.stringify(body) });
       if (!res.ok) {
         var errBody = null;
-        try { errBody = await res.json(); } catch (e2) { /* ignore */ }
+        try { errBody = await res.json(); } catch (e2) {  }
         if (res.status === 403) throw new Error('Please sign in to complete your donation.');
         throw new Error((errBody && errBody.message) ? errBody.message : 'Something went wrong. Please, try again later.');
       }
-      // ── Success ────────────────────────────────────────────────────────────
       var amtDisplay = '$' + (Number.isInteger(amount) ? amount : amount.toFixed(2));
       if (content) content.innerHTML =
           '<div class="dsm__complete-icon dsm__complete-icon--success">&#10003;</div>'
         + '<p class="dsm__complete-msg">Thank you for your donation of '
         + safeHtml(amtDisplay) + ' to ' + safeHtml(selectedPetName) + '!</p>';
     } catch (err) {
-      // ── Error ──────────────────────────────────────────────────────────────
       if (content) content.innerHTML =
           '<div class="dsm__complete-icon dsm__complete-icon--error">&#10005;</div>'
         + '<p class="dsm__complete-msg dsm__complete-msg--error">'
@@ -467,13 +440,11 @@
     }
   }
 
-  // ─── Reset ─────────────────────────────────────────────────────────────────
   function resetModal(preselectedPetId) {
     selectedAmount  = null;
     selectedPetId   = null;
     selectedPetName = '';
 
-    // Step 1
     dsm.querySelectorAll('.dsm__amount').forEach(function (b) { b.classList.remove('is-selected'); });
     var otherAmt = document.getElementById('dsmOtherAmt');
     if (otherAmt) otherAmt.value = '';
@@ -487,7 +458,6 @@
     }
     updateStep1Next();
 
-    // Step 3
     clearCardFields();
     var saveCardEl2 = document.getElementById('dsmSaveCard');
     if (saveCardEl2) saveCardEl2.checked = false;
@@ -495,14 +465,13 @@
     if (savedCardsValueEl) { savedCardsValueEl.textContent = 'Enter new card'; savedCardsValueEl.classList.add('dsm__select-placeholder'); }
   }
 
-  // ─── Public API ────────────────────────────────────────────────────────────
   window.openDonateStepsModal = function (preselectedPetId) {
     resetModal(preselectedPetId || null);
     goToStep(1);
     dsm.classList.add('is-open');
     document.body.style.overflow = 'hidden';
-    loadPets(preselectedPetId || null);  // async – updates dropdown when ready
-    prefillProfile();                     // async – updates name/email when ready
+    loadPets(preselectedPetId || null);
+    prefillProfile();
     setupSavedCards();
   };
 
@@ -511,15 +480,12 @@
     document.body.style.overflow = '';
   };
 
-  // ─── Init ──────────────────────────────────────────────────────────────────
   buildExpirySelects();
 
-  // ─── Event listeners ───────────────────────────────────────────────────────
   dsmClose.addEventListener('click',   window.closeDonateStepsModal);
   dsmOverlay.addEventListener('click', window.closeDonateStepsModal);
 
   dsm.addEventListener('click', function (e) {
-    // Preset amount buttons
     var amtBtn = e.target.closest('.dsm__amount');
     if (amtBtn) {
       dsm.querySelectorAll('.dsm__amount').forEach(function (b) { b.classList.remove('is-selected'); });
@@ -531,7 +497,6 @@
       return;
     }
 
-    // Pet dropdown trigger
     if (e.target.closest('#petSelectTrigger')) {
       e.stopPropagation();
       var opts = document.getElementById('petSelectOptions');
@@ -539,7 +504,6 @@
       return;
     }
 
-    // Saved cards dropdown trigger
     if (e.target.closest('#dsmSavedCardsTrigger')) {
       e.stopPropagation();
       var savedOpts = document.getElementById('dsmSavedCardsOptions');
@@ -547,14 +511,12 @@
       return;
     }
 
-    // Next buttons
     var nextBtn = e.target.closest('[data-next]');
     if (nextBtn && !nextBtn.disabled) {
       goToStep(parseInt(nextBtn.dataset.next, 10));
       return;
     }
 
-    // Back links
     var backBtn = e.target.closest('[data-back]');
     if (backBtn) {
       e.preventDefault();
@@ -562,51 +524,43 @@
       return;
     }
 
-    // Complete donation (step 3 button)
     var completeBtn = e.target.closest('#dsmComplete');
     if (completeBtn && !completeBtn.disabled) {
       submitDonation();
       return;
     }
 
-    // Close button (step 4)
     if (e.target.closest('#dsmCloseBtn')) {
       window.closeDonateStepsModal();
       return;
     }
   });
 
-  // Live input handling: formatting, restricting, and real-time CTA enabling
   dsm.addEventListener('input', function (e) {
     var el = e.target;
 
-    // Custom amount – deselect presets
     if (el.id === 'dsmOtherAmt') {
       selectedAmount = null;
       dsm.querySelectorAll('.dsm__amount').forEach(function (b) { b.classList.remove('is-selected'); });
       updateStep1Next();
     }
 
-    // Card: auto-format as XXXX XXXX XXXX XXXX
     if (el.dataset.validate === 'card') {
       var digits = el.value.replace(/\D/g, '').slice(0, 16);
       el.value = digits.replace(/(\d{4})(?=\d)/g, '$1 ');
       updateCompleteBtn();
     }
 
-    // CVV: digits only, max 3
     if (el.dataset.validate === 'cvv') {
       el.value = el.value.replace(/\D/g, '').slice(0, 3);
       updateCompleteBtn();
     }
 
-    // Name / Email: live enable/disable Next button on step 2
     if (el.id === 'dsmName' || el.id === 'dsmEmail') {
       updateStep2Next();
     }
   });
 
-  // Dismiss custom dropdowns when clicking outside
   document.addEventListener('click', function () {
     var petOpts   = document.getElementById('petSelectOptions');
     if (petOpts)   petOpts.classList.remove('is-open');
@@ -614,12 +568,10 @@
     if (savedOpts) savedOpts.classList.remove('is-open');
   });
 
-  // Escape key closes the modal
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') window.closeDonateStepsModal();
   });
 
-  // Trigger from footer / pay-feed sections on other pages
   document.querySelectorAll('.footer__donate, .pay-feed__btn').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault();

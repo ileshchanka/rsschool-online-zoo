@@ -1,7 +1,6 @@
 const API_BASE = 'https://vsqsnqnxkh.execute-api.eu-central-1.amazonaws.com/prod';
 const IMG_BASE = '../../assets/images/';
 const ICON_BASE = '../../assets/icons/';
-// ─── Image mapping by pet ID ─────────────────────────────────────────────────
 const PET_IMAGES = {
     1: 'cameras/1.jpg',
     2: 'cameras/2.jpg',
@@ -50,11 +49,9 @@ const PET_CAM_IMAGES = {
         { img: 'eagles-additional-cam-card-3.jpg', label: 'CAM 3' },
     ],
 };
-// ─── State ───────────────────────────────────────────────────────────────────
 let cameras = [];
 let pets = [];
 let activeIndex = 0;
-// ─── Helpers ─────────────────────────────────────────────────────────────────
 function getPetById(petId) {
     return pets.find((p) => p.id === petId);
 }
@@ -119,7 +116,6 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape')
         closeMapModal();
 });
-// ─── Sidebar ─────────────────────────────────────────────────────────────────
 function renderSidebar() {
     const nav = document.getElementById('sidebarNav');
     if (!nav)
@@ -142,7 +138,6 @@ function renderSidebar() {
         nav.appendChild(btn);
     });
 }
-// ─── Content overlay ─────────────────────────────────────────────────────────
 const contentRoot = document.getElementById('zoosContentRoot');
 function showContentOverlay() {
     let overlay = document.getElementById('contentOverlay');
@@ -169,7 +164,6 @@ function showContentOverlayError() {
     const overlay = document.getElementById('contentOverlay');
     overlay?.classList.add('is-error');
 }
-// ─── Build content DOM ───────────────────────────────────────────────────────
 function buildContent(camera, pet, detail) {
     if (!contentRoot)
         return;
@@ -279,7 +273,6 @@ function buildContent(camera, pet, detail) {
         contentRoot.appendChild(donationSection);
         contentRoot.appendChild(bottomSection);
     }
-    // Bind View Map button
     const mapBtn = bottomSection.querySelector('.zoos-info__map-link');
     mapBtn?.addEventListener('click', () => {
         const lat = parseCoord(mapBtn.dataset['lat'] ?? '');
@@ -287,14 +280,12 @@ function buildContent(camera, pet, detail) {
         const mapTitle = mapBtn.dataset['title'] ?? '';
         openMapModal(lat, lng, mapTitle);
     });
-    // Bind Donate Now button → open multi-step donation modal preselected to this pet
     const donateBtn = topSection.querySelector('.zoos-content__donate-btn');
     donateBtn?.addEventListener('click', () => {
         window
             .openDonateStepsModal(camera.petId);
     });
 }
-// ─── Select pet (fetch detail) ───────────────────────────────────────────────
 async function selectPet(petId) {
     const camera = cameras[activeIndex];
     const pet = getPetById(petId);
@@ -313,7 +304,6 @@ async function selectPet(petId) {
         showContentOverlayError();
     }
 }
-// ─── Loader ──────────────────────────────────────────────────────────────────
 const zoosMain = document.querySelector('.zoos-main');
 const zoosLoader = document.getElementById('zoosLoader');
 function showLoader() {
@@ -324,7 +314,6 @@ function hideLoader() {
     zoosMain?.classList.remove('zoos-main--loading');
     zoosLoader?.classList.add('is-hidden');
 }
-// ─── Build sidebar DOM ──────────────────────────────────────────────────────
 function buildSidebar() {
     const layout = document.getElementById('zoosLayout');
     if (!layout)
@@ -353,7 +342,6 @@ function buildSidebar() {
     layout.prepend(aside);
     layout.prepend(trigger);
     layout.prepend(overlay);
-    // Expand / collapse
     const expandBtn = aside.querySelector('.zoos-sidebar__expand');
     function openSidebar() {
         aside.classList.add('is-expanded');
@@ -372,7 +360,6 @@ function buildSidebar() {
     overlay.addEventListener('click', closeSidebar);
     trigger.addEventListener('click', openSidebar);
 }
-// ─── API Fetch ───────────────────────────────────────────────────────────────
 async function loadCameras() {
     showLoader();
     try {
@@ -398,7 +385,6 @@ async function loadCameras() {
     }
     hideLoader();
 }
-// ─── Mobile side-nav ─────────────────────────────────────────────────────────
 (function () {
     const headerBurger = document.getElementById('headerBurger');
     const sideNav = document.getElementById('sideNav');
@@ -421,7 +407,5 @@ async function loadCameras() {
         }
     });
 })();
-// ─── Init ────────────────────────────────────────────────────────────────────
 loadCameras();
 export {};
-//# sourceMappingURL=script.js.map

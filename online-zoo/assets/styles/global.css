@@ -557,7 +557,7 @@ a.button_outline::after {
   }
 }
 
-/* ─── Header user icon + popup ─────────────────────────────────────────────── */
+
 
 .header__user {
   position: relative;
@@ -698,7 +698,7 @@ a.button_outline::after {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* ─── Auth modal ───────────────────────────────────────────────────────────── */
+
 
 .auth-modal {
   display: none;
@@ -835,7 +835,7 @@ a.button_outline::after {
   text-decoration: underline;
 }
 
-/* ─── Sign-in field validation states ─────────────────────────────────────── */
+
 .auth-modal__input.is-invalid {
   border-color: #e53935;
   background-image: url("../icons/error-circle.svg");

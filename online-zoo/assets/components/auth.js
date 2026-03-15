@@ -5,7 +5,6 @@
     const userBtn = document.getElementById('headerUserBtn');
     const popup = document.getElementById('headerUserPopup');
     const userNameEl = document.getElementById('headerUserName');
-    // ─── Auth modal (created once, reused) ────────────────────────────────────
     const modal = document.createElement('div');
     modal.className = 'auth-modal';
     modal.innerHTML = `
@@ -32,7 +31,6 @@
         if (e.key === 'Escape')
             closeModal();
     });
-    // ─── Helpers ──────────────────────────────────────────────────────────────
     function getToken() {
         const raw = localStorage.getItem(TOKEN_KEY);
         if (!raw)
@@ -154,7 +152,6 @@
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;');
     }
-    // ─── Close header popup ────────────────────────────────────────────────────
     function closePopup() {
         popup?.classList.remove('is-open');
     }
@@ -167,7 +164,6 @@
             closePopup();
         }
     });
-    // ─── Validation helpers for Sign In ─────────────────────────────────────
     function validateLogin(value) {
         if (value.length < 3)
             return 'Login must be at least 3 characters long';
@@ -231,7 +227,6 @@
             input.addEventListener('input', () => { updateSignInButton(); });
         });
     }
-    // ─── Render sign-in form inside modal ─────────────────────────────────────
     function showSignInForm() {
         modalContent.innerHTML = `
       <h2 class="auth-modal__title">Sign In</h2>
@@ -257,7 +252,6 @@
         attachSignInFieldListeners();
         openModal();
     }
-    // ─── Render registration form inside modal ────────────────────────────────
     function showRegisterForm() {
         modalContent.innerHTML = `
       <h2 class="auth-modal__title">Registration</h2>
@@ -290,7 +284,6 @@
         form?.addEventListener('submit', handleRegister);
         openModal();
     }
-    // ─── Error display ────────────────────────────────────────────────────────
     function showError(msg) {
         const el = document.getElementById('authError');
         if (el) {
@@ -305,7 +298,6 @@
             el.classList.remove('is-visible');
         }
     }
-    // ─── API: Sign In ─────────────────────────────────────────────────────────
     async function handleSignIn(e) {
         e.preventDefault();
         clearError();
@@ -341,7 +333,6 @@
             showError('Network error. Please try again.');
         }
     }
-    // ─── API: Register ────────────────────────────────────────────────────────
     async function handleRegister(e) {
         e.preventDefault();
         clearError();
@@ -361,7 +352,6 @@
                 showError(msg);
                 return;
             }
-            // Registration succeeded — switch to sign-in form
             showSignInForm();
             const el = document.getElementById('authError');
             if (el) {
@@ -375,7 +365,6 @@
             showError('Network error. Please try again.');
         }
     }
-    // ─── Render user popup (logged-in dropdown) ───────────────────────────────
     function renderUserPopup(name, email) {
         if (!popup)
             return;
@@ -393,7 +382,6 @@
             closePopup();
         });
     }
-    // ─── Mode switching ──────────────────────────────────────────────────────
     let isLoggedIn = false;
     function setGuestMode() {
         isLoggedIn = false;
@@ -424,12 +412,10 @@
         saveCachedProfile(safeName, safeEmail);
         renderUserPopup(safeName, safeEmail);
     }
-    // ─── User icon click handler ──────────────────────────────────────────────
     userBtn?.addEventListener('click', (e) => {
         e.stopPropagation();
         togglePopup();
     });
-    // ─── Load profile on init ────────────────────────────────────────────────
     async function loadProfile() {
         const token = getToken();
         if (!token) {
@@ -465,4 +451,3 @@
     void loadProfile();
 })();
 export {};
-//# sourceMappingURL=auth.js.map
