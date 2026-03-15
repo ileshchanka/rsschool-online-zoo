@@ -570,14 +570,15 @@ a.button_outline::after {
   gap: 8px;
   background: transparent;
   border: none;
-  padding: 6px;
+  padding: 6px 10px;
   cursor: pointer;
-  border-radius: 50%;
-  transition: background-color 0.2s;
+  border-radius: 5px;
+  transition: opacity 0.2s ease;
 }
 
 .header__user-btn:hover {
-  background-color: rgba(0, 0, 0, 0.08);
+  background-color: transparent;
+  opacity: 0.75;
 }
 
 .header__user-btn::after {
@@ -594,6 +595,11 @@ a.button_outline::after {
   font-weight: 600;
   color: var(--black);
   white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.header__user-btn:hover .header__user-name {
+  color: var(--turquoise);
 }
 
 .header__user-name:empty {
@@ -827,4 +833,30 @@ a.button_outline::after {
 
 .auth-modal__footer a:hover {
   text-decoration: underline;
+}
+
+/* ─── Sign-in field validation states ─────────────────────────────────────── */
+.auth-modal__input.is-invalid {
+  border-color: #e53935;
+  background-image: url("../icons/error-circle.svg");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 20px 20px;
+  padding-right: 42px;
+}
+
+.auth-modal__field-error {
+  display: none;
+  font-size: 13px;
+  color: #e53935;
+  margin-top: 2px;
+}
+
+.auth-modal__field-error.is-visible {
+  display: block;
+}
+
+.auth-modal__submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
