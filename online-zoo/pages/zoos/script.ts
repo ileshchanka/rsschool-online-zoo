@@ -311,6 +311,62 @@ function hideLoader(): void {
   zoosLoader?.classList.add('is-hidden');
 }
 
+// ─── Build sidebar DOM ──────────────────────────────────────────────────────
+function buildSidebar(): void {
+  const layout = document.getElementById('zoosLayout');
+  if (!layout) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'zoos-sidebar-overlay';
+  overlay.id = 'zoosSidebarOverlay';
+
+  const trigger = document.createElement('button');
+  trigger.className = 'zoos-sidebar-trigger';
+  trigger.id = 'zoosSidebarTrigger';
+  trigger.setAttribute('aria-label', 'Open camera list');
+  trigger.innerHTML = `<span class="zoos-sidebar-trigger__live">LIVE</span><img src="${ICON_BASE}live-camera.svg" alt="Live">`;
+
+  const aside = document.createElement('aside');
+  aside.className = 'zoos-sidebar';
+  aside.innerHTML = `
+    <div class="zoos-sidebar__header">
+      <div class="zoos-sidebar__live">
+        <span class="zoos-sidebar__live-text">LIVE</span>
+        <img class="zoos-sidebar__live-icon" src="${ICON_BASE}live-camera.svg" alt="Live">
+      </div>
+      <button class="zoos-sidebar__expand" aria-label="Expand sidebar"><img src="${ICON_BASE}expand.svg" alt="Expand"></button>
+    </div>
+    <nav class="zoos-sidebar__nav" id="sidebarNav"></nav>
+    <button class="zoos-sidebar__scroll-down" aria-label="Scroll down">&#8964;</button>
+  `;
+
+  layout.prepend(aside);
+  layout.prepend(trigger);
+  layout.prepend(overlay);
+
+  // Expand / collapse
+  const expandBtn = aside.querySelector('.zoos-sidebar__expand');
+
+  function openSidebar(): void {
+    aside.classList.add('is-expanded');
+  }
+
+  function closeSidebar(): void {
+    aside.classList.remove('is-expanded');
+  }
+
+  expandBtn?.addEventListener('click', () => {
+    if (aside.classList.contains('is-expanded')) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  });
+
+  overlay.addEventListener('click', closeSidebar);
+  trigger.addEventListener('click', openSidebar);
+}
+
 // ─── API Fetch ───────────────────────────────────────────────────────────────
 async function loadCameras(): Promise<void> {
   showLoader();
@@ -331,6 +387,7 @@ async function loadCameras(): Promise<void> {
     pets = petData.data;
 
     activeIndex = 0;
+    buildSidebar();
     renderSidebar();
     renderContent();
   } catch {
@@ -339,31 +396,6 @@ async function loadCameras(): Promise<void> {
   }
   hideLoader();
 }
-
-// ─── Sidebar expand / collapse ───────────────────────────────────────────────
-const sidebar = document.querySelector('.zoos-sidebar');
-const expandBtn = document.querySelector('.zoos-sidebar__expand');
-const sidebarOverlay = document.getElementById('zoosSidebarOverlay');
-const sidebarTrigger = document.getElementById('zoosSidebarTrigger');
-
-function openZoosSidebar(): void {
-  sidebar?.classList.add('is-expanded');
-}
-
-function closeZoosSidebar(): void {
-  sidebar?.classList.remove('is-expanded');
-}
-
-expandBtn?.addEventListener('click', () => {
-  if (sidebar?.classList.contains('is-expanded')) {
-    closeZoosSidebar();
-  } else {
-    openZoosSidebar();
-  }
-});
-
-sidebarOverlay?.addEventListener('click', closeZoosSidebar);
-sidebarTrigger?.addEventListener('click', openZoosSidebar);
 
 // ─── Mobile side-nav ─────────────────────────────────────────────────────────
 (function () {
