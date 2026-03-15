@@ -25,6 +25,8 @@ interface PetDetail {
   diet: string;
   habitat: string;
   range: string;
+  latitude: string;
+  longitude: string;
   description: string;
   detailedDescription: string;
 }
@@ -104,6 +106,54 @@ function escapeHtml(text: string): string {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
+}
+
+function parseCoord(raw: string): number {
+  const match = raw.match(/([\d.]+)°?\s*([NSEW])/i);
+  if (!match) return 0;
+  const value = parseFloat(match[1]!);
+  const dir = match[2]!.toUpperCase();
+  return dir === 'S' || dir === 'W' ? -value : value;
+}
+
+function openMapModal(lat: number, lng: number, title: string): void {
+  let modal = document.getElementById('mapModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'mapModal';
+    modal.className = 'map-modal';
+    modal.innerHTML = `
+      <div class="map-modal__overlay"></div>
+      <div class="map-modal__window">
+        <button class="map-modal__close" aria-label="Close">&times;</button>
+        <h3 class="map-modal__title"></h3>
+        <iframe class="map-modal__iframe" frameborder="0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    modal.querySelector('.map-modal__overlay')?.addEventListener('click', closeMapModal);
+    modal.querySelector('.map-modal__close')?.addEventListener('click', closeMapModal);
+  }
+
+  const titleEl = modal.querySelector('.map-modal__title');
+  if (titleEl) titleEl.textContent = title;
+
+  const iframe = modal.querySelector('.map-modal__iframe') as HTMLIFrameElement | null;
+  if (iframe) {
+    iframe.src = `https://maps.google.com/maps?q=${lat},${lng}&z=6&output=embed`;
+  }
+
+  modal.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMapModal(): void {
+  const modal = document.getElementById('mapModal');
+  if (!modal) return;
+  modal.classList.remove('is-open');
+  document.body.style.overflow = '';
+  const iframe = modal.querySelector('.map-modal__iframe') as HTMLIFrameElement | null;
+  if (iframe) iframe.src = '';
 }
 
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
@@ -200,7 +250,7 @@ function buildContent(camera: Camera, pet: Pet, detail: PetDetail): void {
   let infoRowsHtml = '';
   infoRows.forEach(([key, value]) => {
     if (key === 'Range:') {
-      infoRowsHtml += `<tr><td>${escapeHtml(key)}</td><td>${escapeHtml(value)} <a class="zoos-info__map-link" href="../map/">View Map</a></td></tr>`;
+      infoRowsHtml += `<tr><td>${escapeHtml(key)}</td><td>${escapeHtml(value)} <button class="zoos-info__map-link" data-lat="${escapeHtml(detail.latitude)}" data-lng="${escapeHtml(detail.longitude)}" data-title="${escapeHtml(detail.commonName)}">View Map</button></td></tr>`;
     } else {
       infoRowsHtml += `<tr><td>${escapeHtml(key)}</td><td>${escapeHtml(value)}</td></tr>`;
     }
@@ -277,6 +327,15 @@ function buildContent(camera: Camera, pet: Pet, detail: PetDetail): void {
     contentRoot.appendChild(donationSection);
     contentRoot.appendChild(bottomSection);
   }
+
+  // Bind View Map button
+  const mapBtn = bottomSection.querySelector('.zoos-info__map-link') as HTMLButtonElement | null;
+  mapBtn?.addEventListener('click', () => {
+    const lat = parseCoord(mapBtn.dataset['lat'] ?? '');
+    const lng = parseCoord(mapBtn.dataset['lng'] ?? '');
+    const mapTitle = mapBtn.dataset['title'] ?? '';
+    openMapModal(lat, lng, mapTitle);
+  });
 }
 
 // ─── Select pet (fetch detail) ───────────────────────────────────────────────
