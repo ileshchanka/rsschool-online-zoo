@@ -334,10 +334,10 @@ async function loadCameras(): Promise<void> {
     renderSidebar();
     renderContent();
   } catch {
-    console.error('Failed to load cameras data');
-  } finally {
-    hideLoader();
+    zoosLoader?.classList.add('is-error');
+    return;
   }
+  hideLoader();
 }
 
 // ─── Sidebar expand / collapse ───────────────────────────────────────────────

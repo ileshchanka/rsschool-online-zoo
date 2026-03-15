@@ -277,11 +277,10 @@ async function loadCameras() {
         renderContent();
     }
     catch {
-        console.error('Failed to load cameras data');
+        zoosLoader?.classList.add('is-error');
+        return;
     }
-    finally {
-        hideLoader();
-    }
+    hideLoader();
 }
 // ─── Sidebar expand / collapse ───────────────────────────────────────────────
 const sidebar = document.querySelector('.zoos-sidebar');
