@@ -246,8 +246,20 @@ function renderContent() {
         description.textContent = detail?.description ?? (pet?.description ?? '');
     }
 }
+// ─── Loader ──────────────────────────────────────────────────────────────────
+const zoosMain = document.querySelector('.zoos-main');
+const zoosLoader = document.getElementById('zoosLoader');
+function showLoader() {
+    zoosMain?.classList.add('zoos-main--loading');
+    zoosLoader?.classList.remove('is-hidden');
+}
+function hideLoader() {
+    zoosMain?.classList.remove('zoos-main--loading');
+    zoosLoader?.classList.add('is-hidden');
+}
 // ─── API Fetch ───────────────────────────────────────────────────────────────
 async function loadCameras() {
+    showLoader();
     try {
         const [camRes, petRes] = await Promise.all([
             fetch(`${API_BASE}/cameras`),
@@ -266,6 +278,9 @@ async function loadCameras() {
     }
     catch {
         console.error('Failed to load cameras data');
+    }
+    finally {
+        hideLoader();
     }
 }
 // ─── Sidebar expand / collapse ───────────────────────────────────────────────

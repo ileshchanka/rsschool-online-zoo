@@ -297,8 +297,23 @@ function renderContent(): void {
   }
 }
 
+// ─── Loader ──────────────────────────────────────────────────────────────────
+const zoosMain = document.querySelector('.zoos-main');
+const zoosLoader = document.getElementById('zoosLoader');
+
+function showLoader(): void {
+  zoosMain?.classList.add('zoos-main--loading');
+  zoosLoader?.classList.remove('is-hidden');
+}
+
+function hideLoader(): void {
+  zoosMain?.classList.remove('zoos-main--loading');
+  zoosLoader?.classList.add('is-hidden');
+}
+
 // ─── API Fetch ───────────────────────────────────────────────────────────────
 async function loadCameras(): Promise<void> {
+  showLoader();
   try {
     const [camRes, petRes] = await Promise.all([
       fetch(`${API_BASE}/cameras`),
@@ -320,6 +335,8 @@ async function loadCameras(): Promise<void> {
     renderContent();
   } catch {
     console.error('Failed to load cameras data');
+  } finally {
+    hideLoader();
   }
 }
 
