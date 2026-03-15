@@ -287,6 +287,12 @@ function buildContent(camera, pet, detail) {
         const mapTitle = mapBtn.dataset['title'] ?? '';
         openMapModal(lat, lng, mapTitle);
     });
+    // Bind Donate Now button → open multi-step donation modal preselected to this pet
+    const donateBtn = topSection.querySelector('.zoos-content__donate-btn');
+    donateBtn?.addEventListener('click', () => {
+        window
+            .openDonateStepsModal(camera.petId);
+    });
 }
 // ─── Select pet (fetch detail) ───────────────────────────────────────────────
 async function selectPet(petId) {

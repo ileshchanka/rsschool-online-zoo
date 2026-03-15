@@ -340,6 +340,13 @@ function buildContent(camera: Camera, pet: Pet, detail: PetDetail): void {
     const mapTitle = mapBtn.dataset['title'] ?? '';
     openMapModal(lat, lng, mapTitle);
   });
+
+  // Bind Donate Now button → open multi-step donation modal preselected to this pet
+  const donateBtn = topSection.querySelector('.zoos-content__donate-btn') as HTMLButtonElement | null;
+  donateBtn?.addEventListener('click', () => {
+    (window as unknown as { openDonateStepsModal: (petId: number) => void })
+      .openDonateStepsModal(camera.petId);
+  });
 }
 
 // ─── Select pet (fetch detail) ───────────────────────────────────────────────

@@ -1,142 +1,152 @@
 (function () {
-  var modalHTML = '<div class="dsm" id="donateStepsModal" role="dialog" aria-modal="true">'
-    + '<div class="dsm__overlay" id="donateStepsOverlay"></div>'
-    + '<div class="dsm__window">'
-    + '<button class="dsm__close" id="donateStepsClose" aria-label="Close">&times;</button>'
-    + '<div class="dsm__header"><h2 class="dsm__title">Make your donation</h2></div>'
+  'use strict';
 
-    + '<div class="dsm__step dsm__step--active" data-step="1">'
-    + '<div class="dsm__body">'
-    + '<p class="dsm__section-title">Donation Information:</p>'
-    + '<hr class="dsm__divider">'
-    + '<p class="dsm__label"><span class="dsm__req">*</span> Choose your donation amount:</p>'
-    + '<div class="dsm__amounts-wrap"><div class="dsm__amounts">'
-    + '<button class="dsm__amount" type="button">$10</button>'
-    + '<button class="dsm__amount" type="button">$20</button>'
-    + '<button class="dsm__amount" type="button">$30</button>'
-    + '<button class="dsm__amount" type="button">$50</button>'
-    + '<button class="dsm__amount" type="button">$80</button>'
-    + '<button class="dsm__amount" type="button">$100</button>'
-    + '</div></div>'
-    + '<div class="dsm__row">'
-    + '<button class="dsm__side-btn dsm__side-btn--dark" type="button">Other amount</button>'
-    + '<input class="dsm__side-input" type="number" placeholder="">'
-    + '</div>'
-    + '<div class="dsm__row">'
-    + '<button class="dsm__side-btn" type="button">For special pet</button>'
-    + '<div class="dsm__select" id="petSelect">'
-    + '<div class="dsm__select-trigger" id="petSelectTrigger">'
-    + '<span id="petSelectValue">Choose your favourite</span>'
-    + '<span class="dsm__select-arrow"></span>'
-    + '</div>'
-    + '<ul class="dsm__select-options" id="petSelectOptions">'
-    + '<li data-value="lucas">Lukas the Panda</li>'
-    + '<li data-value="andy">Andy the Lemur</li>'
-    + '<li data-value="glen">Glen the Gorilla</li>'
-    + '<li data-value="mike">Mike the Alligator</li>'
-    + '<li data-value="sam">Sam &amp; Lora the eagles family</li>'
-    + '<li data-value="liz">Liz the Koala</li>'
-    + '<li data-value="shake">Shake the Lion</li>'
-    + '<li data-value="senja">Senja the Tiger</li>'
-    + '</ul>'
-    + '</div>'
-    + '</div>'
-    + '<label class="dsm__checkbox-wrap">'
-    + '<input class="dsm__checkbox" type="checkbox">'
-    + '<span class="dsm__checkbox-label">Make this a monthly recurring gift</span>'
-    + '</label>'
-    + '<div class="dsm__footer">'
-    + '<div class="dsm__dots"><span class="dsm__dot dsm__dot--active"></span><span class="dsm__dot"></span><span class="dsm__dot"></span></div>'
-    + '<button class="dsm__next" type="button" data-next="2">Next</button>'
-    + '</div>'
-    + '</div></div>'
+  var API             = 'https://vsqsnqnxkh.execute-api.eu-central-1.amazonaws.com/prod';
+  var SAVED_CARDS_KEY = 'zoo_saved_cards';
+  var AUTH_TOKEN_KEY  = 'zoo_auth_token';
 
-    + '<div class="dsm__step" data-step="2">'
-    + '<div class="dsm__body">'
-    + '<p class="dsm__section-title">Billing Information:</p>'
-    + '<hr class="dsm__divider">'
-    + '<div class="dsm__field"><label class="dsm__label"><span class="dsm__req">*</span> Your Name</label><input class="dsm__input" type="text" placeholder="First and last name"></div>'
-    + '<div class="dsm__field"><label class="dsm__label"><span class="dsm__req">*</span> Your Email Address</label><input class="dsm__input" type="email" placeholder="Enter your email"><p class="dsm__hint">You will receive emails from the Online Zoo, including updates and news on the latest discoveries and translations. You can unsubscribe at any time.</p></div>'
-    + '<div class="dsm__footer">'
-    + '<div class="dsm__dots"><span class="dsm__dot dsm__dot--active"></span><span class="dsm__dot dsm__dot--active"></span><span class="dsm__dot"></span></div>'
-    + '<a class="dsm__back" href="#" data-back="1">Back</a>'
-    + '<button class="dsm__next" type="button" data-next="3">Next</button>'
-    + '</div>'
-    + '</div></div>'
+  // ─── Module state ──────────────────────────────────────────────────────────
+  var selectedAmount  = null;   // preset number or null
+  var selectedPetId   = null;
+  var selectedPetName = '';
+  var petsCache       = null;   // Pet[] cached after first fetch
 
-    + '<div class="dsm__step" data-step="3">'
-    + '<div class="dsm__body">'
-    + '<p class="dsm__section-title">Payment Information:</p>'
-    + '<hr class="dsm__divider">'
-    + '<div class="dsm__field"><label class="dsm__label"><span class="dsm__req">*</span> Credit Card Number</label><input class="dsm__input" type="text" placeholder="1234 5678 9012 3456" data-validate="card" maxlength="19"></div>'
-    + '<div class="dsm__field dsm__field--cvv"><label class="dsm__label"><span class="dsm__req">*</span> CVV Number</label><input class="dsm__input" type="text" placeholder="123" data-validate="cvv" maxlength="4"></div>'
-    + '<div class="dsm__field"><label class="dsm__label"><span class="dsm__req">*</span> Expiration Date</label>'
-    + '<div class="dsm__row dsm__row--exp">'
-    + '<div class="dsm__select dsm__select--native"><select class="dsm__select-el"><option value="" disabled selected>Month</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option></select><span class="dsm__select-arrow"></span></div>'
-    + '<div class="dsm__select dsm__select--native"><select class="dsm__select-el"><option value="" disabled selected>Year</option><option>2026</option><option>2027</option><option>2028</option><option>2029</option><option>2030</option><option>2031</option><option>2032</option><option>2033</option><option>2034</option></select><span class="dsm__select-arrow"></span></div>'
-    + '</div></div>'
-    + '<div class="dsm__footer">'
-    + '<div class="dsm__dots"><span class="dsm__dot dsm__dot--active"></span><span class="dsm__dot dsm__dot--active"></span><span class="dsm__dot dsm__dot--active"></span></div>'
-    + '<a class="dsm__back" href="#" data-back="2">Back</a>'
-    + '<button class="dsm__complete" type="button">Complete donation</button>'
-    + '</div>'
-    + '</div></div>'
+  // ─── Build and inject modal HTML ──────────────────────────────────────────
+  var modalHTML =
+    '<div class="dsm" id="donateStepsModal" role="dialog" aria-modal="true">'
+  + '<div class="dsm__overlay" id="donateStepsOverlay"></div>'
+  + '<div class="dsm__window">'
+  + '<button class="dsm__close" id="donateStepsClose" aria-label="Close">&times;</button>'
+  + '<div class="dsm__header"><h2 class="dsm__title">Make your donation</h2></div>'
 
-    + '</div></div>';
+  // ── Step 1: amount + pet ──────────────────────────────────────────────────
+  + '<div class="dsm__step dsm__step--active" data-step="1"><div class="dsm__body">'
+  + '<p class="dsm__section-title">Donation Information:</p><hr class="dsm__divider">'
+  + '<p class="dsm__label"><span class="dsm__req">*</span> Choose your donation amount:</p>'
+  + '<div class="dsm__amounts-wrap"><div class="dsm__amounts" id="dsmAmounts">'
+  + '<button class="dsm__amount" type="button" data-value="10">$10</button>'
+  + '<button class="dsm__amount" type="button" data-value="20">$20</button>'
+  + '<button class="dsm__amount" type="button" data-value="30">$30</button>'
+  + '<button class="dsm__amount" type="button" data-value="50">$50</button>'
+  + '<button class="dsm__amount" type="button" data-value="80">$80</button>'
+  + '<button class="dsm__amount" type="button" data-value="100">$100</button>'
+  + '</div></div>'
+  + '<div class="dsm__row">'
+  + '<button class="dsm__side-btn dsm__side-btn--dark" type="button" id="dsmOtherAmtBtn">Other amount</button>'
+  + '<input class="dsm__side-input" id="dsmOtherAmt" type="number" min="0.01" step="0.01" placeholder="">'
+  + '</div>'
+  + '<div class="dsm__row">'
+  + '<button class="dsm__side-btn" type="button">For special pet</button>'
+  + '<div class="dsm__select" id="petSelect">'
+  + '<div class="dsm__select-trigger" id="petSelectTrigger">'
+  + '<span id="petSelectValue" class="dsm__select-placeholder">Choose your favourite</span>'
+  + '<span class="dsm__select-arrow"></span>'
+  + '</div>'
+  + '<ul class="dsm__select-options" id="petSelectOptions"></ul>'
+  + '</div>'
+  + '</div>'
+  + '<label class="dsm__checkbox-wrap">'
+  + '<input class="dsm__checkbox" type="checkbox" id="dsmMonthly">'
+  + '<span class="dsm__checkbox-label">Make this a monthly recurring gift</span>'
+  + '</label>'
+  + '<div class="dsm__footer">'
+  + '<div class="dsm__dots"><span class="dsm__dot dsm__dot--active"></span><span class="dsm__dot"></span><span class="dsm__dot"></span></div>'
+  + '<button class="dsm__next" type="button" data-next="2" id="dsmStep1Next" disabled>Next</button>'
+  + '</div></div></div>'
+
+  // ── Step 2: billing info ──────────────────────────────────────────────────
+  + '<div class="dsm__step" data-step="2"><div class="dsm__body">'
+  + '<p class="dsm__section-title">Billing Information:</p><hr class="dsm__divider">'
+  + '<div class="dsm__field">'
+  + '<label class="dsm__label"><span class="dsm__req">*</span> Your Name</label>'
+  + '<input class="dsm__input" id="dsmName" type="text" placeholder="First and last name">'
+  + '</div>'
+  + '<div class="dsm__field">'
+  + '<label class="dsm__label"><span class="dsm__req">*</span> Your Email Address</label>'
+  + '<input class="dsm__input" id="dsmEmail" type="email" placeholder="Enter your email">'
+  + '<p class="dsm__hint">You will receive emails from the Online Zoo, including updates and news on the latest discoveries. You can unsubscribe at any time.</p>'
+  + '</div>'
+  + '<div class="dsm__footer">'
+  + '<div class="dsm__dots"><span class="dsm__dot dsm__dot--active"></span><span class="dsm__dot dsm__dot--active"></span><span class="dsm__dot"></span></div>'
+  + '<a class="dsm__back" href="#" data-back="1">Back</a>'
+  + '<button class="dsm__next" type="button" data-next="3" id="dsmStep2Next" disabled>Next</button>'
+  + '</div></div></div>'
+
+  // ── Step 3: payment ───────────────────────────────────────────────────────
+  + '<div class="dsm__step" data-step="3"><div class="dsm__body">'
+  + '<p class="dsm__section-title">Payment Information:</p><hr class="dsm__divider">'
+  // saved cards dropdown (shown only when logged-in + has saved cards)
+  + '<div id="dsmSavedCardsRow" class="dsm__field" style="display:none">'
+  + '<label class="dsm__label">Saved cards</label>'
+  + '<div class="dsm__select" id="dsmSavedCardsSelect">'
+  + '<div class="dsm__select-trigger" id="dsmSavedCardsTrigger">'
+  + '<span id="dsmSavedCardsValue" class="dsm__select-placeholder">Enter new card</span>'
+  + '<span class="dsm__select-arrow"></span>'
+  + '</div>'
+  + '<ul class="dsm__select-options" id="dsmSavedCardsOptions"></ul>'
+  + '</div>'
+  + '</div>'
+  + '<div class="dsm__field">'
+  + '<label class="dsm__label"><span class="dsm__req">*</span> Credit Card Number</label>'
+  + '<input class="dsm__input" id="dsmCardNumber" type="text" placeholder="1234 5678 9012 3456" data-validate="card" maxlength="19">'
+  + '</div>'
+  + '<div class="dsm__row dsm__row--fields">'
+  + '<div class="dsm__field dsm__field--cvv">'
+  + '<label class="dsm__label"><span class="dsm__req">*</span> CVV</label>'
+  + '<input class="dsm__input" id="dsmCvv" type="text" placeholder="123" data-validate="cvv" maxlength="3">'
+  + '</div>'
+  + '<div class="dsm__field">'
+  + '<label class="dsm__label"><span class="dsm__req">*</span> Expiration Date</label>'
+  + '<div class="dsm__row dsm__row--exp" id="dsmExpRow"></div>'
+  + '</div>'
+  + '</div>'
+  // save card (shown only when logged-in)
+  + '<label id="dsmSaveCardRow" class="dsm__checkbox-wrap" style="display:none">'
+  + '<input class="dsm__checkbox" type="checkbox" id="dsmSaveCard">'
+  + '<span class="dsm__checkbox-label">Save card for future donations</span>'
+  + '</label>'
+  + '<div class="dsm__footer">'
+  + '<div class="dsm__dots"><span class="dsm__dot dsm__dot--active"></span><span class="dsm__dot dsm__dot--active"></span><span class="dsm__dot dsm__dot--active"></span></div>'
+  + '<a class="dsm__back" href="#" data-back="2">Back</a>'
+  + '<button class="dsm__complete" type="button" id="dsmComplete" disabled>Complete donation</button>'
+  + '</div></div></div>'
+
+  // ── Step 4: completion screen ─────────────────────────────────────────────
+  + '<div class="dsm__step" data-step="4"><div class="dsm__body dsm__body--complete">'
+  + '<div id="dsmCompleteContent" class="dsm__complete-content"></div>'
+  + '<div class="dsm__footer dsm__footer--center">'
+  + '<button class="dsm__complete" type="button" id="dsmCloseBtn">Close</button>'
+  + '</div></div></div>'
+
+  + '</div></div>';
 
   var container = document.createElement('div');
   container.innerHTML = modalHTML;
   document.body.appendChild(container.firstChild);
 
-  var dsm = document.getElementById('donateStepsModal');
+  var dsm        = document.getElementById('donateStepsModal');
   var dsmOverlay = document.getElementById('donateStepsOverlay');
-  var dsmClose = document.getElementById('donateStepsClose');
+  var dsmClose   = document.getElementById('donateStepsClose');
 
-  function openDonateStepsModal() {
-    dsm.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-    goToStep(1);
+  // ─── Helpers ───────────────────────────────────────────────────────────────
+  function getToken()   { return localStorage.getItem(AUTH_TOKEN_KEY); }
+  function isLoggedIn() { return !!getToken(); }
+
+  function getSavedCards() {
+    try { return JSON.parse(localStorage.getItem(SAVED_CARDS_KEY) || '[]'); }
+    catch (e) { return []; }
   }
 
-  window.closeDonateStepsModal = function () {
-    dsm.classList.remove('is-open');
-    document.body.style.overflow = '';
-  };
-
-  function goToStep(n) {
-    dsm.querySelectorAll('.dsm__step').forEach(function (s) {
-      s.classList.remove('dsm__step--active');
-    });
-    var target = dsm.querySelector('[data-step="' + n + '"]');
-    if (target) target.classList.add('dsm__step--active');
+  function cardLabel(number) {
+    var d = (number || '').replace(/\D/g, '');
+    return d.slice(0, 4) + ' **** **** ' + d.slice(12, 16);
   }
 
-  document.querySelectorAll('.footer__donate, .pay-feed__btn, .zoos-content__donate-btn').forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      openDonateStepsModal();
-    });
-  });
-
-  dsmClose.addEventListener('click', window.closeDonateStepsModal);
-  dsmOverlay.addEventListener('click', window.closeDonateStepsModal);
-
-  function setInvalid(el, msg) {
-    el.classList.add('is-invalid');
-    var err = el.parentElement.querySelector('.dsm__error-msg');
-    if (!err) {
-      err = document.createElement('span');
-      err.className = 'dsm__error-msg';
-      el.parentElement.appendChild(err);
-    }
-    err.textContent = msg || 'This field is required';
-    err.classList.add('is-visible');
-  }
-
-  function clearInvalid(el) {
-    el.classList.remove('is-invalid');
-    var err = el.parentElement.querySelector('.dsm__error-msg');
-    if (err) err.classList.remove('is-visible');
+  // Safely render a string as text inside HTML
+  function safeHtml(str) {
+    var d = document.createElement('div');
+    d.textContent = String(str || '');
+    return d.innerHTML;
   }
 
   function shake(el) {
@@ -146,148 +156,474 @@
     el.addEventListener('animationend', function () { el.classList.remove('dsm__shake'); }, { once: true });
   }
 
-  function validateStep(stepEl) {
-    var valid = true;
-
-    stepEl.querySelectorAll('.is-invalid').forEach(function (el) { el.classList.remove('is-invalid'); });
-    stepEl.querySelectorAll('.dsm__error-msg').forEach(function (el) { el.classList.remove('is-visible'); });
-    stepEl.querySelectorAll('.dsm__amounts-wrap').forEach(function (el) { el.classList.remove('is-invalid'); });
-
-    var amountsWrap = stepEl.querySelector('.dsm__amounts-wrap');
-    if (amountsWrap) {
-      var selected = amountsWrap.querySelector('.dsm__amount.is-selected');
-      var otherInput = stepEl.querySelector('.dsm__side-input');
-      if (!selected && (!otherInput || !otherInput.value.trim())) {
-        amountsWrap.classList.add('is-invalid');
-        shake(amountsWrap);
-        var err = amountsWrap.querySelector('.dsm__error-msg');
-        if (!err) {
-          err = document.createElement('span');
-          err.className = 'dsm__error-msg';
-          amountsWrap.appendChild(err);
-        }
-        err.textContent = 'Please choose or enter a donation amount';
-        err.classList.add('is-visible');
-        valid = false;
-      }
-    }
-
-    stepEl.querySelectorAll('.dsm__input').forEach(function (input) {
-      if (!input.closest('.dsm__field')) return;
-      var validate = input.dataset.validate;
-      var val = input.value.trim();
-
-      if (!val) {
-        setInvalid(input, 'This field is required');
-        shake(input);
-        valid = false;
-      } else if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-        setInvalid(input, 'Please enter a valid email address');
-        shake(input);
-        valid = false;
-      } else if (validate === 'card' && !/^\d{16}$/.test(val.replace(/\s/g, ''))) {
-        setInvalid(input, 'Enter a valid 16-digit card number');
-        shake(input);
-        valid = false;
-      } else if (validate === 'cvv' && !/^\d{3,4}$/.test(val)) {
-        setInvalid(input, 'CVV must be 3 or 4 digits');
-        shake(input);
-        valid = false;
-      } else {
-        clearInvalid(input);
-      }
-    });
-
-    stepEl.querySelectorAll('.dsm__select-el').forEach(function (sel) {
-      if (!sel.value) {
-        sel.classList.add('is-invalid');
-        shake(sel.closest('.dsm__select--native'));
-        valid = false;
-      } else {
-        sel.classList.remove('is-invalid');
-      }
-    });
-
-    return valid;
+  // ─── Validation helpers ────────────────────────────────────────────────────
+  function isValidCustomAmount(raw) {
+    if (!raw || /[eE]/.test(raw)) return false;
+    var v = parseFloat(raw);
+    return !isNaN(v) && isFinite(v) && v > 0;
   }
 
-  dsm.addEventListener('input', function (e) {
-    var input = e.target.closest('.dsm__input, .dsm__side-input');
-    if (input) {
-      clearInvalid(input);
-      if (input.dataset.validate === 'card') {
-        var digits = input.value.replace(/\D/g, '').slice(0, 16);
-        input.value = digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+  function validateName(v) {
+    return /^[A-Za-z\s]+$/.test(v.trim()) && v.trim().length > 0;
+  }
+
+  function validateEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+  }
+
+  function isExpiryFuture(month, year) {
+    if (!month || !year) return false;
+    var now = new Date();
+    var y   = parseInt(year,  10);
+    var m   = parseInt(month, 10);
+    return y > now.getFullYear() || (y === now.getFullYear() && m >= (now.getMonth() + 1));
+  }
+
+  // ─── Step navigation ───────────────────────────────────────────────────────
+  function goToStep(n) {
+    dsm.querySelectorAll('.dsm__step').forEach(function (s) { s.classList.remove('dsm__step--active'); });
+    var target = dsm.querySelector('[data-step="' + n + '"]');
+    if (target) target.classList.add('dsm__step--active');
+  }
+
+  // ─── Enable / disable CTAs ─────────────────────────────────────────────────
+  function getEffectiveAmount() {
+    if (selectedAmount !== null) return selectedAmount;
+    var el = document.getElementById('dsmOtherAmt');
+    return (el && isValidCustomAmount(el.value)) ? parseFloat(el.value) : null;
+  }
+
+  function updateStep1Next() {
+    var btn = document.getElementById('dsmStep1Next');
+    if (btn) btn.disabled = !(getEffectiveAmount() !== null && selectedPetId !== null);
+  }
+
+  function updateStep2Next() {
+    var nameEl  = document.getElementById('dsmName');
+    var emailEl = document.getElementById('dsmEmail');
+    var btn     = document.getElementById('dsmStep2Next');
+    if (!btn || !nameEl || !emailEl) return;
+    btn.disabled = !(validateName(nameEl.value) && validateEmail(emailEl.value));
+  }
+
+  function updateCompleteBtn() {
+    var cardEl  = document.getElementById('dsmCardNumber');
+    var cvvEl   = document.getElementById('dsmCvv');
+    var monthEl = document.getElementById('dsmExpMonth');
+    var yearEl  = document.getElementById('dsmExpYear');
+    var btn     = document.getElementById('dsmComplete');
+    if (!btn) return;
+    var cardOk = cardEl  && /^\d{16}$/.test(cardEl.value.replace(/\s/g, ''));
+    var cvvOk  = cvvEl   && /^\d{3}$/.test(cvvEl.value);
+    var expOk  = monthEl && yearEl && isExpiryFuture(monthEl.value, yearEl.value);
+    btn.disabled = !(cardOk && cvvOk && expOk);
+  }
+
+  // ─── Pet dropdown ──────────────────────────────────────────────────────────
+  function populatePets(pets, preselectedId) {
+    var list    = document.getElementById('petSelectOptions');
+    var valueEl = document.getElementById('petSelectValue');
+    if (!list) return;
+    list.innerHTML = '';
+
+    pets.forEach(function (pet) {
+      var label = pet.name + ' the ' + pet.commonName;
+      var li    = document.createElement('li');
+      li.dataset.value = String(pet.id);
+      li.textContent   = label;
+
+      if (pet.id === preselectedId) {
+        li.classList.add('is-selected');
+        selectedPetId   = pet.id;
+        selectedPetName = label;
+        if (valueEl) {
+          valueEl.textContent = label;
+          valueEl.classList.remove('dsm__select-placeholder');
+        }
       }
-      if (input.dataset.validate === 'cvv') {
-        input.value = input.value.replace(/\D/g, '').slice(0, 4);
-      }
+
+      li.addEventListener('click', function () {
+        list.querySelectorAll('li').forEach(function (l) { l.classList.remove('is-selected'); });
+        li.classList.add('is-selected');
+        selectedPetId   = pet.id;
+        selectedPetName = label;
+        if (valueEl) {
+          valueEl.textContent = label;
+          valueEl.classList.remove('dsm__select-placeholder');
+        }
+        list.classList.remove('is-open');
+        updateStep1Next();
+      });
+
+      list.appendChild(li);
+    });
+
+    updateStep1Next();
+  }
+
+  async function loadPets(preselectedId) {
+    if (petsCache) { populatePets(petsCache, preselectedId); return; }
+    try {
+      var res  = await fetch(API + '/pets');
+      if (!res.ok) throw new Error('Failed to load pets');
+      var json = await res.json();
+      petsCache = json.data || [];
+      populatePets(petsCache, preselectedId);
+    } catch (e) {
+      var list = document.getElementById('petSelectOptions');
+      if (list) list.innerHTML = '<li style="color:#e53935;cursor:default;padding:14px 16px">Could not load pets</li>';
     }
-  });
+  }
 
-  dsm.addEventListener('change', function (e) {
-    var sel = e.target.closest('.dsm__select-el');
-    if (sel) sel.classList.remove('is-invalid');
-  });
+  // ─── Auth profile prefill ──────────────────────────────────────────────────
+  async function prefillProfile() {
+    var token = getToken();
+    if (!token) return;
+    try {
+      var res  = await fetch(API + '/auth/profile', { headers: { Authorization: 'Bearer ' + token } });
+      if (!res.ok) return;
+      var data = await res.json();
+      var nameEl  = document.getElementById('dsmName');
+      var emailEl = document.getElementById('dsmEmail');
+      if (nameEl  && data.name)  nameEl.value  = data.name;
+      if (emailEl && data.email) emailEl.value = data.email;
+      updateStep2Next();
+    } catch (e) { /* silent – user can fill manually */ }
+  }
 
-  dsm.addEventListener('click', function (e) {
-    var nextBtn = e.target.closest('[data-next]');
-    if (nextBtn) {
-      var currentStep = nextBtn.closest('.dsm__step');
-      if (!validateStep(currentStep)) return;
-      goToStep(parseInt(nextBtn.dataset.next));
+  // ─── Expiry selects (built once on init) ───────────────────────────────────
+  function buildExpirySelects() {
+    var expRow  = document.getElementById('dsmExpRow');
+    if (!expRow) return;
+    var curYear = new Date().getFullYear();
+
+    var html = '<div class="dsm__select dsm__select--native">'
+      + '<select class="dsm__select-el" id="dsmExpMonth">'
+      + '<option value="" disabled selected>Month</option>';
+    for (var m = 1; m <= 12; m++) {
+      var mm = (m < 10 ? '0' : '') + m;
+      html += '<option value="' + mm + '">' + mm + '</option>';
+    }
+    html += '</select><span class="dsm__select-arrow"></span></div>';
+
+    html += '<div class="dsm__select dsm__select--native">'
+      + '<select class="dsm__select-el" id="dsmExpYear">'
+      + '<option value="" disabled selected>Year</option>';
+    for (var y = curYear; y <= curYear + 9; y++) {
+      html += '<option value="' + y + '">' + y + '</option>';
+    }
+    html += '</select><span class="dsm__select-arrow"></span></div>';
+
+    expRow.innerHTML = html;
+    document.getElementById('dsmExpMonth').addEventListener('change', updateCompleteBtn);
+    document.getElementById('dsmExpYear').addEventListener('change',  updateCompleteBtn);
+  }
+
+  // ─── Saved cards ───────────────────────────────────────────────────────────
+  function clearCardFields() {
+    ['dsmCardNumber', 'dsmCvv'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    var m = document.getElementById('dsmExpMonth');
+    var y = document.getElementById('dsmExpYear');
+    if (m) m.value = '';
+    if (y) y.value = '';
+    updateCompleteBtn();
+  }
+
+  function prefillCard(card) {
+    var cardEl  = document.getElementById('dsmCardNumber');
+    var monthEl = document.getElementById('dsmExpMonth');
+    var yearEl  = document.getElementById('dsmExpYear');
+    if (cardEl)  cardEl.value  = card.number   || '';
+    if (monthEl) monthEl.value = card.expMonth || '';
+    if (yearEl)  yearEl.value  = card.expYear  || '';
+    // CVV is never stored – user re-enters each time
+    var cvvEl = document.getElementById('dsmCvv');
+    if (cvvEl) cvvEl.value = '';
+    updateCompleteBtn();
+  }
+
+  function setupSavedCards() {
+    var savedRow = document.getElementById('dsmSavedCardsRow');
+    var saveRow  = document.getElementById('dsmSaveCardRow');
+
+    if (!isLoggedIn()) {
+      if (savedRow) savedRow.style.display = 'none';
+      if (saveRow)  saveRow.style.display  = 'none';
       return;
     }
 
+    // Logged-in: always show "Save card" checkbox
+    if (saveRow) {
+      saveRow.style.display = '';
+      var cb = document.getElementById('dsmSaveCard');
+      if (cb) cb.checked = false;
+    }
+
+    var cards = getSavedCards();
+    if (cards.length === 0) {
+      if (savedRow) savedRow.style.display = 'none';
+      return;
+    }
+
+    // Has saved cards – build the selection dropdown
+    if (savedRow) savedRow.style.display = '';
+
+    var list    = document.getElementById('dsmSavedCardsOptions');
+    var valueEl = document.getElementById('dsmSavedCardsValue');
+    if (!list) return;
+    list.innerHTML = '';
+
+    // "New card" option (selected by default)
+    var newLi = document.createElement('li');
+    newLi.textContent = 'Enter new card';
+    newLi.classList.add('is-selected');
+    newLi.addEventListener('click', function () {
+      list.querySelectorAll('li').forEach(function (l) { l.classList.remove('is-selected'); });
+      newLi.classList.add('is-selected');
+      if (valueEl) { valueEl.textContent = 'Enter new card'; valueEl.classList.add('dsm__select-placeholder'); }
+      clearCardFields();
+      if (saveRow) saveRow.style.display = '';
+      list.classList.remove('is-open');
+    });
+    list.appendChild(newLi);
+
+    // One entry per saved card
+    cards.forEach(function (card) {
+      var li = document.createElement('li');
+      li.textContent = cardLabel(card.number);
+      li.addEventListener('click', function () {
+        list.querySelectorAll('li').forEach(function (l) { l.classList.remove('is-selected'); });
+        li.classList.add('is-selected');
+        if (valueEl) { valueEl.textContent = cardLabel(card.number); valueEl.classList.remove('dsm__select-placeholder'); }
+        prefillCard(card);
+        if (saveRow) saveRow.style.display = 'none'; // already saved
+        list.classList.remove('is-open');
+      });
+      list.appendChild(li);
+    });
+
+    if (valueEl) { valueEl.textContent = 'Enter new card'; valueEl.classList.add('dsm__select-placeholder'); }
+  }
+
+  // ─── POST /donations ───────────────────────────────────────────────────────
+  async function submitDonation() {
+    var token      = getToken();
+    var amount     = getEffectiveAmount();
+    var nameEl     = document.getElementById('dsmName');
+    var emailEl    = document.getElementById('dsmEmail');
+    var cardEl     = document.getElementById('dsmCardNumber');
+    var saveCardEl = document.getElementById('dsmSaveCard');
+    var content    = document.getElementById('dsmCompleteContent');
+
+    // Persist card if requested (before navigating away from step 3)
+    if (isLoggedIn() && saveCardEl && saveCardEl.checked && cardEl) {
+      var monthEl2 = document.getElementById('dsmExpMonth');
+      var yearEl2  = document.getElementById('dsmExpYear');
+      var digits   = (cardEl.value || '').replace(/\s/g, '');
+      var cards    = getSavedCards();
+      var exists   = cards.some(function (c) { return (c.number || '').replace(/\s/g, '') === digits; });
+      if (!exists) {
+        cards.push({ number: cardEl.value.trim(), expMonth: monthEl2 ? monthEl2.value : '', expYear: yearEl2 ? yearEl2.value : '' });
+        localStorage.setItem(SAVED_CARDS_KEY, JSON.stringify(cards));
+      }
+    }
+
+    // Show spinner on step 4 while POST is in-flight
+    goToStep(4);
+    if (content) content.innerHTML = '<div class="dsm__complete-spinner"></div>';
+
+    var body    = {
+      amount:  amount,
+      petId:   selectedPetId,
+      name:    nameEl  ? nameEl.value.trim()  : '',
+      email:   emailEl ? emailEl.value.trim() : ''
+    };
+    var headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+
+    try {
+      var res = await fetch(API + '/donations', { method: 'POST', headers: headers, body: JSON.stringify(body) });
+      if (!res.ok) {
+        var errBody = null;
+        try { errBody = await res.json(); } catch (e2) { /* ignore */ }
+        if (res.status === 403) throw new Error('Please sign in to complete your donation.');
+        throw new Error((errBody && errBody.message) ? errBody.message : 'Something went wrong. Please, try again later.');
+      }
+      // ── Success ────────────────────────────────────────────────────────────
+      var amtDisplay = '$' + (Number.isInteger(amount) ? amount : amount.toFixed(2));
+      if (content) content.innerHTML =
+          '<div class="dsm__complete-icon dsm__complete-icon--success">&#10003;</div>'
+        + '<p class="dsm__complete-msg">Thank you for your donation of '
+        + safeHtml(amtDisplay) + ' to ' + safeHtml(selectedPetName) + '!</p>';
+    } catch (err) {
+      // ── Error ──────────────────────────────────────────────────────────────
+      if (content) content.innerHTML =
+          '<div class="dsm__complete-icon dsm__complete-icon--error">&#10005;</div>'
+        + '<p class="dsm__complete-msg dsm__complete-msg--error">'
+        + safeHtml((err && err.message) || 'Something went wrong. Please, try again later.') + '</p>';
+    }
+  }
+
+  // ─── Reset ─────────────────────────────────────────────────────────────────
+  function resetModal(preselectedPetId) {
+    selectedAmount  = null;
+    selectedPetId   = null;
+    selectedPetName = '';
+
+    // Step 1
+    dsm.querySelectorAll('.dsm__amount').forEach(function (b) { b.classList.remove('is-selected'); });
+    var otherAmt = document.getElementById('dsmOtherAmt');
+    if (otherAmt) otherAmt.value = '';
+    var monthly = document.getElementById('dsmMonthly');
+    if (monthly) monthly.checked = false;
+    var petValueEl = document.getElementById('petSelectValue');
+    if (petValueEl) { petValueEl.textContent = 'Choose your favourite'; petValueEl.classList.add('dsm__select-placeholder'); }
+    if (!preselectedPetId) {
+      var petOpts = document.getElementById('petSelectOptions');
+      if (petOpts) petOpts.querySelectorAll('li').forEach(function (l) { l.classList.remove('is-selected'); });
+    }
+    updateStep1Next();
+
+    // Step 3
+    clearCardFields();
+    var saveCardEl2 = document.getElementById('dsmSaveCard');
+    if (saveCardEl2) saveCardEl2.checked = false;
+    var savedCardsValueEl = document.getElementById('dsmSavedCardsValue');
+    if (savedCardsValueEl) { savedCardsValueEl.textContent = 'Enter new card'; savedCardsValueEl.classList.add('dsm__select-placeholder'); }
+  }
+
+  // ─── Public API ────────────────────────────────────────────────────────────
+  window.openDonateStepsModal = function (preselectedPetId) {
+    resetModal(preselectedPetId || null);
+    goToStep(1);
+    dsm.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    loadPets(preselectedPetId || null);  // async – updates dropdown when ready
+    prefillProfile();                     // async – updates name/email when ready
+    setupSavedCards();
+  };
+
+  window.closeDonateStepsModal = function () {
+    dsm.classList.remove('is-open');
+    document.body.style.overflow = '';
+  };
+
+  // ─── Init ──────────────────────────────────────────────────────────────────
+  buildExpirySelects();
+
+  // ─── Event listeners ───────────────────────────────────────────────────────
+  dsmClose.addEventListener('click',   window.closeDonateStepsModal);
+  dsmOverlay.addEventListener('click', window.closeDonateStepsModal);
+
+  dsm.addEventListener('click', function (e) {
+    // Preset amount buttons
+    var amtBtn = e.target.closest('.dsm__amount');
+    if (amtBtn) {
+      dsm.querySelectorAll('.dsm__amount').forEach(function (b) { b.classList.remove('is-selected'); });
+      amtBtn.classList.add('is-selected');
+      selectedAmount = parseFloat(amtBtn.dataset.value);
+      var otherEl = document.getElementById('dsmOtherAmt');
+      if (otherEl) otherEl.value = '';
+      updateStep1Next();
+      return;
+    }
+
+    // Pet dropdown trigger
+    if (e.target.closest('#petSelectTrigger')) {
+      e.stopPropagation();
+      var opts = document.getElementById('petSelectOptions');
+      if (opts) opts.classList.toggle('is-open');
+      return;
+    }
+
+    // Saved cards dropdown trigger
+    if (e.target.closest('#dsmSavedCardsTrigger')) {
+      e.stopPropagation();
+      var savedOpts = document.getElementById('dsmSavedCardsOptions');
+      if (savedOpts) savedOpts.classList.toggle('is-open');
+      return;
+    }
+
+    // Next buttons
+    var nextBtn = e.target.closest('[data-next]');
+    if (nextBtn && !nextBtn.disabled) {
+      goToStep(parseInt(nextBtn.dataset.next, 10));
+      return;
+    }
+
+    // Back links
     var backBtn = e.target.closest('[data-back]');
     if (backBtn) {
       e.preventDefault();
-      goToStep(parseInt(backBtn.dataset.back));
+      goToStep(parseInt(backBtn.dataset.back, 10));
       return;
     }
 
-    var completeBtn = e.target.closest('.dsm__complete');
-    if (completeBtn) {
-      var currentStep = completeBtn.closest('.dsm__step');
-      if (!validateStep(currentStep)) return;
+    // Complete donation (step 3 button)
+    var completeBtn = e.target.closest('#dsmComplete');
+    if (completeBtn && !completeBtn.disabled) {
+      submitDonation();
+      return;
+    }
+
+    // Close button (step 4)
+    if (e.target.closest('#dsmCloseBtn')) {
       window.closeDonateStepsModal();
-      alert('Thank you for your donation! 🐾');
       return;
     }
+  });
 
-    var amountBtn = e.target.closest('.dsm__amount');
-    if (amountBtn) {
+  // Live input handling: formatting, restricting, and real-time CTA enabling
+  dsm.addEventListener('input', function (e) {
+    var el = e.target;
+
+    // Custom amount – deselect presets
+    if (el.id === 'dsmOtherAmt') {
+      selectedAmount = null;
       dsm.querySelectorAll('.dsm__amount').forEach(function (b) { b.classList.remove('is-selected'); });
-      amountBtn.classList.add('is-selected');
-      return;
+      updateStep1Next();
+    }
+
+    // Card: auto-format as XXXX XXXX XXXX XXXX
+    if (el.dataset.validate === 'card') {
+      var digits = el.value.replace(/\D/g, '').slice(0, 16);
+      el.value = digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+      updateCompleteBtn();
+    }
+
+    // CVV: digits only, max 3
+    if (el.dataset.validate === 'cvv') {
+      el.value = el.value.replace(/\D/g, '').slice(0, 3);
+      updateCompleteBtn();
+    }
+
+    // Name / Email: live enable/disable Next button on step 2
+    if (el.id === 'dsmName' || el.id === 'dsmEmail') {
+      updateStep2Next();
     }
   });
 
-  var petTrigger = document.getElementById('petSelectTrigger');
-  var petOptions = document.getElementById('petSelectOptions');
-  var petValue = document.getElementById('petSelectValue');
-
-  petTrigger.addEventListener('click', function (e) {
-    e.stopPropagation();
-    petOptions.classList.toggle('is-open');
-  });
-
-  petOptions.querySelectorAll('li').forEach(function (li) {
-    li.addEventListener('click', function () {
-      petOptions.querySelectorAll('li').forEach(function (l) { l.classList.remove('is-selected'); });
-      li.classList.add('is-selected');
-      petValue.textContent = li.textContent;
-      petOptions.classList.remove('is-open');
-    });
-  });
-
+  // Dismiss custom dropdowns when clicking outside
   document.addEventListener('click', function () {
-    petOptions.classList.remove('is-open');
+    var petOpts   = document.getElementById('petSelectOptions');
+    if (petOpts)   petOpts.classList.remove('is-open');
+    var savedOpts = document.getElementById('dsmSavedCardsOptions');
+    if (savedOpts) savedOpts.classList.remove('is-open');
   });
 
+  // Escape key closes the modal
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      window.closeDonateStepsModal();
-    }
+    if (e.key === 'Escape') window.closeDonateStepsModal();
+  });
+
+  // Trigger from footer / pay-feed sections on other pages
+  document.querySelectorAll('.footer__donate, .pay-feed__btn').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.openDonateStepsModal(null);
+    });
   });
 }());

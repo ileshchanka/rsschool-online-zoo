@@ -736,3 +736,89 @@
     font-size: 12px;
   }
 }
+
+/* ─── Disabled buttons ──────────────────────────────────────────────────────── */
+.dsm__next:disabled,
+.dsm__complete:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* placeholder colour in custom trigger spans */
+.dsm__select-placeholder {
+  color: #888;
+}
+
+/* ─── Step 4 – completion screen ──────────────────────────────────────────── */
+.dsm__body--complete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  text-align: center;
+}
+
+.dsm__footer--center {
+  justify-content: center;
+}
+
+#dsmCloseBtn::after {
+  display: none;
+}
+
+.dsm__complete-content {
+  width: 100%;
+  padding: 0 0 20px;
+}
+
+.dsm__complete-spinner {
+  width: 52px;
+  height: 52px;
+  border: 5px solid rgba(0, 166, 153, 0.2);
+  border-top-color: var(--turquoise);
+  border-radius: 50%;
+  animation: dsmSpin 0.8s linear infinite;
+  margin: 40px auto;
+}
+
+@keyframes dsmSpin {
+  to { transform: rotate(360deg); }
+}
+
+.dsm__complete-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 24px auto 20px;
+}
+
+.dsm__complete-icon--success {
+  background-color: #e6f9f7;
+  color: var(--turquoise);
+}
+
+.dsm__complete-icon--error {
+  background-color: #fff0f0;
+  color: #e53935;
+}
+
+.dsm__complete-msg {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--black);
+  line-height: 1.5;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.dsm__complete-msg--error {
+  color: #e53935;
+  font-size: 16px;
+  font-weight: 500;
+}
