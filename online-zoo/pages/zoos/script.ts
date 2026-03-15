@@ -16,17 +16,17 @@ interface Pet {
   description: string;
 }
 
-interface AnimalDetail {
-  icon: string;
-  title: string;
-  playerImg: string;
-  cams: { img: string; label: string }[];
-  donationTitle: string;
-  donationText: string;
-  fact: string;
-  info: Record<string, string>;
-  photo: string;
+interface PetDetail {
+  id: number;
+  commonName: string;
+  scientificName: string;
+  type: string;
+  size: string;
+  diet: string;
+  habitat: string;
+  range: string;
   description: string;
+  detailedDescription: string;
 }
 
 // ─── Image mapping by pet ID ─────────────────────────────────────────────────
@@ -52,112 +52,34 @@ const PET_ICONS: Record<number, string> = {
   8: 'tiger.svg',
 };
 
-// ─── Enriched data for original animals ──────────────────────────────────────
-const ANIMAL_DETAILS: Record<number, AnimalDetail> = {
-  1: {
-    icon: 'panda.svg',
-    title: 'Live Panda Cams',
-    playerImg: 'youtube-player-giant-panda.jpg',
-    cams: [
-      { img: 'panda-additional-cam-card-1.jpg', label: 'CAM 1' },
-      { img: 'panda-additional-cam-card-2.jpg', label: 'CAM 2' },
-      { img: 'panda-additional-cam-card-3.jpg', label: 'CAM 3' },
-    ],
-    donationTitle: 'Make the Bamboo Donation!',
-    donationText:
-      'Our process for bamboo donations first starts with a site evaluation. It is important that our team sees where the bamboo is growing, then determining if the bamboo is a species that our animals are currently eating. Thank you for your interest in donating bamboo for our pandas.',
-    fact: 'Pandas are often seen eating in a relaxed sitting posture, with their hind legs stretched out before them. They may appear sedentary, but they are skilled tree-climbers and efficient swimmers.',
-    info: {
-      'Common name:': 'Giant Panda',
-      'Scientific name:': 'Ailuropoda melanoleuca',
-      'Type:': 'Mammals',
-      'Size:': '4 to 5 feet',
-      'Diet:': 'Omnivore',
-      'Habitat:': 'Forests',
-      'Range:': 'Eastern Asia',
-    },
-    photo: 'rectangle-giant-panda.jpg',
-    description:
-      'Giant pandas are very unusual animals that eat almost exclusively bamboo, which is very low in nutrients. Because of this, they have many unique adaptations for their low-energy lifestyle. Giant pandas are solitary. They have a highly developed sense of smell that males use to avoid each other and to find females for mating in the spring. After a five-month pregnancy, females give birth to a cub or two, though they cannot care for both twins. The blind infants weigh only 5 ounces at birth and cannot crawl until they reach three months of age. They are born white, and develop their much loved coloring later. Habitat loss is the primary threat to this species. Its popularity around the world has helped the giant panda become the focus of successful conservation programs.',
-  },
-  2: {
-    icon: 'lemur.svg',
-    title: 'Lemurs Cams',
-    playerImg: 'youtube-player-lemur.jpg',
-    cams: [
-      { img: 'lemur-additional-cam-card-1.jpg', label: 'CAM 1' },
-      { img: 'lemur-additional-cam-card-2.jpg', label: 'CAM 2' },
-      { img: 'lemur-additional-cam-card-3.jpg', label: 'CAM 3' },
-    ],
-    donationTitle: 'Provide Andy the Lemur with Fruits!',
-    donationText:
-      'More than 90% of lemur species are endangered and might face extinction in the nearest future. Watch the ring-tailed lemurs play and climb in this soothing setting and support them by donating for the fruits they adore.',
-    fact: 'A ring-tailed lemur mob will gather in open areas of the forest to sunbathe. They sit in what some call a "yoga position" with their bellies toward the sun and their arms and legs stretched out to the sides.',
-    info: {
-      'Common name:': 'Ring-Tailed Lemur',
-      'Scientific name:': 'Lemur catta',
-      'Type:': 'Mammals',
-      'Size:': 'Head and body: 17.75 inches; tail: 21.75 inches',
-      'Diet:': 'Herbivore',
-      'Habitat:': 'Arid, open areas and forests',
-      'Range:': 'Southeast Asia',
-    },
-    photo: 'rectangle-madagascarian-lemur.jpg',
-    description:
-      "Ring-tailed lemurs are named for the 13 alternating black and white bands that adorn their tails. Unlike most other lemurs, ringtails spend 40 percent of their time on the ground, moving quadrupedally along the forest floor. Ring-tailed lemurs live in southwestern Madagascar, in arid, open areas and forests in territories that range from 15 to 57 acres (0.06 to 0.2 square kilometers) in size. As with all lemurs, olfactory communication is important for ringtails. Ring-tailed lemurs have scent glands on their wrists and chests that they use to mark their foraging routes. Ringtails eat leaves, flowers and insects. They can also eat fruit, herbs and small vertebrates. Females usually give birth to their first baby when they are three years old, and usually once a year every year after that. All adult females participate in raising the offspring of the group. The median life expectancy for a ring-tailed lemur is about 16 years.",
-  },
-  3: {
-    icon: 'gorilla.svg',
-    title: 'Gorillas Cams',
-    playerImg: 'youtube-player-gorilla.jpg',
-    cams: [
-      { img: 'gorilla-additional-cam-card-1.jpg', label: 'CAM 1' },
-      { img: 'gorilla-additional-cam-card-2.jpg', label: 'CAM 2' },
-      { img: 'gorilla-additional-cam-card-3.jpg', label: 'CAM 3' },
-    ],
-    donationTitle: 'Make a Difference for the Gorillas!',
-    donationText:
-      'It is our goal to ensure the conservation and restoration of the gorilla population and their habitat in Central Africa. To do this, we need your help! Bring your food charity straight to Glen and his family.',
-    fact: 'In addition to having distinctive fingerprints like humans do, gorillas also have unique nose prints. Gorillas are the largest of the great apes, but the western lowland gorilla is the smallest of the subspecies.',
-    info: {
-      'Common name:': 'Western lowland gorillas',
-      'Scientific name:': 'Gorilla gorilla gorilla',
-      'Type:': 'Mammals',
-      'Size:': 'Standing height, four to six feet',
-      'Diet:': 'Omnivore',
-      'Habitat:': 'Rainforests',
-      'Range:': 'Western Africa',
-    },
-    photo: 'rectangle-gorilla-in-congo.jpg',
-    description:
-      "Western lowland gorillas are the smallest of the four subspecies. They live in thick tropical rainforests, where they find plenty of food for their vegetarian diet. They eat roots, shoots, fruit, wild celery, and tree bark and pulp. Gorillas can climb trees, but they're usually found on the ground in communities—known as troops. Troops are led by one dominant, older adult male, often called a silverback because of the swath of silver hair that adorns his otherwise dark fur. Troops also include several other young males, some females, and their offspring. The leader organizes troop activities, such as eating, nesting in leaves, and moving about the group's home range. Gorillas prefer traveling on all fours, pushing themselves forward with their knuckles and soles of their feet. Female gorillas give birth to one infant after a pregnancy of nearly nine months. These infants ride on their mothers' backs from the age of four months through the first two or three years of their lives.",
-  },
-  5: {
-    icon: 'eagle.svg',
-    title: 'Bald Eagle Cams',
-    playerImg: 'youtube-player-eagles.jpg',
-    cams: [
-      { img: 'eagles-additional-cam-card-1.jpg', label: 'CAM 1' },
-      { img: 'eagles-additional-cam-card-2.jpg', label: 'CAM 2' },
-      { img: 'eagles-additional-cam-card-3.jpg', label: 'CAM 3' },
-    ],
-    donationTitle: 'Keep the Bald Eagle Cams Streaming!',
-    donationText:
-      'Watch as this lifelong pair of eagle parents lay and protect eggs, feed their chicks and teach them to hunt and fly. Sam & Lora have stolen the hearts of thousands of viewers! 100% of the donations from this page will be utilized directly for the streaming and operational costs of this project.',
-    fact: 'Because of its role as a symbol of the US, but also because of its being a large predator, the bald eagle has many representations in popular culture. Not all of these representations are accurate. In particular, the movie or television bald eagle typically has a bold, powerful cry. The actual eagle has a much softer, chirpy voice, not in keeping with its popular image.',
-    info: {
-      'Common name:': 'Bald Eagle',
-      'Scientific name:': 'Haliaeetus Leucocephalus',
-      'Type:': 'Birds',
-      'Size:': 'Body: 34 to 43 inches; wingspan: 6 to 8 feet',
-      'Diet:': 'Carnivore',
-      'Habitat:': 'Seacoasts, rivers, large lakes or marshes',
-      'Range:': 'Continental United States',
-    },
-    photo: 'rectangle-west-end-bald-eagles.jpg',
-    description:
-      "The bald eagle, with its snowy-feathered (not bald) head and white tail, is the proud national animal of the United States—yet the bird was nearly wiped out there. For many decades, bald eagles were hunted for sport and for the \"protection\" of fishing grounds. These powerful birds of prey use their talons to fish, but they get many of their meals by scavenging carrion or stealing the kills of other animals. They live near water and favor coasts and lakes where fish are plentiful, though they will also snare and eat small mammals. Bald eagles are believed to mate for life. A pair constructs an enormous stick nest—one of the bird-world's biggest—high above the ground and tends to a pair of eggs each year. Immature eagles are dark, and until they are about five years old, they lack the distinctive white markings that make their parents so easy to identify.",
-  },
+const PET_PLAYER_IMAGES: Record<number, string> = {
+  1: 'youtube-player-giant-panda.jpg',
+  2: 'youtube-player-lemur.jpg',
+  3: 'youtube-player-gorilla.jpg',
+  5: 'youtube-player-eagles.jpg',
+};
+
+const PET_CAM_IMAGES: Record<number, { img: string; label: string }[]> = {
+  1: [
+    { img: 'panda-additional-cam-card-1.jpg', label: 'CAM 1' },
+    { img: 'panda-additional-cam-card-2.jpg', label: 'CAM 2' },
+    { img: 'panda-additional-cam-card-3.jpg', label: 'CAM 3' },
+  ],
+  2: [
+    { img: 'lemur-additional-cam-card-1.jpg', label: 'CAM 1' },
+    { img: 'lemur-additional-cam-card-2.jpg', label: 'CAM 2' },
+    { img: 'lemur-additional-cam-card-3.jpg', label: 'CAM 3' },
+  ],
+  3: [
+    { img: 'gorilla-additional-cam-card-1.jpg', label: 'CAM 1' },
+    { img: 'gorilla-additional-cam-card-2.jpg', label: 'CAM 2' },
+    { img: 'gorilla-additional-cam-card-3.jpg', label: 'CAM 3' },
+  ],
+  5: [
+    { img: 'eagles-additional-cam-card-1.jpg', label: 'CAM 1' },
+    { img: 'eagles-additional-cam-card-2.jpg', label: 'CAM 2' },
+    { img: 'eagles-additional-cam-card-3.jpg', label: 'CAM 3' },
+  ],
 };
 
 // ─── State ───────────────────────────────────────────────────────────────────
@@ -201,99 +123,177 @@ function renderSidebar(): void {
     btn.addEventListener('click', () => {
       activeIndex = i;
       renderSidebar();
-      renderContent();
+      selectPet(camera.petId);
     });
     nav.appendChild(btn);
   });
 }
 
-// ─── Content ─────────────────────────────────────────────────────────────────
-function renderContent(): void {
-  const camera = cameras[activeIndex];
-  if (!camera) return;
+// ─── Content overlay ─────────────────────────────────────────────────────────
+const contentRoot = document.getElementById('zoosContentRoot');
 
-  const pet = getPetById(camera.petId);
-  const detail = ANIMAL_DETAILS[camera.petId];
+function showContentOverlay(): void {
+  let overlay = document.getElementById('contentOverlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'contentOverlay';
+    overlay.className = 'zoos-content-overlay';
+    overlay.innerHTML = `
+      <div class="zoos-content-overlay__spinner"></div>
+      <div class="zoos-content-overlay__error">
+        <div class="zoos-loader__error-icon">!</div>
+        <p class="zoos-loader__error-text">Something went wrong. Please, refresh the page</p>
+      </div>
+    `;
+    contentRoot?.appendChild(overlay);
+  }
+  overlay.classList.remove('is-hidden', 'is-error');
+}
 
-  const title = detail?.title ?? (pet ? `${pet.commonName} Cams` : `Camera ${camera.id}`);
-  const animalTitle = document.getElementById('animalTitle');
-  if (animalTitle) animalTitle.textContent = title;
+function hideContentOverlay(): void {
+  const overlay = document.getElementById('contentOverlay');
+  overlay?.classList.add('is-hidden');
+}
 
-  const playerImg = document.getElementById('playerImg') as HTMLImageElement | null;
-  if (playerImg) {
-    playerImg.src = detail ? IMG_BASE + detail.playerImg : getImageForPet(camera.petId);
-    playerImg.alt = title;
+function showContentOverlayError(): void {
+  const overlay = document.getElementById('contentOverlay');
+  overlay?.classList.add('is-error');
+}
+
+// ─── Build content DOM ───────────────────────────────────────────────────────
+function buildContent(camera: Camera, pet: Pet, detail: PetDetail): void {
+  if (!contentRoot) return;
+
+  const existing = contentRoot.querySelector('.zoos-content, .zoos-donation');
+  if (existing) {
+    contentRoot.querySelectorAll('.zoos-content, .zoos-donation').forEach((el) => el.remove());
   }
 
-  const camCards = document.getElementById('camCards');
-  if (camCards) {
-    camCards.innerHTML = '';
-    const cams = detail?.cams ?? [{ img: PET_IMAGES[camera.petId] ?? 'cameras/1.jpg', label: 'CAM 1' }];
-    cams.forEach((cam, i) => {
-      const card = document.createElement('a');
-      card.className = 'zoos-cam-card' + (i === 0 ? ' active' : '');
-      card.href = 'https://www.youtube.com/c/RSSchool/';
-      card.target = '_blank';
-      card.rel = 'noopener noreferrer';
-      card.innerHTML = `
+  const title = `${detail.commonName} Cams`;
+  const playerImgSrc = PET_PLAYER_IMAGES[camera.petId]
+    ? IMG_BASE + PET_PLAYER_IMAGES[camera.petId]
+    : getImageForPet(camera.petId);
+  const photoSrc = getImageForPet(camera.petId);
+
+  const cams = PET_CAM_IMAGES[camera.petId] ?? [{ img: PET_IMAGES[camera.petId] ?? 'cameras/1.jpg', label: 'CAM 1' }];
+
+  let camCardsHtml = '';
+  cams.forEach((cam, i) => {
+    camCardsHtml += `
+      <a class="zoos-cam-card${i === 0 ? ' active' : ''}" href="https://www.youtube.com/c/RSSchool/" target="_blank" rel="noopener noreferrer">
         <img src="${IMG_BASE + cam.img}" alt="${escapeHtml(cam.label)}">
         <div class="zoos-cam-card__play"></div>
-      `;
-      camCards.appendChild(card);
-    });
-  }
+      </a>
+    `;
+  });
 
-  const donationTitle = document.getElementById('donationTitle');
-  if (donationTitle) {
-    donationTitle.textContent =
-      detail?.donationTitle ?? (pet ? `Support ${pet.name} the ${pet.commonName}!` : `Support Camera ${camera.id}!`);
-  }
+  const infoRows: [string, string][] = [
+    ['Common name:', detail.commonName],
+    ['Scientific name:', detail.scientificName],
+    ['Type:', detail.type],
+    ['Size:', detail.size],
+    ['Diet:', detail.diet],
+    ['Habitat:', detail.habitat],
+    ['Range:', detail.range],
+  ];
 
-  const donationText = document.getElementById('donationText');
-  if (donationText) {
-    donationText.textContent = detail?.donationText ?? (pet?.description ?? camera.text);
-  }
-
-  const factText = document.getElementById('factText');
-  if (factText) {
-    factText.textContent = detail?.fact ?? (pet?.description ?? '');
-  }
-
-  const infoTable = document.getElementById('infoTable');
-  if (infoTable) {
-    infoTable.innerHTML = '';
-    if (detail) {
-      Object.entries(detail.info).forEach(([key, value]) => {
-        const tr = document.createElement('tr');
-        if (key === 'Range:') {
-          tr.innerHTML = `<td>${escapeHtml(key)}</td><td>${escapeHtml(value)} <a class="zoos-info__map-link" href="../map/">View Map</a></td>`;
-        } else {
-          tr.innerHTML = `<td>${escapeHtml(key)}</td><td>${escapeHtml(value)}</td>`;
-        }
-        infoTable.appendChild(tr);
-      });
-    } else if (pet) {
-      const rows: [string, string][] = [
-        ['Common name:', pet.commonName],
-        ['Name:', pet.name],
-      ];
-      rows.forEach(([key, value]) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${escapeHtml(key)}</td><td>${escapeHtml(value)}</td>`;
-        infoTable.appendChild(tr);
-      });
+  let infoRowsHtml = '';
+  infoRows.forEach(([key, value]) => {
+    if (key === 'Range:') {
+      infoRowsHtml += `<tr><td>${escapeHtml(key)}</td><td>${escapeHtml(value)} <a class="zoos-info__map-link" href="../map/">View Map</a></td></tr>`;
+    } else {
+      infoRowsHtml += `<tr><td>${escapeHtml(key)}</td><td>${escapeHtml(value)}</td></tr>`;
     }
-  }
+  });
 
-  const infoPhoto = document.getElementById('infoPhoto') as HTMLImageElement | null;
-  if (infoPhoto) {
-    infoPhoto.src = detail ? IMG_BASE + detail.photo : getImageForPet(camera.petId);
-    infoPhoto.alt = title;
-  }
+  const topSection = document.createElement('div');
+  topSection.className = 'zoos-content container';
+  topSection.innerHTML = `
+    <div class="zoos-content__header">
+      <h1 class="zoos-content__title">${escapeHtml(title)}</h1>
+      <button class="zoos-content__donate-btn button_orange">Donate Now</button>
+    </div>
+    <div class="zoos-player">
+      <div class="zoos-player__frame">
+        <img class="zoos-player__img" src="${playerImgSrc}" alt="${escapeHtml(title)}">
+        <a class="zoos-player__link" href="https://www.youtube.com/c/RSSchool/" target="_blank" rel="noopener noreferrer" aria-label="Watch on YouTube"></a>
+        <div class="zoos-player__overlay">
+          <button class="zoos-player__play" aria-label="Play"></button>
+        </div>
+      </div>
+    </div>
+    <div class="zoos-more-views">
+      <h2 class="visually-hidden">Live Views</h2>
+      <h3 class="zoos-more-views__title">More Live Views</h3>
+      <div class="zoos-more-views__slider">
+        <button class="zoos-more-views__arrow" aria-label="Previous">&#8592;</button>
+        <div class="zoos-more-views__cards">${camCardsHtml}</div>
+        <button class="zoos-more-views__arrow" aria-label="Next">&#8594;</button>
+      </div>
+    </div>
+  `;
 
-  const description = document.getElementById('description');
-  if (description) {
-    description.textContent = detail?.description ?? (pet?.description ?? '');
+  const donationSection = document.createElement('section');
+  donationSection.className = 'zoos-donation';
+  donationSection.innerHTML = `
+    <div class="zoos-donation__inner container">
+      <div class="zoos-donation__content">
+        <h3 class="zoos-donation__title">Support ${escapeHtml(pet.name)} the ${escapeHtml(detail.commonName)}!</h3>
+        <p class="zoos-donation__text">${escapeHtml(detail.description)}</p>
+      </div>
+      <div class="zoos-donation__form">
+        <p class="subheader">Quick Donate</p>
+        <form class="donate-form">
+          <input class="donate-form__input" placeholder="$ Donation Amount">
+          <button class="donate-form__btn button_orange" type="submit"></button>
+        </form>
+      </div>
+    </div>
+  `;
+
+  const bottomSection = document.createElement('div');
+  bottomSection.className = 'zoos-content container';
+  bottomSection.innerHTML = `
+    <div class="zoos-fact">
+      <h2 class="zoos-fact__title">Did you know?</h2>
+      <p class="zoos-fact__text">${escapeHtml(detail.detailedDescription)}</p>
+    </div>
+    <div class="zoos-info">
+      <table class="zoos-info__table">
+        <tbody>${infoRowsHtml}</tbody>
+      </table>
+      <img class="zoos-info__photo" src="${photoSrc}" alt="${escapeHtml(title)}">
+    </div>
+    <p class="zoos-description">${escapeHtml(detail.description)}</p>
+  `;
+
+  const overlay = document.getElementById('contentOverlay');
+  if (overlay) {
+    contentRoot.insertBefore(bottomSection, overlay);
+    contentRoot.insertBefore(donationSection, bottomSection);
+    contentRoot.insertBefore(topSection, donationSection);
+  } else {
+    contentRoot.appendChild(topSection);
+    contentRoot.appendChild(donationSection);
+    contentRoot.appendChild(bottomSection);
+  }
+}
+
+// ─── Select pet (fetch detail) ───────────────────────────────────────────────
+async function selectPet(petId: number): Promise<void> {
+  const camera = cameras[activeIndex];
+  const pet = getPetById(petId);
+  if (!camera || !pet) return;
+
+  showContentOverlay();
+  try {
+    const res = await fetch(`${API_BASE}/pets/${petId}`);
+    if (!res.ok) throw new Error('Failed to fetch pet detail');
+    const json = (await res.json()) as { data: PetDetail };
+    buildContent(camera, pet, json.data);
+    hideContentOverlay();
+  } catch {
+    showContentOverlayError();
   }
 }
 
@@ -389,7 +389,7 @@ async function loadCameras(): Promise<void> {
     activeIndex = 0;
     buildSidebar();
     renderSidebar();
-    renderContent();
+    await selectPet(cameras[0]!.petId);
   } catch {
     zoosLoader?.classList.add('is-error');
     return;
