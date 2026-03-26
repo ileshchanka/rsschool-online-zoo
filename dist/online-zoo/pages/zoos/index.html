@@ -4,14 +4,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function () {
+      const key = "oz-theme";
+      let savedTheme = null;
+
+      try {
+        const stored = localStorage.getItem(key);
+        if (stored === "light" || stored === "dark") {
+          savedTheme = stored;
+        }
+      } catch { }
+
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", savedTheme || systemTheme);
+    })();
+  </script>
   <link rel="icon" type="image/svg+xml" href="/assets/favicon-D8QfNWkE.svg">
   <title>Zoos — Online Zoo</title>
-  <script type="module" crossorigin src="/assets/zoos-Bpg9MRQM.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/auth-CRFqR3Ed.js">
+  <script type="module" crossorigin src="/assets/zoos-VNlahdS7.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/auth-B4nzC4KP.js">
   <link rel="modulepreload" crossorigin href="/assets/donate-quick-modal-DSVpZ7c_.js">
-  <link rel="stylesheet" crossorigin href="/assets/auth-Dx0U9H8Q.css">
+  <link rel="stylesheet" crossorigin href="/assets/auth-ByhtLt1Y.css">
   <link rel="stylesheet" crossorigin href="/assets/donate-quick-modal-DYaKBdtJ.css">
-  <link rel="stylesheet" crossorigin href="/assets/zoos-Dy-ciY9L.css">
+  <link rel="stylesheet" crossorigin href="/assets/zoos-B8jQKxhz.css">
 </head>
 
 <body>
@@ -33,6 +49,9 @@
           <li><a class="header__social-link" href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank"><img src="data:image/svg+xml,%3csvg%20width='40'%20height='40'%20viewBox='0%200%2040%2040'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_40701_4352)'%3e%3ccircle%20cx='20'%20cy='20'%20r='20'%20fill='%233B5998'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M25.315%2012.9578C24.6917%2012.8331%2023.8498%2012.74%2023.3204%2012.74C21.8867%2012.74%2021.7936%2013.3633%2021.7936%2014.3607V16.1361H25.3774L25.065%2019.8137H21.7936V31H17.3063V19.8137H15V16.1361H17.3063V13.8613C17.3063%2010.7453%2018.7708%209%2022.4477%209C23.7252%209%2024.6602%209.187%2025.8753%209.43633L25.315%2012.9578Z'%20fill='white'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_40701_4352'%3e%3crect%20width='40'%20height='40'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e" alt="Facebook"></a></li>
         </ul>
       </nav>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+        <span class="theme-toggle__icon" aria-hidden="true"></span>
+      </button>
       <div class="header__user" id="headerUser">
         <button class="header__user-btn" id="headerUserBtn" aria-label="User menu">
           <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3e%3ccircle%20cx='12'%20cy='8'%20r='4'/%3e%3cpath%20d='M4%2021c0-4.4%203.6-8%208-8s8%203.6%208%208'/%3e%3c/svg%3e" alt="">

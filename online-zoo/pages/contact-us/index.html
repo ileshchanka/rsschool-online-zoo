@@ -4,6 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function () {
+      const key = "oz-theme";
+      let savedTheme = null;
+
+      try {
+        const stored = localStorage.getItem(key);
+        if (stored === "light" || stored === "dark") {
+          savedTheme = stored;
+        }
+      } catch { }
+
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", savedTheme || systemTheme);
+    })();
+  </script>
   <link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg">
   <link rel="stylesheet" href="../../assets/styles/global.css">
   <link rel="stylesheet" href="style.css">
@@ -38,6 +54,9 @@
             </a></li>
         </ul>
       </nav>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+        <span class="theme-toggle__icon" aria-hidden="true"></span>
+      </button>
       <div class="header__user" id="headerUser">
         <button class="header__user-btn" id="headerUserBtn" aria-label="User menu">
           <img src="../../assets/icons/user.svg" alt="">
@@ -139,6 +158,7 @@
     </div>
   </nav>
 
+  <script type="module" src="../../assets/components/theme.js"></script>
   <script type="module" src="../../assets/components/donate-steps-modal.js"></script>
   <script type="module" src="../../assets/components/auth.js"></script>
   <script type="module" src="script.js"></script>

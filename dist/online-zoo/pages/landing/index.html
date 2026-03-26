@@ -4,14 +4,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function () {
+      const key = "oz-theme";
+      let savedTheme = null;
+
+      try {
+        const stored = localStorage.getItem(key);
+        if (stored === "light" || stored === "dark") {
+          savedTheme = stored;
+        }
+      } catch { }
+
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", savedTheme || systemTheme);
+    })();
+  </script>
   <link rel="icon" type="image/svg+xml" href="/assets/favicon-D8QfNWkE.svg">
   <title>Online Zoo</title>
-  <script type="module" crossorigin src="/assets/landing-C1YnoHt1.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/auth-CRFqR3Ed.js">
+  <script type="module" crossorigin src="/assets/landing-CISc_Jaj.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/auth-B4nzC4KP.js">
   <link rel="modulepreload" crossorigin href="/assets/donate-quick-modal-DSVpZ7c_.js">
-  <link rel="stylesheet" crossorigin href="/assets/auth-Dx0U9H8Q.css">
+  <link rel="stylesheet" crossorigin href="/assets/auth-ByhtLt1Y.css">
   <link rel="stylesheet" crossorigin href="/assets/donate-quick-modal-DYaKBdtJ.css">
-  <link rel="stylesheet" crossorigin href="/assets/landing-LGmvuLzX.css">
+  <link rel="stylesheet" crossorigin href="/assets/landing-uJ1CMpME.css">
 </head>
 
 <body>
@@ -41,6 +57,9 @@
             </a></li>
         </ul>
       </nav>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+        <span class="theme-toggle__icon" aria-hidden="true"></span>
+      </button>
       <div class="header__user" id="headerUser">
         <button class="header__user-btn" id="headerUserBtn" aria-label="User menu">
           <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3e%3ccircle%20cx='12'%20cy='8'%20r='4'/%3e%3cpath%20d='M4%2021c0-4.4%203.6-8%208-8s8%203.6%208%208'/%3e%3c/svg%3e" alt="">

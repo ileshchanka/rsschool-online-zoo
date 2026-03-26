@@ -31,7 +31,7 @@
 }
 
 .contact-form-section__info p {
-  color: var(--navy);
+  color: var(--page-text);
   font-size: 16px;
   line-height: 1.6;
 }
@@ -52,17 +52,18 @@
 .contact-form__label {
   font-size: 14px;
   font-weight: 500;
-  color: var(--navy);
+  color: var(--page-text);
 }
 
 .contact-form__input {
   width: 100%;
   padding: 14px 16px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-soft);
   border-radius: 4px;
   font-size: 16px;
   font-family: inherit;
-  color: var(--navy);
+  color: var(--page-text);
+  background-color: var(--surface-bg);
   outline: none;
   transition: border-color 0.2s;
 }

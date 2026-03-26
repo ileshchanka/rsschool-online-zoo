@@ -1544,3 +1544,47 @@
     height: 28px;
   }
 }
+
+:root[data-theme="dark"] .button_outline {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+:root[data-theme="dark"] .hero {
+  background-image:
+    linear-gradient(rgba(7, 12, 20, 0.52), rgba(7, 12, 20, 0.7)),
+    url("../../assets/images/background.jpg");
+}
+
+:root[data-theme="dark"] .button_outline::after {
+  filter: brightness(0) invert(1);
+}
+
+:root[data-theme="dark"] .pets__arrow {
+  border-color: var(--white);
+}
+
+:root[data-theme="dark"] .pets__arrow::before {
+  filter: brightness(0) invert(1);
+}
+
+:root[data-theme="dark"] .pets__arrow:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .pets__error {
+  color: var(--white);
+}
+
+:root[data-theme="dark"] .reviews__card {
+  background: var(--surface-bg);
+}
+
+:root[data-theme="dark"] .reviews__card-location,
+:root[data-theme="dark"] .reviews__card-author {
+  color: var(--white);
+}
+
+:root[data-theme="dark"] .reviews__card-text {
+  color: var(--muted-text);
+}
