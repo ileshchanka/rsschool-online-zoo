@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function () {
+      const key = "oz-theme";
+      let savedTheme = null;
+
+      try {
+        const stored = localStorage.getItem(key);
+        if (stored === "light" || stored === "dark") {
+          savedTheme = stored;
+        }
+      } catch { }
+
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", savedTheme || systemTheme);
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg">
+  <link rel="stylesheet" href="../../assets/styles/global.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../../assets/components/donate-steps-modal.css">
+  <link rel="stylesheet" href="../../assets/components/donate-quick-modal.css">
+  <title>Zoos — Online Zoo</title>
+</head>
+
+<body>
+  <header class="header">
+    <div class="header__inner">
+      <a href="../landing/"><img class="header__logo" src="../../assets/icons/logo.svg" alt="Online Zoo"></a>
+      <nav class="header__nav">
+        <ul>
+          <li><a class="header__nav-link" href="../landing/">About</a></li>
+          <li><a class="header__nav-link" href="../map/">Map</a></li>
+          <li><a class="header__nav-link active" href="./">Zoos</a></li>
+          <li><a class="header__nav-link" href="../contact-us/">Contact us</a></li>
+        </ul>
+      </nav>
+      <nav class="header__social">
+        <ul>
+          <li><a class="header__social-link" href="https://www.youtube.com/c/RSSchool/" aria-label="YouTube" target="_blank"><img src="../../assets/icons/youtube.svg" alt="YouTube"></a></li>
+          <li><a class="header__social-link" href="https://www.instagram.com/rsschool_en/" aria-label="Instagram" target="_blank"><img src="../../assets/icons/instagram.svg" alt="Instagram"></a></li>
+          <li><a class="header__social-link" href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank"><img src="../../assets/icons/facebook.svg" alt="Facebook"></a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+        <span class="theme-toggle__icon" aria-hidden="true"></span>
+      </button>
+      <div class="header__user" id="headerUser">
+        <button class="header__user-btn" id="headerUserBtn" aria-label="User menu">
+          <img src="../../assets/icons/user.svg" alt="">
+          <span class="header__user-name" id="headerUserName"></span>
+        </button>
+        <div class="header__user-popup" id="headerUserPopup"></div>
+      </div>
+      <button class="header__burger" id="headerBurger" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="zoos-layout" id="zoosLayout">
+    <main class="zoos-main">
+      <div class="zoos-loader" id="zoosLoader">
+        <div class="zoos-loader__spinner"></div>
+        <div class="zoos-loader__error">
+          <div class="zoos-loader__error-icon">!</div>
+          <p class="zoos-loader__error-text">Something went wrong. Please, refresh the page</p>
+        </div>
+      </div>
+      <div id="zoosContentRoot"></div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__inner container">
+      <div class="footer__top">
+        <div class="footer__logos">
+          <a href="../landing/"><img src="../../assets/icons/logo-1.svg" alt="Online Zoo"></a>
+          <img src="../../assets/icons/yem-digital.svg" alt="Yem Digital">
+          <img src="../../assets/icons/rs-school-js-logo.svg" alt="RS School">
+        </div>
+        <nav class="footer__nav">
+          <ul>
+            <li><a href="../landing/">About</a></li>
+            <li><a href="../map/">Map</a></li>
+            <li><a href="./">Zoos</a></li>
+            <li><a href="../contact-us/">Contact Us</a></li>
+          </ul>
+        </nav>
+        <button class="footer__donate">Donate for Volunteers</button>
+      </div>
+      <hr class="footer__divider">
+      <div class="footer__bottom">
+        <div class="footer__copy">
+          <span>© 2021 DinaK</span>
+          <span>© Yem Digital</span>
+          <span>© RSSchool</span>
+        </div>
+        <nav class="footer__social">
+          <ul>
+            <li><a class="footer__social-link" href="https://www.youtube.com/c/RSSchool/" aria-label="YouTube" target="_blank"><img src="../../assets/icons/youtube.svg" alt="YouTube"></a></li>
+            <li><a class="footer__social-link" href="https://www.instagram.com/rsschool_en/" aria-label="Instagram" target="_blank"><img src="../../assets/icons/instagram.svg" alt="Instagram"></a></li>
+            <li><a class="footer__social-link" href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank"><img src="../../assets/icons/facebook.svg" alt="Facebook"></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="side-nav" id="sideNav" aria-label="Mobile navigation">
+    <div class="side-nav__overlay" id="sideNavOverlay"></div>
+    <div class="side-nav__panel">
+      <button class="side-nav__close" id="sideNavClose" aria-label="Close menu">&times;</button>
+      <ul>
+        <li><a class="side-nav__link" href="../landing/">About</a></li>
+        <li><a class="side-nav__link" href="../map/">Map</a></li>
+        <li><a class="side-nav__link active" href="./">Zoos</a></li>
+        <li><a class="side-nav__link" href="../contact-us/">Contact Us</a></li>
+      </ul>
+      <div class="side-nav__social">
+        <a href="https://www.youtube.com/c/RSSchool/" aria-label="YouTube" target="_blank"><img src="../../assets/icons/youtube.svg" alt="YouTube"></a>
+        <a href="https://www.instagram.com/rsschool_en/" aria-label="Instagram" target="_blank"><img src="../../assets/icons/instagram.svg" alt="Instagram"></a>
+        <a href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank"><img src="../../assets/icons/facebook.svg" alt="Facebook"></a>
+      </div>
+    </div>
+  </nav>
+
+  <script type="module" src="../../assets/components/theme.js"></script>
+  <script type="module" src="../../assets/components/donate-steps-modal.js"></script>
+  <script type="module" src="../../assets/components/donate-quick-modal.js"></script>
+  <script type="module" src="../../assets/components/auth.js"></script>
+  <script type="module" src="script.js"></script>
+</body>
+
+</html>

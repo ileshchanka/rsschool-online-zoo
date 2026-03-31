@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function () {
+      const key = "oz-theme";
+      let savedTheme = null;
+
+      try {
+        const stored = localStorage.getItem(key);
+        if (stored === "light" || stored === "dark") {
+          savedTheme = stored;
+        }
+      } catch { }
+
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", savedTheme || systemTheme);
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg">
+  <link rel="stylesheet" href="../../assets/styles/global.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../../assets/components/donate-steps-modal.css">
+  <link rel="stylesheet" href="../../assets/components/donate-quick-modal.css">
+  <title>Online Zoo</title>
+</head>
+
+<body>
+  <header class="header">
+    <div class="header__inner">
+      <a href="./">
+        <img class="header__logo" src="../../assets/icons/logo.svg" alt="Online Zoo">
+      </a>
+      <nav class="header__nav">
+        <ul>
+          <li><a class="header__nav-link active" href="./">About</a></li>
+          <li><a class="header__nav-link" href="../map/">Map</a></li>
+          <li><a class="header__nav-link" href="../zoos/">Zoos</a></li>
+          <li><a class="header__nav-link" href="../contact-us/">Contact us</a></li>
+        </ul>
+      </nav>
+      <nav class="header__social">
+        <ul>
+          <li><a class="header__social-link" href="https://www.youtube.com/c/RSSchool/" aria-label="YouTube" target="_blank">
+              <img src="../../assets/icons/youtube.svg" alt="YouTube">
+            </a></li>
+          <li><a class="header__social-link" href="https://www.instagram.com/rsschool_en/" aria-label="Instagram" target="_blank">
+              <img src="../../assets/icons/instagram.svg" alt="Instagram">
+            </a></li>
+          <li><a class="header__social-link" href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank">
+              <img src="../../assets/icons/facebook.svg" alt="Facebook">
+            </a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+        <span class="theme-toggle__icon" aria-hidden="true"></span>
+      </button>
+      <div class="header__user" id="headerUser">
+        <button class="header__user-btn" id="headerUserBtn" aria-label="User menu">
+          <img src="../../assets/icons/user.svg" alt="">
+          <span class="header__user-name" id="headerUserName"></span>
+        </button>
+        <div class="header__user-popup" id="headerUserPopup"></div>
+      </div>
+      <button class="header__burger" id="headerBurger" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+  <main>
+    <section class="container hero">
+      <div>
+        <h1 class="hero__title">Watch your favorite animal online</h1>
+        <p class="hero__text">Explore the exciting and mysterious world of wild animals in a natural setting without leaving your home.</p>
+        <a class="hero__button button_orange" href="../zoos/">View Live Cam</a>
+      </div>
+    </section>
+    <section class="container welcome">
+      <div class="welcome__content">
+        <h2>Welcome to the Online Zoo!</h2>
+        <p>On our website, using live webcams, fans of all ages can observe various animals. Among them, are Giant pandas, eagles, alligators, forest gorillas, African lions, and others. It is the whole natural world in real-time in front of our cameras. We hope you will enjoy watching closely and explore animals' behavior and habitats! Note: animals are not always on view on cameras, so please check back if you don't see anything.</p>
+      </div>
+      <img class="welcome__image" src="../../assets/images/welcome-online-zoo.jpg" alt="Welcome to the Online Zoo!">
+    </section>
+    <section class="container welcome">
+      <img class="welcome__image" src="../../assets/images/eagles-landing.jpg" alt="How we work">
+      <div class="welcome__content">
+        <h2>How we work</h2>
+        <p>Online Zoo is a nonprofit committed to inspiring awareness and preservation of nature and wild animals in our zoo and worldwide. Every day, our experts work to safeguard the health and wellness of the animals. To continue these efforts, we need your help. We're so grateful to our numerous supporters. All donations, large and small, go a long way to the conservation efforts of our pets.</p>
+      </div>
+    </section>
+    <section class="donation">
+      <div class="donation__inner">
+        <div class="donation__content">
+          <h3>Your donation makes a difference!</h3>
+          <p>The Online Zoo's animal webcams are some of the most famous on the internet. Tune in to watch your favourite animals — live, 24/7!</p>
+        </div>
+        <div>
+          <p class="subheader">Quick Donate</p>
+          <form class="donate-form">
+            <input class="donate-form__input" placeholder="$ Donation Amount">
+            <button class="donate-form__btn button_orange" type="submit"></button>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section class="container pets">
+      <h2 class="pets__title">Meet some our pets</h2>
+      <p class="pets__subtitle">Do you have a special place in your heart for animals? Who are your favorites? Perhaps you'd like to donate to special ones or all our pets? We think it's important for you to choose how your donation is used.</p>
+      <div class="pets__controls">
+        <button class="pets__arrow pets__arrow--prev" aria-label="Previous"></button>
+        <button class="pets__arrow pets__arrow--next" aria-label="Next"></button>
+      </div>
+      <div class="pets__grid">
+        <div class="pets__track">
+          <div class="slider-loader"><span class="slider-loader__spinner"></span></div>
+        </div>
+      </div>
+      <div class="pets__footer">
+        <a href="../zoos/" class="pets__choose button_outline">Choose your favourite</a>
+      </div>
+    </section>
+    <section class="pay-feed">
+      <div class="pay-feed__inner">
+        <h2 class="pay-feed__title">Pay and feed</h2>
+        <h3 class="visually-hidden">Steps</h3>
+        <div class="pay-feed__steps">
+          <div class="pay-feed__step">
+            <div class="pay-feed__step-header">
+              <span class="pay-feed__step-num">01</span>
+              <span class="pay-feed__step-line"></span>
+            </div>
+            <div class="pay-feed__step-body">
+              <img class="pay-feed__step-img" src="../../assets/images/pay-and-feed-1.jpg" alt="Your donation has an impact">
+              <div class="pay-feed__step-content">
+                <img class="pay-feed__step-icon" src="../../assets/icons/pay-and-feed-your-donation-impact.svg" alt="">
+                <h4 class="pay-feed__step-heading">Your donation has an impact</h4>
+                <p>Providing our animals with high-quality nutritious diets is just one element of animal care at our Zoo. We do all the best so that our animals can eat food similar to what they might find in their natural habitats while making sure they get the right mix of nutrients, proteins, and vitamins to be happy and healthy. Please help us provide nutritious food for our animals by donating. The generosity of people like you can help us make sure that our animals enjoy good food that keeps them in great condition.</p>
+              </div>
+            </div>
+          </div>
+          <div class="pay-feed__step">
+            <div class="pay-feed__step-header">
+              <span class="pay-feed__step-num">02</span>
+              <span class="pay-feed__step-line"></span>
+            </div>
+            <div class="pay-feed__step-body">
+              <img class="pay-feed__step-img" src="../../assets/images/pay-and-feed-2.jpg" alt="Make a donation">
+              <div class="pay-feed__step-content">
+                <img class="pay-feed__step-icon" src="../../assets/icons/pay-and-feed-make-a-donation.svg" alt="">
+                <h4 class="pay-feed__step-heading">Make a donation</h4>
+                <p>You can donate through your credit card without any fees. It is easy and safe. We do not keep donors' personal information on an online network. Choose an amount to give and the pet's name if needed. One of the most effective ways you can give is by making regular donations.</p>
+              </div>
+            </div>
+          </div>
+          <div class="pay-feed__step">
+            <div class="pay-feed__step-header">
+              <span class="pay-feed__step-num">03</span>
+              <span class="pay-feed__step-line"></span>
+            </div>
+            <div class="pay-feed__step-body">
+              <img class="pay-feed__step-img" src="../../assets/images/pay-and-feed-3.jpg" alt="Bring your food charity">
+              <div class="pay-feed__step-content">
+                <img class="pay-feed__step-icon" src="../../assets/icons/pay-and-feed-bring-your-food-charity.svg" alt="">
+                <h4 class="pay-feed__step-heading">Bring your food charity — straight to your favorites pets.</h4>
+                <p>After your donation, the animal receives its favorite foods. You can support your favorite animals or any animal you care about and make a real personal impact. Never doubt that your donation can make a difference even if it is small.</p>
+                <button class="button_orange pay-feed__btn">Donate now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="reviews">
+      <div class="reviews__inner">
+        <div class="reviews__left">
+          <h2 class="reviews__title">What our users think</h2>
+          <h3 class="visually-hidden">Reviews</h3>
+          <p class="reviews__subtitle">We are continuously striving to improve the experiences of our future guests. Below you can leave your own feedback, or simply view feedback from past clients.</p>
+          <a class="reviews__leave button_outline--white" href="../contact-us/">Leave feedback</a>
+        </div>
+        <div class="reviews__right">
+          <div class="reviews__grid">
+            <div class="reviews__track">
+              <div class="slider-loader slider-loader--light"><span class="slider-loader__spinner"></span></div>
+            </div>
+          </div>
+          <div class="reviews__controls">
+            <button class="reviews__arrow reviews__arrow--prev" aria-label="Previous"></button>
+            <button class="reviews__arrow reviews__arrow--next" aria-label="Next"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="container care">
+      <h2 class="care__title">Care for the animals you love</h2>
+      <p class="care__subtitle">You can help to look after the animals you love with your gift today</p>
+      <div class="care__grid">
+        <div class="care__item care__item--large">
+          <img src="../../assets/images/care-1-koala.jpg" alt="Australian Koala">
+        </div>
+        <div class="care__item care__item--card">
+          <img src="../../assets/images/care-2-panda.jpg" alt="Giant Panda">
+          <div class="care__item-body">
+            <p>Your $30 could give Lucas a slice of panda cake, made with our secret recipe.</p>
+            <a class="care__item-link" href="../zoos/">Feed</a>
+          </div>
+        </div>
+        <div class="care__item care__item--card">
+          <img src="../../assets/images/care-3-tiger.jpg" alt="Sumatran Tiger">
+          <div class="care__item-body">
+            <p>Your $150 will help to care for Senja, a Sumatran tiger, for three weeks.</p>
+            <a class="care__item-link" href="../zoos/">Feed</a>
+          </div>
+        </div>
+        <div class="care__item care__item--card">
+          <img src="../../assets/images/care-4-lemur.jpg" alt="Madagascarian Lemur">
+          <div class="care__item-body">
+            <p>With your support, we can give Andy his favorite fruits. Especially when it's not fruit season in its natural habitat.</p>
+            <a class="care__item-link" href="../zoos/">Feed</a>
+          </div>
+        </div>
+        <div class="care__item care__item--card">
+          <img src="../../assets/images/care-5-eagles.jpg" alt="West End Bald Eagles">
+          <div class="care__item-body">
+            <p>Sam &amp; Lora have hatched and raised numerous young and will be happy with your help.</p>
+            <a class="care__item-link" href="../zoos/">Feed</a>
+          </div>
+        </div>
+      </div>
+      <div class="care__footer">
+        <a href="../zoos/" class="button_outline">Choose your favourite</a>
+      </div>
+    </section>
+    <div class="container youtube">
+      <img class="youtube__image" src="../../assets/images/touch-the-animal-2.jpg" alt="Watch animals online">
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="footer__inner container">
+      <div class="footer__top">
+        <div class="footer__logos">
+          <a href="./"><img src="../../assets/icons/logo-1.svg" alt="Online Zoo"></a>
+          <img src="../../assets/icons/yem-digital.svg" alt="">
+          <img src="../../assets/icons/rs-school-js-logo.svg" alt="RS School">
+        </div>
+        <nav class="footer__nav">
+          <ul>
+            <li><a href="./">About</a></li>
+            <li><a href="../map/">Map</a></li>
+            <li><a href="../zoos/">Zoos</a></li>
+            <li><a href="../contact-us/">Contact Us</a></li>
+          </ul>
+        </nav>
+        <button class="footer__donate">Donate for Volunteers</button>
+      </div>
+      <hr class="footer__divider">
+      <div class="footer__bottom">
+        <div class="footer__copy">
+          <span>© 2021 DinaK</span>
+          <span>© Yem Digital</span>
+          <span>© RSSchool</span>
+        </div>
+        <nav class="footer__social">
+          <ul>
+            <li><a class="footer__social-link" href="https://www.youtube.com/c/RSSchool/" aria-label="YouTube" target="_blank"><img src="../../assets/icons/youtube.svg" alt="YouTube"></a></li>
+            <li><a class="footer__social-link" href="https://www.instagram.com/rsschool_en/" aria-label="Instagram" target="_blank"><img src="../../assets/icons/instagram.svg" alt="Instagram"></a></li>
+            <li><a class="footer__social-link" href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank"><img src="../../assets/icons/facebook.svg" alt="Facebook"></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <div class="donate-modal" id="donateModal" role="dialog" aria-modal="true" aria-labelledby="donateModalTitle">
+    <div class="donate-modal__overlay" id="donateModalOverlay"></div>
+    <div class="donate-modal__window">
+      <button class="donate-modal__close" id="donateModalClose" aria-label="Close">&times;</button>
+      <img class="donate-modal__image" src="../../assets/images/popup-header.jpg" alt="Together we care">
+      <div class="donate-modal__body">
+        <h2 class="donate-modal__title" id="donateModalTitle">Together we care, save and protect!</h2>
+        <p class="donate-modal__text">Your most generous gift not only cares for countless animals, but it also offers hope and a vital lifeline to the world's most endangered wildlife relying on us to survive.</p>
+        <div class="donate-modal__amounts">
+          <button class="donate-modal__amount" type="button">$20</button>
+          <button class="donate-modal__amount" type="button">$30</button>
+          <button class="donate-modal__amount" type="button">$50</button>
+          <button class="donate-modal__amount" type="button">$80</button>
+          <button class="donate-modal__amount" type="button">$100</button>
+          <button class="donate-modal__amount donate-modal__amount--other" type="button">Other amount</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="side-nav" id="sideNav" aria-label="Mobile navigation">
+    <div class="side-nav__overlay" id="sideNavOverlay"></div>
+    <div class="side-nav__panel">
+      <button class="side-nav__close" id="sideNavClose" aria-label="Close menu">&times;</button>
+      <ul>
+        <li><a class="side-nav__link active" href="./">About</a></li>
+        <li><a class="side-nav__link" href="../map/">Map</a></li>
+        <li><a class="side-nav__link" href="../zoos/">Zoos</a></li>
+        <li><a class="side-nav__link" href="../contact-us/">Contact Us</a></li>
+      </ul>
+      <div class="side-nav__social">
+        <a href="https://www.youtube.com/c/RSSchool/" aria-label="YouTube" target="_blank"><img src="../../assets/icons/youtube.svg" alt="YouTube"></a>
+        <a href="https://www.instagram.com/rsschool_en/" aria-label="Instagram" target="_blank"><img src="../../assets/icons/instagram.svg" alt="Instagram"></a>
+        <a href="https://www.facebook.com/RollingScopesSchool/" aria-label="Facebook" target="_blank"><img src="../../assets/icons/facebook.svg" alt="Facebook"></a>
+      </div>
+    </div>
+  </nav>
+
+  <script type="module" src="../../assets/components/theme.js"></script>
+  <script type="module" src="../../assets/components/donate-steps-modal.js"></script>
+  <script type="module" src="../../assets/components/donate-quick-modal.js"></script>
+
+  <script type="module" src="../../assets/components/auth.js"></script>
+  <script type="module" src="script.js"></script>
+</body>
+
+</html>
